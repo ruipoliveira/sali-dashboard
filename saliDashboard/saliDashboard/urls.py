@@ -1,21 +1,53 @@
-"""saliDashboard URL Configuration
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/1.10/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  url(r'^$', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  url(r'^$', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.conf.urls import url, include
-    2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
+Definition of urls for DjangoSalicornia.
+"""
+
+from datetime import datetime
+
+import django.contrib.auth.views
+
+from django.contrib import admin
+from django.contrib.auth.decorators import user_passes_test
+
+from saliapp.views import *
+from django.contrib.auth.views import login
+
 from django.conf.urls import url
 from django.contrib import admin
+from rest_framework.urlpatterns import format_suffix_patterns
+from saliapp import views
+
+login_forbidden = user_passes_test(lambda u: u.is_anonymous(), 'home')
+
 
 urlpatterns = [
+    url(r'^$', login_forbidden(login), name="login"),
+    url(r'^home/$', home, name='home'),
+
+    url(r'^accounts/login/$', login),
+    url(r'^logout/$', logout_page),
+
+    url(r'^addusers/$', views.newuser),
+
+    url(r'^novo/$', views.addNewUser),
+    url(r'^changeprofile/$', views.changeprofile),
+
     url(r'^admin/', admin.site.urls),
+
+    url(r'^recoverpassword/', views.recoverpassword),
+
+    # Add coisas
+
+    url(r'^addcpu/$', views.add_cpu, name="addcpu"),
+    url(r'^addsensor/$', views.add_sensor, name="addsensor"),
+    url(r'^addmodule/$', views.add_module, name="addmodule"),
+
+    #API
+
+#    url(r'^sensor/', views.SensorViewSet.as_view()),
+#    url(r'^medicoes/', views.MeasureViewSet.as_view()),
+#    url(r'^tudo/', views.SensorMeasurementsViewSet.as_view()),
+
 ]
+
+urlpatterns = format_suffix_patterns(urlpatterns)
