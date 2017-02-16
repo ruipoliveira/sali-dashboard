@@ -15,81 +15,142 @@
 
 <section class="content">
 
-<table>
-<tr>
-  <th>author</th>
-
-</tr>
-{% for b in obj %}
-<tr>
-  <td>{{ b.id }}</td>
-</tr>
-{% endfor %}
-</table>
-
-
-    <!-- Info boxes -->
-      <div class="row">
-        <div class="col-md-3 col-sm-6 col-xs-12">
-          <div class="info-box">
-            <span class="info-box-icon bg-aqua"><i class="ion ion-ios-gear-outline"></i></span>
-
-            <div class="info-box-content">
-              <span class="info-box-text">CPU Traffic</span>
-              <span class="info-box-number">90<small>%</small></span>
-            </div>
-            <!-- /.info-box-content -->
-          </div>
-          <!-- /.info-box -->
+    <div class="box box-default">
+        <div class="box-header with-border">
+        <h3 class="box-title">All </h3>
+        <div class="box-tools pull-right">
+        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+        <!--<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button> -->
         </div>
-        <!-- /.col -->
-        <div class="col-md-3 col-sm-6 col-xs-12">
-          <div class="info-box">
-            <span class="info-box-icon bg-red"><i class="fa fa-google-plus"></i></span>
+    </div>
+    <!-- /.box-header -->
+    <div class="box-body">
 
-            <div class="info-box-content">
-              <span class="info-box-text">Likes</span>
-              <span class="info-box-number">41,410</span>
-            </div>
-            <!-- /.info-box-content -->
-          </div>
-          <!-- /.info-box -->
+        <div class="box-body table-responsive no-padding">
+            <table class="table table-hover">
+            <tr>
+                <th>Status</th>
+                <th>Name</th>
+                <th>Create by </th>
+                <th>Baterry</th>
+                <th>Memory </th>
+                <th>Communication</th>
+                <th>Localization</th>
+                <th>Managers</th>
+                <th></th>
+                <th></th>
+            </tr>
+                {% for cpu in allCPUs %}
+
+                    <tr>
+                        {% if cpu.status_cpu == 1 %}
+                        <td><span class="label label-success">ON</span></td>
+                        {% else %}
+                            <td><span class="label label-danger">OFF</span></td>
+                        {% endif %}
+                        <td>{{ cpu.name }}</td>
+                        <td>{{ cpu.create_by }} ({{ cpu.date_create|date:"d M Y" }})</td>
+                        <td>{{ cpu.baterry_per_cpu }} %</td>
+                        <td>{{ cpu.memory }}</td>
+                        <td>{{ cpu.id_communication.name  }}</td>
+                        <td>{{ cpu.localization }}</td>
+                        <td>
+                        {% for user in userAll %}
+                            {% if user.id_cpu.id == cpu.id %}
+                                {{ user.id_user.username }}
+                            {% endif %}
+                        {% endfor %}
+                        </td>
+                        <td><button type="button" class="btn btn-block btn-info btn-xs">Edit</button></td>
+                        <td><button type="button" href="deletecpu/{{ cpu.id }}" class="btn btn-block btn-danger btn-xs">Delete</button></td>
+                    </tr>
+
+                {% endfor %}
+
+            </table>
         </div>
-        <!-- /.col -->
+    </div>
 
-        <!-- fix for small devices only -->
-        <div class="clearfix visible-sm-block"></div>
+</div>
 
-        <div class="col-md-3 col-sm-6 col-xs-12">
-          <div class="info-box">
-            <span class="info-box-icon bg-green"><i class="ion ion-ios-cart-outline"></i></span>
+<br/>
 
-            <div class="info-box-content">
-              <span class="info-box-text">Sales</span>
-              <span class="info-box-number">760</span>
-            </div>
-            <!-- /.info-box-content -->
-          </div>
-          <!-- /.info-box -->
+
+<!-- Horizontal Form -->
+    <div class="box box-default">
+        <div class="box-header with-border">
+        <h3 class="box-title">Add new CPU </h3>
+        <div class="box-tools pull-right">
+        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+        <!--<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button> -->
         </div>
-        <!-- /.col -->
-        <div class="col-md-3 col-sm-6 col-xs-12">
-          <div class="info-box">
-            <span class="info-box-icon bg-yellow"><i class="ion ion-ios-people-outline"></i></span>
+    </div>
+<!-- /.box-header -->
+<!-- form start -->
+<form class="form-horizontal">
+<div class="box-body">
 
-            <div class="info-box-content">
-              <span class="info-box-text">New Members</span>
-              <span class="info-box-number">2,000</span>
-            </div>
-            <!-- /.info-box-content -->
-          </div>
-          <!-- /.info-box -->
-        </div>
-        <!-- /.col -->
-      </div>
-      <!-- /.row -->
+<div class="form-group">
+<label for="inputEmail3" class="col-sm-2 control-label">Name</label>
 
-    </section>
+<div class="col-sm-10">
+<input type="email" class="form-control" id="inputEmail3" placeholder="First name" v>
+</div>
+</div>
+
+<div class="form-group">
+<label for="inputEmail3" class="col-sm-2 control-label">Memory</label>
+
+<div class="col-sm-10">
+<input type="email" class="form-control" id="inputEmail3" placeholder="Last name">
+</div>
+</div>
+
+
+
+<div class="form-group">
+<label for="inputEmail3" class="col-sm-2 control-label">Comunication</label>
+
+<div class="col-sm-10">
+    <select class="form-control">
+        {% for com in communicationAll %}
+            <option>{{ com.name }}</option>
+        {% endfor %}
+
+    </select>
+</div>
+</div>
+<div class="form-group">
+<label for="inputPassword3" class="col-sm-2 control-label">Password</label>
+
+<div class="col-sm-10">
+<input type="password" class="form-control" id="inputPassword3" placeholder="Password">
+</div>
+</div>
+
+<div class="form-group">
+<label for="inputPassword3" class="col-sm-2 control-label"> Confirmed Password</label>
+
+<div class="col-sm-10">
+<input type="password" class="form-control" id="inputPassword3" placeholder="Password">
+</div>
+</div>
+
+
+</div>
+<!-- /.box-body -->
+<div class="box-footer">
+<button type="submit" class="btn btn-info pull-right">Add</button>
+</div>
+<!-- /.box-footer -->
+</form>
+
+
+
+
+</div>
+
+</section>
 
 
 {% endblock %}

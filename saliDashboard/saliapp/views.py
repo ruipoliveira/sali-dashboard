@@ -12,7 +12,8 @@ from django.views.decorators.csrf import csrf_protect
 from django.shortcuts import render_to_response
 from django.http import HttpResponseRedirect
 from django.template import RequestContext
-from .models import CPU
+from .models import CPU, CPUPerUsers, CommunicationType
+
 
 """
 from rest_framework.views import APIView
@@ -122,10 +123,16 @@ def logout_page(request):
 
 @login_required
 def add_cpu(request):
+    allCPUs = CPU.objects.all()
+    userAll = CPUPerUsers.objects.all()
+    communicationAll = CommunicationType.objects.all();
     return render_to_response(
         'add/addcpu.html', {
             'user': request.user,
-            'title': 'Contact'
+            'title': 'Contact',
+            'allCPUs': allCPUs,
+            'userAll': userAll,
+            'communicationAll': communicationAll
         })
 
 @login_required
@@ -151,7 +158,7 @@ def home(request):
         'home.html',
         {'user': request.user,
          'title': 'Contact',
-         'obj': CPU.objects.all()
+         #'obj': CPU.objects.all()
          })
 
 
@@ -163,6 +170,12 @@ def newuser(request):
         {'user': request.user,
          'title': 'Contact'
          })
+
+
+#def deleteCPU(request, int id_delete):
+#    CPU.objects.filter(id_delete=id).delete();
+#    return ""
+
 
 
 @login_required

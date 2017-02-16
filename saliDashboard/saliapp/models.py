@@ -2,7 +2,7 @@ from __future__ import unicode_literals
 
 from django.db import models
 from django.contrib.auth.models import User
-from django.utils import timezone
+from datetime import datetime
 
 
 class CommunicationType(models.Model):
@@ -18,8 +18,12 @@ class CPU(models.Model):
     id = models.AutoField(primary_key=True)
     id_communication = models.ForeignKey(CommunicationType, on_delete=models.CASCADE)
     name = models.CharField(max_length=128)
-    state = models.IntegerField()
+    status_cpu = models.BooleanField(default=True)
+    date_create = models.DateTimeField(default=datetime.now, blank=True)
+    create_by = models.CharField(max_length=128)
     memory = models.IntegerField()
+    localization = models.CharField(max_length=128)
+    baterry_per_cpu = models.IntegerField()
 
     def __str__(self):
         return str(self.id) + str(self.name)
@@ -36,7 +40,9 @@ class CPUPerUsers(models.Model):
 class Module (models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=128)
-    state = models.IntegerField()
+    status_module = models.BooleanField(default=True)
+    baterry_per_module = models.IntegerField()
+    localization = models.CharField(max_length=128)
 
     def __str__(self):
         return str(self.id) + str(self.name)
