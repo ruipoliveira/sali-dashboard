@@ -42,6 +42,13 @@ urlpatterns = [
     url(r'^addsensor/$', views.add_sensor, name="addsensor"),
     url(r'^addmodule/$', views.add_module, name="addmodule"),
 
+
+
+    url(r'^deletecpu/(?P<id>\d+)/$', views.deletecpu, name="deletecpu"),
+
+
+
+
     #API
 
 #    url(r'^sensor/', views.SensorViewSet.as_view()),

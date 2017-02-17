@@ -53,6 +53,10 @@ class SensorMeasurementsViewSet(APIView):
         pass
 """
 
+
+django_list = list(User.objects.all())
+
+
 def home2(request):
     assert isinstance(request, HttpRequest)
     return render(
@@ -125,15 +129,19 @@ def logout_page(request):
 def add_cpu(request):
     allCPUs = CPU.objects.all()
     userAll = CPUPerUsers.objects.all()
-    communicationAll = CommunicationType.objects.all();
+    communicationAll = CommunicationType.objects.all()
+    form = PostForm()
+
     return render_to_response(
         'add/addcpu.html', {
             'user': request.user,
             'title': 'Contact',
             'allCPUs': allCPUs,
             'userAll': userAll,
-            'communicationAll': communicationAll
+            'communicationAll': communicationAll,
+            'form': form
         })
+
 
 @login_required
 def add_module(request):
@@ -176,6 +184,19 @@ def newuser(request):
 #    CPU.objects.filter(id_delete=id).delete();
 #    return ""
 
+@login_required
+def deletecpu(request, id):
+    #+some code to check if New belongs to logged in user
+    u = CPU.objects.get(pk=id).delete()
+    return add_cpu(request)
+
+@login_required
+def editcpu(request, id):
+    #+some code to check if New belongs to logged in user
+    cpu = CPU.objects.get(pk=id)
+    cpu.name = "fs"
+    return add_cpu(request)
+
 
 
 @login_required
@@ -185,3 +206,11 @@ def changeprofile(request):
         {'user': request.user,
          'title': 'New user'
          })
+
+
+#def post_new(request):
+#    form = PostForm()
+#    return render(request, 'add/post_edit.html', {'form': form})
+
+
+
