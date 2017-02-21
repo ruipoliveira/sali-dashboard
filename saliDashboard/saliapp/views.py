@@ -12,7 +12,7 @@ from django.views.decorators.csrf import csrf_protect
 from django.shortcuts import render_to_response
 from django.http import HttpResponseRedirect
 from django.template import RequestContext
-from .models import CPU, CPUPerUsers, CommunicationType
+from .models import *
 
 
 """
@@ -54,7 +54,7 @@ class SensorMeasurementsViewSet(APIView):
 """
 
 
-django_list = list(User.objects.all())
+#django_list = list(User.objects.all())
 
 
 def home2(request):
@@ -125,10 +125,11 @@ def logout_page(request):
     logout(request)
     return HttpResponseRedirect('/')
 
+
 @login_required
 def add_cpu(request):
-    allCPUs = CPU.objects.all()
-    userAll = CPUPerUsers.objects.all()
+    allCPUs = ControllerModule.objects.all()
+    userAll = CMPerUsers.objects.all()
     communicationAll = CommunicationType.objects.all()
     form = PostForm()
 
@@ -160,6 +161,7 @@ def add_sensor(request):
         })
 
 
+
 @login_required
 def home(request):
     return render_to_response(
@@ -187,13 +189,13 @@ def newuser(request):
 @login_required
 def deletecpu(request, id):
     #+some code to check if New belongs to logged in user
-    u = CPU.objects.get(pk=id).delete()
+    u = ControllerModule.objects.get(pk=id).delete()
     return add_cpu(request)
 
 @login_required
 def editcpu(request, id):
     #+some code to check if New belongs to logged in user
-    cpu = CPU.objects.get(pk=id)
+    cpu = ControllerModule.objects.get(pk=id)
     cpu.name = "fs"
     return add_cpu(request)
 
@@ -208,9 +210,9 @@ def changeprofile(request):
          })
 
 
-#def post_new(request):
-#    form = PostForm()
-#    return render(request, 'add/post_edit.html', {'form': form})
+def post_new(request):
+    form = PostForm()
+    return render(request, 'add/post_edit.html', {'form': form})
 
 
 

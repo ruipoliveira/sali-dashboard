@@ -49,8 +49,8 @@
                             <td><span class="label label-danger">OFF</span></td>
                         {% endif %}
                         <td>{{ cpu.name }}</td>
-                        <td>{{ cpu.create_by }} ({{ cpu.date_create|date:"d M Y" }})</td>
-                        <td>{{ cpu.baterry_per_cpu }} %</td>
+                        <td>{{ cpu.id_by_create.username }} ({{ cpu.date_create|date:"d M Y" }})</td>
+                        <td>{{ cpu.baterry_cm }} %</td>
                         <td>{{ cpu.memory }}</td>
                         <td>{{ cpu.id_communication.name  }}</td>
                         <td>{{ cpu.localization }}</td>

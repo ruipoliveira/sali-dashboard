@@ -34,7 +34,7 @@ urlpatterns = [
 
     url(r'^admin/', admin.site.urls),
 
-    url(r'^recoverpassword/', views.recoverpassword),
+   # url(r'^recoverpassword/', views.recoverpassword),
 
     # Add coisas
 

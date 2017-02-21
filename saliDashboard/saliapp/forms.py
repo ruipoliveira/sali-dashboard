@@ -4,9 +4,9 @@ Definition of forms.
 import re
 from django import forms
 from django.contrib.auth.models import User
-from django.contrib.auth.forms import AuthenticationForm
+#from django.contrib.auth.forms import AuthenticationForm
 from django.utils.translation import ugettext_lazy as _
-from .models import CPU
+from .models import *
 
 
 class RegistrationForm(forms.Form):
@@ -37,5 +37,5 @@ class RegistrationForm(forms.Form):
 class PostForm(forms.ModelForm):
 
     class Meta:
-        model = CPU
-        fields = ('name', 'memory', 'localization',)
+        model = ControllerModule
+        fields = ('name', 'memory', 'localization_cm',)
