@@ -17,6 +17,34 @@
 
 
 
+{% for foo in sensor %}
+
+
+
+    <div class="box box-default">
+        <div class="box-header with-border">
+        <h3 class="box-title">{{ foo.name }} </h3>
+        <div class="box-tools pull-right">
+        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+        <!--<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button> -->
+        </div>
+    </div>
+    <!-- /.box-header -->
+    <div class="box-body">
+
+        <div class="box-body">
+            <div id='container'> Chart will be rendered here </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+    <br/>
+{% endfor %}
+
+
 </section>
 
 

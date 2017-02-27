@@ -50,7 +50,7 @@ class SensorModule (models.Model):
 
 
 class CommunicationTypePerSM(models.Model):
-    id_sm = models.ForeignKey(ControllerModule, on_delete=models.CASCADE)
+    id_sm = models.ForeignKey(SensorModule, on_delete=models.CASCADE)
     id_communication_type = models.ForeignKey(CommunicationType, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -94,8 +94,6 @@ class AlarmsSettings(models.Model):
 
     def __str__(self):
         return "Sensor: "+str(self.id_sensor) + "| Max: "+str(self.max) + " Min: "+str(self.min)
-
-
 
 
 

@@ -17,6 +17,77 @@
 
 
 
+    <div class="box box-default">
+        <div class="box-header with-border">
+        <h3 class="box-title">All </h3>
+        <div class="box-tools pull-right">
+        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+        <!--<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button> -->
+        </div>
+    </div>
+    <!-- /.box-header -->
+    <div class="box-body">
+
+        <div class="box-body table-responsive no-padding">
+            <table class="table table-hover">
+            <tr>
+                <th>Status</th>
+                <th>Name</th>
+                <th>Number of sensors</th>
+                <th>Seding time</th>
+                <th>Baterry</th>
+                <th>Localization</th>
+                <th>Communication</th>
+                <th></th>
+                <th></th>
+                <th></th>
+
+            </tr>
+                {% for sm in allSM %}
+
+                    <tr>
+                        {% if sm.status_sm == 1 %}
+                        <td><span class="label label-success">ON</span></td>
+                        {% else %}
+                            <td><span class="label label-danger">OFF</span></td>
+                        {% endif %}
+                        <td>{{ sm.name }}</td>
+                        <td>
+                        {% for s in sensor %}
+
+                            {% if s.id_sm.id == sm.id %}
+                                 {{ s.id_sensor_type }}
+                            {% endif %}
+                        {% endfor %}
+                        
+                        </td>
+                        <td>{{ sm.seding_time }} min</td>
+                        <td>{{ sm.baterry_sm }} %</td>
+                        <td>{{ sm.localization_sm }}</td>
+                        <td>
+
+
+                        {% for c in comm %}
+
+                            {{ c.name }};
+
+                        {% endfor %}
+                        </td>
+                        <td><a type="button"  class="btn btn-block btn-info btn-xs" ><i class="fa fa-edit"></i></a></td>
+                        <td><a type="button" href="#" class="btn btn-block btn-danger btn-xs" ><i class="fa fa-trash"></i></a></td>
+                        <td><a type="button" href="{% url 'viewSensors' id_cm=id_cpu1  id_sm=sm.id %}" class="btn btn-block btn-info btn-xs" ><i class="fa fa-info"></i></a></td>
+
+                    </tr>
+
+                {% endfor %}
+
+            </table>
+        </div>
+    </div>
+
+</div>
+
+
 </section>
 
 

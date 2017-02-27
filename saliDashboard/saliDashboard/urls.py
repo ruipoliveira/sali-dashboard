@@ -8,6 +8,7 @@ import django.contrib.auth.views
 
 from django.contrib import admin
 from django.contrib.auth.decorators import user_passes_test
+from django.contrib.auth.decorators import login_required
 
 from saliapp.views import *
 from django.contrib.auth.views import login
@@ -38,16 +39,19 @@ urlpatterns = [
 
     # Add coisas
 
-    url(r'^addcpu/$', views.add_cpu, name="addcpu"),
+    url(r'^devices/cm/all$',  login_required(Cenas.as_view()), name="addcpu"),
     url(r'^addsensor/$', views.add_sensor, name="addsensor"),
     url(r'^addmodule/$', views.add_module, name="addmodule"),
 
 
 
-    url(r'^deletecpu/(?P<id>\d+)/$', views.deletecpu, name="deletecpu"),
+    url(r'^deletecm/(?P<id_cpu>[-\w]+)/$', views.deletecm, name="deletecm"),
 
+    url(r'^devices/cm/(?P<id_cpu>[-\w]+)/$', views.showdetails, name="showdetails"),
 
+    url(r'^devices/cm/(?P<id_cm>[-\w]+)/sm/(?P<id_sm>[-\w]+)$', views.viewSensors, name="viewSensors"),
 
+    #url(r'^post1/$', views.post1, name="post1"),
 
     #API
 

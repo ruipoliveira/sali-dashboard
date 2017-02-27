@@ -18,6 +18,10 @@
     <!-- Theme style -->
     <link rel="stylesheet" href="{% static 'app/dist/css/AdminLTE.min.css' %}" >
 
+    <link rel="stylesheet" href="{% static 'app/content/site.css' %}" >
+
+    <script data-require="jquery@*" data-semver="2.0.3" src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+
 
     <!-- daterange picker -->
     <link rel="stylesheet" href="{% static 'app/plugins/daterangepicker/daterangepicker.css' %}" >
@@ -36,6 +40,11 @@
 
     <!-- AdminLTE Skins. Choose a skin from the css/skins folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="{% static 'app/dist/css/skins/_all-skins.min.css' %}">
+
+    <script src="http://code.highcharts.com/highcharts.js"></script>
+
+
+
 
 </head>
 
@@ -346,20 +355,21 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="/addusers/"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
-            <li class="active"><a href={% url 'home' %} ><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
+            <li><a href={% url 'addcpu' %}><i class="fa fa-circle-o"></i> Devices </a></li>
+            <li><a href={% url 'home' %} ><i class="fa fa-circle-o"></i> Sensors</a></li>
+            <li><a href={% url 'home' %} ><i class="fa fa-circle-o"></i> Communication</a></li>
+
           </ul>
         </li>
         <li class="treeview">
           <a href="#">
-            <i class="fa fa-plus"></i>
-            <span>Add</span>
+            <i class="fa fa-plus"></i>  <span>Add</span>
             <span class="pull-right-container">
-              <span class="label label-primary pull-right">4</span>
+              <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href={% url 'addcpu' %}><i class="fa fa-circle-o"></i> Add new cpu</a></li>
+            <li><a href=""><i class="fa fa-circle-o"></i> Add new users</a></li>
             <li><a href={% url 'addmodule' %}><i class="fa fa-circle-o"></i> Add new module</a></li>
             <li><a href={% url 'addsensor' %}><i class="fa fa-circle-o"></i> Add new sensor</a></li>
           </ul>
@@ -504,10 +514,12 @@
 
         <li><a href="documentation/index.html"><i class="fa fa-book"></i> <span>Documentation</span></a></li>
         -->
+          <!--
         <li class="header">LABELS</li>
         <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Important</span></a></li>
         <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Warning</span></a></li>
         <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>Information</span></a></li>
+        -->
       </ul>
     </section>
     <!-- /.sidebar -->
@@ -778,12 +790,13 @@
     <script src="{% static 'app/plugins/slimScroll/jquery.slimscroll.min.js' %}"></script>
     <!-- iCheck 1.0.1 -->
 
+    <script src="{% static 'app/plugins/select2/select2.full.js' %}" ></script>
+
+
 
     <script src="{% static 'app/plugins/iCheck/icheck.min.js' %}"></script>
 
 <!-- FastClick -->
-
-
 
 
 
@@ -856,11 +869,33 @@
     });
   });
 
+
+$('#edit-modal').on('show.bs.modal', function(e) {
+
+            var $modal = $(this),
+                esseyId = e.relatedTarget.id;
+
+//            $.ajax({
+//                cache: false,
+//                type: 'POST',
+//                url: 'backend.php',
+//                data: 'EID='+essay_id,
+//                success: function(data)
+//                {
+                    $modal.find('.edit-content').html(esseyId);
+//                }
+//            });
+
+        })
+
+
+
+
+
 </script>
 
-<script src="{% static 'app/scripts/main.js' %}"></script>
 
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAYkBrMtakz8xujuw1mMWY2EFISKmyC47s&callback=myMap"></script>
+
 
 
 </body>

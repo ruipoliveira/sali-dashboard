@@ -2,6 +2,8 @@
  * Created by roliveira on 2/16/17.
  */
 
+
+
 var js_list = {{django_list}};
 
 
@@ -16,3 +18,4 @@ function myMap() {
 function PopUp(){
     document.getElementByID("addForm").showModal();
 }
+
