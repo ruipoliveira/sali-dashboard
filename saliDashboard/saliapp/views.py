@@ -339,12 +339,15 @@ class SensorValues(View):
         avg = []
         nrmeasure = []
 
-
         for i in final:
-            nrmeasure.append(len([x for x in i if isinstance(x, float)]))
-            maxValue.append("{0:.3f}".format(max([x for x in i if isinstance(x, float)])))
-            minValue.append("{0:.3f}".format(min([x for x in i if isinstance(x, float)])))
-            avg.append("{0:.3f}".format(mean([x for x in i if isinstance(x, float)])))
+            if len(i) >0:
+                withoutnull = [x for x in i if isinstance(x, float)]
+                #print withoutnull
+                if len(withoutnull) !=0:
+                    nrmeasure.append(len(withoutnull))
+                    maxValue.append("{0:.3f}".format(max(withoutnull)))
+                    minValue.append("{0:.3f}".format(min(withoutnull)))
+                    avg.append("{0:.3f}".format(mean(withoutnull)))
 
 
 

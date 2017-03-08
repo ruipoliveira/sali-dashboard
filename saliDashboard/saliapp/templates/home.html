@@ -73,9 +73,6 @@
 
 
 
-
-
-
     <div class="row">
         {% for cm in allControllerM %}
 
@@ -83,7 +80,7 @@
 
           <div class="nav-tabs-custom">
             <ul class="nav nav-tabs pull-right">
-              <li class="active"><a href="#tab_1-1" data-toggle="tab">Tab 1</a></li>
+              <li class="active"><a href="#tab_1-1" data-toggle="tab">Alarms</a></li>
               <li><a href="#tab_2-2" data-toggle="tab">Temperature</a></li>
               <li><a href="#tab_3-2" data-toggle="tab">Salinity</a></li>
               <li class="dropdown">
@@ -100,7 +97,34 @@
             </ul>
             <div class="tab-content">
               <div class="tab-pane active" id="tab_1-1">
-                <b>How to use:</b>
+
+
+            <!-- /.box-header -->
+            <div class="box-body">
+              <ul class="todo-list">
+                <li>
+                  <!-- drag handle -->
+                      <span>
+                        <i class="fa fa-ellipsis-v"></i>
+                        <i class="fa fa-ellipsis-v"></i>
+                      </span>
+                  <!-- todo text -->
+                  <span class="text">Design a nice theme</span>
+                  <!-- Emphasis label -->
+                  <small class="label label-danger"><i class="fa fa-clock-o"></i> 2 mins</small>
+                  <!-- General tools such as edit or delete-->
+                  <div class="tools">
+                    <!--<i class="fa fa-edit"></i>-->
+                    <a href="www.ua.pt" class="fa fa-trash-o"></a>
+                  </div>
+                </li>
+
+              </ul>
+            </div>
+
+
+
+
 
               </div>
               <!-- /.tab-pane -->

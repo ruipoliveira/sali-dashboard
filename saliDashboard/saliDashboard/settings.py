@@ -45,7 +45,8 @@ INSTALLED_APPS = (
     'django_gravatar',
     'chartit',
     'graphos',
-    'leaflet'
+    'leaflet',
+    'django_extensions'
 
 )
 
