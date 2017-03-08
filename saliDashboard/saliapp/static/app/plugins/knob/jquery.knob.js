@@ -127,7 +127,7 @@
                     cancel: null, // function () {}
                     release: null, // function (value) {}
 
-                    // Output formatting, allows to add unit: %, ms ...
+                    // Output formatting, allows to view unit: %, ms ...
                     format: function(v) {
                         return v;
                     },
@@ -188,7 +188,7 @@
             });
 
             // wraps all elements in a div
-            // add to DOM before Canvas init is triggered
+            // view to DOM before Canvas init is triggered
             this.$div = $('<div style="'
                 + (this.o.inline ? 'display:inline;' : '')
                 + 'width:' + this.o.width + 'px;height:' + this.o.height + 'px;'

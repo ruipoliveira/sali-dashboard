@@ -415,7 +415,7 @@ function _init() {
           //Get the parent li
           var parent_li = $this.parent("li");
 
-          //Open the target menu and add the menu-open class
+          //Open the target menu and view the menu-open class
           checkElement.slideDown(animationSpeed, function () {
             //Add the class active to the parent li
             checkElement.addClass('menu-open');
@@ -602,7 +602,7 @@ function _init() {
 /*
  * BOX REFRESH BUTTON
  * ------------------
- * This is a custom plugin to use with the component BOX. It allows you to add
+ * This is a custom plugin to use with the component BOX. It allows you to view
  * a refresh button to the box. It converts the box's state to a loading state.
  *
  * @type plugin

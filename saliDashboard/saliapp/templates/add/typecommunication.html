@@ -1,0 +1,109 @@
+{% extends "layout.html" %}
+{% block body %}
+
+
+
+
+<section class="content">
+
+    {% if messages %}
+        {% for message in messages %}
+
+            <div class="alert alert-success alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <h4><i class="icon fa fa-check"></i> Alert!</h4>
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+
+    <div class="box box-default">
+        <div class="box-header with-border">
+        <h3 class="box-title">All </h3>
+        <div class="box-tools pull-right">
+        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+        <!--<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button> -->
+        </div>
+    </div>
+    <!-- /.box-header -->
+    <div class="box-body">
+
+        <div class="box-body table-responsive no-padding">
+
+            {% for comm in commAll %}
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box">
+                        <span class="info-box-icon bg-gray"><img width="50%"  src="/static/resources/typecomm/{{ comm.image_path }}"></span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">{{ comm.name }}</span>
+                            <span class="info-box-number">{{ comm.path_or_number }}</span>
+                            <a  type="button" style="width:25px; float: right;" href="{% url 'deletecomm' id_comm=comm.id %}" class="btn btn-block btn-danger btn-xs"><i class="fa fa-trash"></i></a>
+
+                        </div>
+                    <!-- /.info-box-content -->
+                    </div>
+                <!-- /.info-box -->
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    </div>
+
+    <br/>
+    <button type="submit" class="btn btn-info pull-right" data-toggle="modal" data-target="#myModal">Add</button>
+
+
+</section>
+
+
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Add communication type</h4>
+      </div>
+      <div class="modal-body">
+
+    <form class="form-horizontal" method="post" action="."> {% csrf_token %}
+
+        <div class="form-group">
+            <label for="inputEmail3" class="col-sm-3 control-label">Name</label>
+
+            <div class="col-sm-9">
+                <input type="text" name="name" class="form-control" placeholder="Name">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputEmail3" class="col-sm-3 control-label">Source</label>
+
+            <div class="col-sm-9">
+                <input type="text" name="source" class="form-control" id="inputEmail3" placeholder="Source">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputEmail3" class="col-sm-3 control-label">Image</label>
+
+            <div class="col-sm-9">
+                <input type="text" name="path" class="form-control" id="inputEmail3" placeholder="image">
+            </div>
+        </div>
+
+        <!-- /.box-body -->
+        <div class="box-footer">
+        <button type="submit" class="btn btn-info pull-right">Add</button>
+        </div>
+    <!-- /.box-footer -->
+    </form>
+    </div>
+
+    </div>
+
+  </div>
+</div>
+
+
+{% endblock %}

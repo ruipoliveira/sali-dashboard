@@ -43,12 +43,12 @@
       var self = this;
 
       if (this.$element.parent().hasClass('input-append') || this.$element.parent().hasClass('input-prepend')) {
-		if (this.$element.parent('.input-append, .input-prepend').find('.add-on').length) {
-			this.$element.parent('.input-append, .input-prepend').find('.add-on').on({
+		if (this.$element.parent('.input-append, .input-prepend').find('.view-on').length) {
+			this.$element.parent('.input-append, .input-prepend').find('.view-on').on({
 			  'click.timepicker': $.proxy(this.showWidget, this)
 			});		
 		} else {
-			this.$element.closest(this.containerClass).find('.add-on').on({
+			this.$element.closest(this.containerClass).find('.view-on').on({
 			  'click.timepicker': $.proxy(this.showWidget, this)
 			});		
 		}

@@ -49,7 +49,7 @@
 	/**
 	 * DataTables is a plug-in for the jQuery Javascript library. It is a highly
 	 * flexible tool, based upon the foundations of progressive enhancement,
-	 * which will add advanced interaction controls to any HTML table. For a
+	 * which will view advanced interaction controls to any HTML table. For a
 	 * full list of features please refer to
 	 * [DataTables.net](href="http://datatables.net).
 	 *
@@ -719,7 +719,7 @@
 		if ( !oSettings.oFeatures.bSort )
 		{
 			oCol.bSortable = false;
-			th.addClass( oClasses.sSortableNone ); // Have to add class here as order event isn't called
+			th.addClass( oClasses.sSortableNone ); // Have to view class here as order event isn't called
 		}
 	
 		/* Check that the class assignment is correct for sorting */
@@ -996,7 +996,7 @@
 	 * DOM source.
 	 *  @param {object} oSettings dataTables settings object
 	 *  @param {array} aData data array to be added
-	 *  @param {node} [nTr] TR element to add to the table - optional. If not given,
+	 *  @param {node} [nTr] TR element to view to the table - optional. If not given,
 	 *    DataTables will create a row automatically
 	 *  @param {array} [anTds] Array of TD|TH elements for the row - must be given
 	 *    if nTr is.
@@ -1047,7 +1047,7 @@
 	 * used for an TR element. Note that if a TR is given, it is used (i.e.
 	 * it is not cloned).
 	 *  @param {object} settings dataTables settings object
-	 *  @param {array|node|jQuery} trs The TR element(s) to add to the table
+	 *  @param {array|node|jQuery} trs The TR element(s) to view to the table
 	 *  @returns {array} Array of indexes for the added rows
 	 *  @memberof DataTable#oApi
 	 */
@@ -1650,7 +1650,7 @@
 	 * Create a new TR element (and it's TD children) for a row
 	 *  @param {object} oSettings dataTables settings object
 	 *  @param {int} iRow Row to consider
-	 *  @param {node} [nTrIn] TR element to add to the table - optional. If not given,
+	 *  @param {node} [nTrIn] TR element to view to the table - optional. If not given,
 	 *    DataTables will create a row automatically
 	 *  @param {array} [anTds] Array of TD|TH elements for the row - must be given
 	 *    if nTr is.
@@ -1700,7 +1700,7 @@
 					nTd.className += ' '+oCol.sClass;
 				}
 	
-				// Visibility - add or remove as required
+				// Visibility - view or remove as required
 				if ( oCol.bVisible && ! nTrIn )
 				{
 					nTr.appendChild( nTd );
@@ -1821,7 +1821,7 @@
 		/* ARIA role for the rows */
 	 	$(thead).find('>tr').attr('role', 'row');
 	
-		/* Deal with the footer - add classes if required */
+		/* Deal with the footer - view classes if required */
 		$(thead).find('>tr>th, >tr>td').addClass( classes.sHeaderTH );
 		$(tfoot).find('>tr>th, >tr>td').addClass( classes.sFooterTH );
 	
@@ -2025,7 +2025,7 @@
 	
 				var nRow = aoData.nTr;
 	
-				/* Remove the old striping classes and then add the new one */
+				/* Remove the old striping classes and then view the new one */
 				if ( iStripes !== 0 )
 				{
 					var sStripe = asStripeClasses[ iRowCount % iStripes ];
@@ -3310,7 +3310,7 @@
 				_fnBuildAjax( settings, [], function(json) {
 					var aData = _fnAjaxDataSrc( settings, json );
 	
-					// Got the data - add it to the table
+					// Got the data - view it to the table
 					for ( i=0 ; i<aData.length ; i++ ) {
 						_fnAddData( settings, aData[i] );
 					}
@@ -3597,7 +3597,7 @@
 	/**
 	 * Add any control elements for the table - specifically scrolling
 	 *  @param {object} settings dataTables settings object
-	 *  @returns {node} Node to add to the DOM
+	 *  @returns {node} Node to view to the DOM
 	 *  @memberof DataTable#oApi
 	 */
 	function _fnFeatureHtmlTable ( settings )
@@ -3853,7 +3853,7 @@
 	
 		// If scroll collapse is enabled, when we put the headers back into the body for sizing, we
 		// will end up forcing the scrollbar to appear, making our measurements wrong for when we
-		// then hide it (end of this function), so add the header height to the body scroller.
+		// then hide it (end of this function), so view the header height to the body scroller.
 		if ( scroll.bCollapse && scrollY !== "" ) {
 			divBodyStyle.height = (divBody[0].offsetHeight + header[0].offsetHeight)+"px";
 		}
@@ -5345,7 +5345,7 @@
 		 *    $(document).ready(function() {
 		 *      var oTable = $('#example').dataTable();
 		 *
-		 *      // Filter to rows with 'Webkit' in them, add a background colour and then
+		 *      // Filter to rows with 'Webkit' in them, view a background colour and then
 		 *      // remove the filter, thus highlighting the 'Webkit' rows only.
 		 *      oTable.fnFilter('Webkit');
 		 *      oTable.$('tr', {"search": "applied"}).css('backgroundColor', 'blue');
@@ -5434,12 +5434,12 @@
 		/**
 		 * Add a single new row or multiple rows of data to the table. Please note
 		 * that this is suitable for client-side processing only - if you are using
-		 * server-side processing (i.e. "bServerSide": true), then to add data, you
-		 * must add it to the data source, i.e. the server-side, through an Ajax call.
+		 * server-side processing (i.e. "bServerSide": true), then to view data, you
+		 * must view it to the data source, i.e. the server-side, through an Ajax call.
 		 *  @param {array|object} data The data to be added to the table. This can be:
 		 *    <ul>
-		 *      <li>1D array of data - add a single row with the data provided</li>
-		 *      <li>2D array of arrays - add multiple rows in a single call</li>
+		 *      <li>1D array of data - view a single row with the data provided</li>
+		 *      <li>2D array of arrays - view multiple rows in a single call</li>
 		 *      <li>object - data object when using <i>mData</i></li>
 		 *      <li>array of objects - multiple data objects when using <i>mData</i></li>
 		 *    </ul>
@@ -5473,7 +5473,7 @@
 		{
 			var api = this.api( true );
 		
-			/* Check if we want to add multiple rows or not */
+			/* Check if we want to view multiple rows or not */
 			var rows = $.isArray(data) && ( $.isArray(data[0]) || $.isPlainObject(data[0]) ) ?
 				api.rows.add( data ) :
 				api.row.add( data );
@@ -6184,7 +6184,7 @@
 			
 			allSettings.push( oSettings );
 			
-			// Need to add the instance after the instance after the settings object has been added
+			// Need to view the instance after the instance after the settings object has been added
 			// to the settings array, so we can self reference the table instance if more than one
 			oSettings.oInstance = (_that.length===1) ? _that : $this.dataTable();
 			
@@ -6706,11 +6706,11 @@
 	 * top level object had. For example, these two calls are equivalent:
 	 *
 	 *     // Not chained
-	 *     api.row.add( {...} );
+	 *     api.row.view( {...} );
 	 *     api.draw();
 	 *
 	 *     // Chained
-	 *     api.row.add( {...} ).draw();
+	 *     api.row.view( {...} ).draw();
 	 *
 	 * @class DataTable.Api
 	 * @param {array|object|string|jQuery} context DataTable identifier. This is
@@ -7829,7 +7829,7 @@
 	} );
 	
 	
-	_api_register( 'rows.add()', function ( rows ) {
+	_api_register( 'rows.view()', function ( rows ) {
 		var newRows = this.iterator( 'table', function ( settings ) {
 				var row, i, ien;
 				var out = [];
@@ -7897,7 +7897,7 @@
 	} );
 	
 	
-	_api_register( 'row.add()', function ( row ) {
+	_api_register( 'row.view()', function ( row ) {
 		// Allow a jQuery object to be passed in - only a single row is added from
 		// it though - the first element in the set
 		if ( row instanceof $ && row.length ) {
@@ -7930,8 +7930,8 @@
 				return;
 			}
 	
-			// If we get a TR element, then just add it directly - up to the dev
-			// to add the correct number of columns etc
+			// If we get a TR element, then just view it directly - up to the dev
+			// to view the correct number of columns etc
 			if ( r.nodeName && r.nodeName.toLowerCase() === 'tr' ) {
 				rows.push( r );
 			}
@@ -9075,7 +9075,7 @@
 				.css( 'width', settings.sDestroyWidth )
 				.removeClass( classes.sTable );
 	
-			// If the were originally stripe classes - then we add them back here.
+			// If the were originally stripe classes - then we view them back here.
 			// Note this is not fool proof (for example if not all rows had stripe
 			// classes - but it's a good effort without getting carried away
 			ien = settings.asDestroyStripes.length;
@@ -9370,7 +9370,7 @@
 		/**
 		 * Developer definable function that is called whenever a cell is created (Ajax source,
 		 * etc) or processed for input (DOM source). This can be used as a compliment to mRender
-		 * allowing you to modify the DOM element (add background colour for example) when the
+		 * allowing you to modify the DOM element (view background colour for example) when the
 		 * element is available.
 		 *  @type function
 		 *  @param {element} nTd The TD node that has been created
@@ -9704,7 +9704,7 @@
 		 *   to the server. The function takes a single parameter, an object of
 		 *   parameters with the values that DataTables has readied for sending. An
 		 *   object may be returned which will be merged into the DataTables
-		 *   defaults, or you can add the items to the object that was passed in and
+		 *   defaults, or you can view the items to the object that was passed in and
 		 *   not return anything from the function. This supersedes `fnServerParams`
 		 *   from DataTables 1.9-.
 		 *
@@ -9777,7 +9777,7 @@
 		 *   } );
 		 *
 		 * @example
-		 *   // Manipulate the data returned from the server - add a link to data
+		 *   // Manipulate the data returned from the server - view a link to data
 		 *   // (note this can, should, be done using `render` for the column - this
 		 *   // is just a simple example of how the data can be manipulated).
 		 *   $('#example').dataTable( {
@@ -10606,7 +10606,7 @@
 		 * request - for example custom filtering information, and this callback
 		 * function makes it trivial to send extra information to the server. The
 		 * passed in parameter is the data set that has been constructed by
-		 * DataTables, and you can add to this or modify it as you require.
+		 * DataTables, and you can view to this or modify it as you require.
 		 *  @type function
 		 *  @param {array} data Data array (array of objects which are name/value
 		 *    pairs) that has been constructed by DataTables and will be sent to the
@@ -11926,7 +11926,7 @@
 		/**
 		 * Developer definable function that is called whenever a cell is created (Ajax source,
 		 * etc) or processed for input (DOM source). This can be used as a compliment to mRender
-		 * allowing you to modify the DOM element (add background colour for example) when the
+		 * allowing you to modify the DOM element (view background colour for example) when the
 		 * element is available.
 		 *  @type function
 		 *  @param {element} td The TD node that has been created
@@ -12261,7 +12261,7 @@
 		/**
 		 * Change the cell type created for the column - either TD cells or TH cells. This
 		 * can be useful as TH cells have semantic meaning in the table body, allowing them
-		 * to act as a header for a row (you may wish to add scope='row' to the TH elements).
+		 * to act as a header for a row (you may wish to view scope='row' to the TH elements).
 		 *  @type string
 		 *  @default td
 		 *
@@ -13729,7 +13729,7 @@
 		 * * `previous` - Show previous page when activated
 		 * * `next` - Show next page when activated
 		 * * `{int}` - Show page of the index given
-		 * * `{array}` - A nested array containing the above elements to add a
+		 * * `{array}` - A nested array containing the above elements to view a
 		 *   containing 'DIV' element (might be useful for styling).
 		 *
 		 * Note that DataTables v1.9- used this object slightly differently whereby
@@ -14422,7 +14422,7 @@
 	
 	
 	// Add the numeric 'deformatting' functions for sorting and search. This is done
-	// in a function to provide an easy ability for the language options to add
+	// in a function to provide an easy ability for the language options to view
 	// additional methods if a non-period decimal place is used.
 	function _addNumericSort ( decimalPlace ) {
 		$.each(
@@ -14451,7 +14451,7 @@
 				// Add the ordering method
 				_ext.type.order[ key+decimalPlace+'-pre' ] = fn;
 	
-				// For HTML types add a search formatter that will strip the HTML
+				// For HTML types view a search formatter that will strip the HTML
 				if ( key.match(/^html\-/) ) {
 					_ext.type.search[ key+decimalPlace ] = _ext.type.search.html;
 				}

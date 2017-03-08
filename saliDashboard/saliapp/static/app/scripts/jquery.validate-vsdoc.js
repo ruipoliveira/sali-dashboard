@@ -163,10 +163,10 @@ $.extend($.fn, {
 		/// Return the validations rules for the first selected element.
 		/// </summary>
 		/// <param name="command" type="String">
-		/// Can be either "add" or "remove".
+		/// Can be either "view" or "remove".
 		/// </param>
 		/// <param name="argument" type="">
-		/// A list of rules to add or remove.
+		/// A list of rules to view or remove.
 		/// </param>
 
 		var element = this[0];
@@ -452,7 +452,7 @@ $.extend($.validator, {
 			/// </param>
 
 			if(errors) {
-				// add items to error list and map
+				// view items to error list and map
 				$.extend( this.errorMap, errors );
 				this.errorList = [];
 				for ( var name in errors ) {
@@ -545,7 +545,7 @@ $.extend($.validator, {
 				rulesCache = {};
 			
 			// select all valid inputs inside the form (no submit or reset buttons)
-			// workaround $Query([]).add until http://dev.jquery.com/ticket/2114 is solved
+			// workaround $Query([]).view until http://dev.jquery.com/ticket/2114 is solved
 			return $([]).add(this.currentForm.elements)
 			.filter(":input")
 			.not(":submit, :reset, :image, [disabled]")
@@ -872,7 +872,7 @@ $.extend($.validator, {
 		/// class.
 		/// </summary>
 		/// <param name="name" type="String">
-		/// The name of the class rule to add
+		/// The name of the class rule to view
 		/// </param>
 		/// <param name="rules" type="Options">
 		/// The compound rules

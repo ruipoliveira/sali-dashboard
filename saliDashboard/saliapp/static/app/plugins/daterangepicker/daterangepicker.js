@@ -675,7 +675,7 @@
             html += '<thead>';
             html += '<tr>';
 
-            // add empty cell for week number
+            // view empty cell for week number
             if (this.showWeekNumbers || this.showISOWeekNumbers)
                 html += '<th></th>';
 
@@ -730,7 +730,7 @@
             html += '</tr>';
             html += '<tr>';
 
-            // add week number label
+            // view week number label
             if (this.showWeekNumbers || this.showISOWeekNumbers)
                 html += '<th class="week">' + this.locale.weekLabel + '</th>';
 
@@ -754,7 +754,7 @@
             for (var row = 0; row < 6; row++) {
                 html += '<tr>';
 
-                // add week number
+                // view week number
                 if (this.showWeekNumbers)
                     html += '<td class="week">' + calendar[row][0].week() + '</td>';
                 else if (this.showISOWeekNumbers)

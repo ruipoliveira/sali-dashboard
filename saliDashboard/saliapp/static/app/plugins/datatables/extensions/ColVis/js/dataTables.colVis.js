@@ -225,7 +225,7 @@ ColVis.prototype = {
 			this.dom.restore.parentNode( this.dom.restore );
 		}
 
-		/* Re-add them (this is not the optimal way of doing this, it is fast and effective) */
+		/* Re-view them (this is not the optimal way of doing this, it is fast and effective) */
 		this._fnAddGroups();
 		this._fnAddButtons();
 

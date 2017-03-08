@@ -2,77 +2,109 @@
 {% block body %}
 
 
-
-
 <section class="content">
+    {% load gravatar %}
+    {% if messages %}
+        {% for message in messages %}
 
-<!-- Horizontal Form -->
-<div class="box box-info">
-<div class="box-header with-border">
-<h3 class="box-title">Add new user</h3>
-</div>
-<!-- /.box-header -->
-<!-- form start -->
-<form class="form-horizontal">
-<div class="box-body">
-
-<div class="form-group">
-<label for="inputEmail3" class="col-sm-2 control-label">First name</label>
-
-<div class="col-sm-10">
-<input type="email" class="form-control" id="inputEmail3" placeholder="First name" v>
-</div>
-</div>
-
-<div class="form-group">
-<label for="inputEmail3" class="col-sm-2 control-label">Last name</label>
-
-<div class="col-sm-10">
-<input type="email" class="form-control" id="inputEmail3" placeholder="Last name">
-</div>
-</div>
+            <div class="alert alert-success alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <h4><i class="icon fa fa-check"></i> Alert!</h4>
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
 
 
+    <div class="box box-default">
+        <div class="box-header with-border">
+        <h3 class="box-title">All </h3>
+        <div class="box-tools pull-right">
+        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+        <!--<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button> -->
+        </div>
+    </div>
+    <!-- /.box-header -->
+    <div class="box-body">
 
-<div class="form-group">
-<label for="inputEmail3" class="col-sm-2 control-label">Username</label>
+        <div class="box-body table-responsive no-padding">
 
-<div class="col-sm-10">
-<input type="email" class="form-control" id="inputEmail3" placeholder="Email">
-</div>
-</div>
-<div class="form-group">
-<label for="inputPassword3" class="col-sm-2 control-label">Password</label>
+            {% for user in userAll %}
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box">
+                        <span class="info-box-icon bg-olive"> <img class="img-circle"  width="70%"  src="{% gravatar_url user.email %}"></span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">{{ user.first_name }} {{ user.last_name }}</span>
 
-<div class="col-sm-10">
-<input type="password" class="form-control" id="inputPassword3" placeholder="Password">
-</div>
-</div>
-
-<div class="form-group">
-<label for="inputPassword3" class="col-sm-2 control-label"> Confirmed Password</label>
-
-<div class="col-sm-10">
-<input type="password" class="form-control" id="inputPassword3" placeholder="Password">
-</div>
-</div>
+                                <span class="info-box-number">{{ user.username }}</span>
 
 
-</div>
-<!-- /.box-body -->
-<div class="box-footer">
-<button type="submit" class="btn btn-info pull-right">Add</button>
-</div>
-<!-- /.box-footer -->
-</form>
-</div>
+                            <a  type="button" style="width:25px; float: right;" href="#" class="btn btn-block btn-danger btn-xs"><i class="fa fa-trash"></i></a>
+
+                        </div>
+                    <!-- /.info-box-content -->
+                    </div>
+                <!-- /.info-box -->
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    </div>
+
+    <br/>
+    <button type="submit" class="btn btn-info pull-right" data-toggle="modal" data-target="#myModal">Add</button>
 
 </section>
 
 
 
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
 
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Add sensor type</h4>
+      </div>
+      <div class="modal-body">
 
+    <form class="form-horizontal" method="post" action="."> {% csrf_token %}
+
+        <div class="form-group">
+            <label for="inputEmail3" class="col-sm-3 control-label">Name</label>
+
+            <div class="col-sm-9">
+                <input type="text" name="name" class="form-control" placeholder="Name">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputEmail3" class="col-sm-3 control-label">Scale value</label>
+
+            <div class="col-sm-9">
+                <input type="text" name="scale" class="form-control" id="inputEmail3" placeholder="Scale">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputEmail3" class="col-sm-3 control-label">Image</label>
+
+            <div class="col-sm-9">
+                <input type="text" name="path" class="form-control" id="inputEmail3" placeholder="Path">
+            </div>
+        </div>
+
+        <!-- /.box-body -->
+        <div class="box-footer">
+        <button type="submit" class="btn btn-info pull-right">Add</button>
+        </div>
+    <!-- /.box-footer -->
+    </form>
+    </div>
+
+    </div>
+
+  </div>
+</div>
 
 
 {% endblock %}

@@ -110,7 +110,7 @@
 			 * @param {Function} PluginClass - constructor class
 			 */
 			function bridge( namespace, PluginClass ) {
-			  // add to jQuery fn namespace
+			  // view to jQuery fn namespace
 			  $.fn[ namespace ] = function( options ) {
 			    if ( typeof options === 'string' ) {
 			      // call plugin method when first argument is a string

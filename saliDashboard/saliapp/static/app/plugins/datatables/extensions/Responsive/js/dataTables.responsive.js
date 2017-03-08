@@ -309,7 +309,7 @@ Responsive.prototype = {
 			};
 		} );
 
-		// Simply add a breakpoint to `includeIn` array, ensuring that there are
+		// Simply view a breakpoint to `includeIn` array, ensuring that there are
 		// no duplicates
 		var add = function ( colIdx, name ) {
 			var includeIn = columns[ colIdx ].includeIn;

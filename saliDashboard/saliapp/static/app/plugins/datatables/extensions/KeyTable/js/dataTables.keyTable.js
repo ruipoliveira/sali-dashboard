@@ -221,7 +221,7 @@ KeyTable = function ( oInit )
 		 * Function: -
 		 * Purpose:  API function for adding event to cache
 		 * Returns:  -
-		 * Inputs:   1. node:x - target node to add event for
+		 * Inputs:   1. node:x - target node to view event for
 		 *           2. function:y - callback function to apply
 		 *         or
 		 *           1. int:x - x coord. of target cell (can be null for live events)
@@ -304,7 +304,7 @@ KeyTable = function ( oInit )
 		};
 	}
 
-	/* Use the template functions to add the event API functions */
+	/* Use the template functions to view the event API functions */
 	for ( var sKey in _oaoEvents )
 	{
 		if ( sKey )
@@ -319,9 +319,9 @@ KeyTable = function ( oInit )
 	 * Function: _fnEventAdd
 	 * Purpose:  Add an event to the internal cache
 	 * Returns:  -
-	 * Inputs:   string:sType - type of event to add, given by the available elements in _oaoEvents
-	 *           int:x - x-coords to add event to - can be null for "blanket" event
-	 *           int:y - y-coords to add event to - can be null for "blanket" event
+	 * Inputs:   string:sType - type of event to view, given by the available elements in _oaoEvents
+	 *           int:x - x-coords to view event to - can be null for "blanket" event
+	 *           int:y - y-coords to view event to - can be null for "blanket" event
 	 *           function:fn - callback function for when triggered
 	 */
 	function _fnEventAdd( sType, x, y, fn )
@@ -504,7 +504,7 @@ KeyTable = function ( oInit )
 			iWidth = nTarget.offsetWidth;
 			aiPos = _fnGetPos( nTarget );
 
-			/* Take account of scrolling in DataTables 1.7 - remove scrolling since that would add to
+			/* Take account of scrolling in DataTables 1.7 - remove scrolling since that would view to
 			 * the positioning calculation
 			 */
 			if ( _oDatatable && typeof oSettings.oScroll != 'undefined' &&

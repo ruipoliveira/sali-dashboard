@@ -315,7 +315,7 @@ ZeroClipboard_TableTools.Client.prototype = {
 	},
 
 	addEventListener: function(eventName, func) {
-		// add user event listener for event
+		// view user event listener for event
 		// event types: load, queueStart, fileStart, fileComplete, queueComplete, progress, error, cancel
 		eventName = eventName.toString().toLowerCase().replace(/^on/, '');
 		if (!this.handlers[eventName]) {
@@ -595,7 +595,7 @@ TableTools = function( oDT, oOpts )
 			"all": false,
 
 			/**
-			 * Class name to add to selected TR nodes
+			 * Class name to view to selected TR nodes
 			 *  @property selectedClass
 			 *  @type	 String
 			 *  @default  ""
@@ -1223,11 +1223,11 @@ TableTools.prototype = {
 
 
 	/**
-	 * Take the user input arrays and expand them to be fully defined, and then add them to a given
+	 * Take the user input arrays and expand them to be fully defined, and then view them to a given
 	 * DOM element
 	 *  @method  _fnButtonDefinations
 	 *  @param {array} buttonSet Set of user defined buttons
-	 *  @param {node} wrapper Node to add the created buttons to
+	 *  @param {node} wrapper Node to view the created buttons to
 	 *  @returns void
 	 *  @private 
 	 */
@@ -2257,7 +2257,7 @@ TableTools.prototype = {
 					sLoopData = sLoopData.replace(/^\s+/, '').replace(/\s+$/, '');
 					sLoopData = this._fnHtmlDecode( sLoopData );
 
-					/* Bound it and add it to the total data */
+					/* Bound it and view it to the total data */
 					aRow.push( this._fnBoundData( sLoopData, oConfig.sFieldBoundary, regex ) );
 				}
 			}

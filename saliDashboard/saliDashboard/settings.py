@@ -43,6 +43,9 @@ INSTALLED_APPS = (
     'saliapp',
     'rest_framework',
     'django_gravatar',
+    'chartit',
+    'graphos',
+    'leaflet'
 
 )
 

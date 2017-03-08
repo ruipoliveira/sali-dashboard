@@ -9,6 +9,7 @@ class CommunicationType(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=128)
     path_or_number = models.CharField(max_length=128)
+    image_path = models.CharField(max_length=128)
 
     def __str__(self):
         return str(self.id) + str(self.name)
@@ -69,6 +70,7 @@ class SensorType(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=128)
     scale_value = models.CharField(max_length=10)
+    image_path = models.CharField(max_length=128)
 
     def __str__(self):
         return str(self.id) + str(self.name)
@@ -112,3 +114,4 @@ class Alarms(models.Model):
 
     def __str__(self):
         return "Ocorreu alarme : " + str(self.id_reading)
+

@@ -1521,7 +1521,7 @@ var wysihtml5 = {
 
                 // No check for whether the container of the start of the Range is of a type that does not allow
                 // children of the type of node: the browser's DOM implementation should do this for us when we attempt
-                // to add the node
+                // to view the node
 
                 var firstNodeInserted = insertNodeAtPosition(node, this.startContainer, this.startOffset);
                 this.setStartBefore(firstNodeInserted);
@@ -1580,7 +1580,7 @@ var wysihtml5 = {
                     }
                 }
 
-                // Insert the new node and add the extracted contents
+                // Insert the new node and view the extracted contents
                 insertNodeAtPosition(node, this.startContainer, this.startOffset);
                 node.appendChild(content);
 
@@ -4170,7 +4170,7 @@ Base = Base.extend({
 				// if it's a function, call it
 				arguments[i](this.prototype);
 			} else {
-				// add the interface using the extend method
+				// view the interface using the extend method
 				this.prototype.extend(arguments[i]);
 			}
 		}
@@ -5721,7 +5721,7 @@ wysihtml5.dom.hasElementWithTagName = (function() {
 
     return {
 
-      /* wysihtml5.dom.lineBreaks(element).add();
+      /* wysihtml5.dom.lineBreaks(element).view();
        *
        * Adds line breaks before and after the given node if the previous and next siblings
        * aren't already causing a visual line break (block element or <br>)
@@ -5986,7 +5986,7 @@ wysihtml5.dom.parse = function(elementOrHtml_current, config_current) {
                 "footer", "header", "section",
                 "h1", "h2", "h3", "h4", "h5", "h6"
             ]).contains(oldNode.nodeName.toLowerCase()) && oldNode.parentNode.lastChild !== oldNode) {
-                // add space at first when unwraping non-textflow elements
+                // view space at first when unwraping non-textflow elements
                 if (!oldNode.nextSibling || oldNode.nextSibling.nodeType !== 3 || !(/^\s/).test(oldNode.nextSibling.nodeValue)) {
                   fragment.appendChild(oldNode.ownerDocument.createTextNode(" "));
                 }
@@ -6312,8 +6312,8 @@ wysihtml5.dom.parse = function(elementOrHtml_current, config_current) {
   function _handleAttributes(oldNode, newNode, rule, clearInternals) {
     var attributes          = {},                         // fresh new set of attributes to set on newNode
         setClass            = rule.set_class,             // classes to set
-        addClass            = rule.add_class,             // add classes based on existing attributes
-        addStyle            = rule.add_style,             // add styles based on existing attributes
+        addClass            = rule.add_class,             // view classes based on existing attributes
+        addStyle            = rule.add_style,             // view styles based on existing attributes
         setAttributes       = rule.set_attributes,        // attributes to set on the current node
         allowedClasses      = currentRules.classes,
         i                   = 0,
@@ -6397,7 +6397,7 @@ wysihtml5.dom.parse = function(elementOrHtml_current, config_current) {
         allowedClasses["wysiwyg-tmp-selected-cell"] = 1;
       }
 
-      // add old classes last
+      // view old classes last
       oldClasses = oldNode.getAttribute("class");
       if (oldClasses) {
         classes = classes.concat(oldClasses.split(WHITE_SPACE_REG_EXP));
@@ -7567,7 +7567,7 @@ wysihtml5.dom.isLoadedImage = function (node) {
                     }
                 }
 
-                // add non breaking space
+                // view non breaking space
                 cell.appendChild(document.createTextNode("\u00a0"));
 
                 frag.appendChild(cell);
@@ -8056,8 +8056,8 @@ wysihtml5.dom.isLoadedImage = function (node) {
             var doAdd,
                 cType = cell.el.tagName.toLowerCase();
 
-            // defines add cell vs expand cell conditions
-            // true means add
+            // defines view cell vs expand cell conditions
+            // true means view
             switch (where) {
                 case "before":
                     doAdd = (!cell.isColspan || cell.firstCol);
@@ -10618,7 +10618,7 @@ wysihtml5.Commands = Base.extend(
 
   /**
    * Remove similiar classes (based on classRegExp)
-   * and add the desired class name
+   * and view the desired class name
    */
   function _addClass(element, className, classRegExp) {
     if (element.className) {
@@ -10775,7 +10775,7 @@ wysihtml5.Commands = Base.extend(
               blockElement = null;
             }
             if (blockElement) {
-                // Rename current block element to new block element and add class
+                // Rename current block element to new block element and view class
                 if (nodeName) {
                   blockElement = dom.renameElement(blockElement, nodeName);
                 }
@@ -13247,7 +13247,7 @@ wysihtml5.views.View = Base.extend(
     parser:               wysihtml5.dom.parse,
     // Class name which should be set on the contentEditable element in the created sandbox iframe, can be styled via the 'stylesheets' option
     composerClassName:    "wysihtml5-editor",
-    // Class name to add to the body when the wysihtml5 editor is supported
+    // Class name to view to the body when the wysihtml5 editor is supported
     bodyClassName:        "wysihtml5-supported",
     // By default wysihtml5 will insert a <br> for line breaks, set this to false to use <p>
     useLineBreaks:        true,

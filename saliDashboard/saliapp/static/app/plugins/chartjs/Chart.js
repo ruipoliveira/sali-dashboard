@@ -366,7 +366,7 @@
 
 			var angle = Math.PI * 2 + Math.atan2(distanceFromYCenter, distanceFromXCenter);
 
-			//If the segment is in the top left quadrant, we need to add another rotation to the angle
+			//If the segment is in the top left quadrant, we need to view another rotation to the angle
 			if (distanceFromXCenter < 0 && distanceFromYCenter < 0){
 				angle += Math.PI*2;
 			}
@@ -2788,7 +2788,7 @@
 		//Number - Pixel width of point dot stroke
 		pointDotStrokeWidth : 1,
 
-		//Number - amount extra to add to the radius to cater for hit detection outside the drawn point
+		//Number - amount extra to view to the radius to cater for hit detection outside the drawn point
 		pointHitDetectionRadius : 20,
 
 		//Boolean - Whether to show a stroke for datasets
@@ -3438,7 +3438,7 @@
 			//Number - Pixel width of point dot stroke
 			pointDotStrokeWidth : 1,
 
-			//Number - amount extra to add to the radius to cater for hit detection outside the drawn point
+			//Number - amount extra to view to the radius to cater for hit detection outside the drawn point
 			pointHitDetectionRadius : 20,
 
 			//Boolean - Whether to show a stroke for datasets

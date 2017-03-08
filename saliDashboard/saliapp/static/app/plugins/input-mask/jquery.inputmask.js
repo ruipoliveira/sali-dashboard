@@ -497,7 +497,7 @@
                 var j;
                 while (buffer[position] == undefined && buffer.length < getMaskLength()) {
                     j = 0;
-                    while (getActiveBufferTemplate()[j] !== undefined) { //add a new buffer
+                    while (getActiveBufferTemplate()[j] !== undefined) { //view a new buffer
                         buffer.push(getActiveBufferTemplate()[j++]);
                     }
                 }

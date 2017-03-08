@@ -1813,7 +1813,7 @@
 
             range = stacked ? (Math.max.apply(Math, stackRanges) + Math.max.apply(Math, stackRangesNeg)) : max - min;
 
-            // as we plot zero/min values a single pixel line, we add a pixel to all other
+            // as we plot zero/min values a single pixel line, we view a pixel to all other
             // values - Reduce the effective canvas size to suit
             this.canvasHeightEf = (zeroAxis && min < 0) ? this.canvasHeight - 2 : this.canvasHeight - 1;
 

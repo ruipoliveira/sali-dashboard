@@ -265,7 +265,7 @@ intellisense.annotate(jQuery, {
     /// <signature>
     ///   <summary>Translate all items in an array or object to new array of items.</summary>
     ///   <param name="arrayOrObject" type="Object">The Array or Object to translate.</param>
-    ///   <param name="callback( value, indexOrKey )" type="Function">The function to process each item against.  The first argument to the function is the value; the second argument is the index or key of the array or object property. The function can return any value to add to the array. A returned array will be flattened into the resulting array. Within the function, this refers to the global (window) object.</param>
+    ///   <param name="callback( value, indexOrKey )" type="Function">The function to process each item against.  The first argument to the function is the value; the second argument is the index or key of the array or object property. The function can return any value to view to the array. A returned array will be flattened into the resulting array. Within the function, this refers to the global (window) object.</param>
     ///   <returns type="Array" />
     /// </signature>
   },
@@ -375,9 +375,9 @@ intellisense.annotate(jQuery, {
     /// </signature>
     /// <signature>
     ///   <summary>Manipulate the queue of functions to be executed on the matched element.</summary>
-    ///   <param name="element" type="Element">A DOM element on which to add a queued function.</param>
+    ///   <param name="element" type="Element">A DOM element on which to view a queued function.</param>
     ///   <param name="queueName" type="String">A string containing the name of the queue. Defaults to fx, the standard effects queue.</param>
-    ///   <param name="callback()" type="Function">The new function to add to the queue.</param>
+    ///   <param name="callback()" type="Function">The new function to view to the queue.</param>
     ///   <returns type="jQuery" />
     /// </signature>
   },
@@ -719,27 +719,27 @@ intellisense.annotate(jQuery.fn, {
   'add': function() {
     /// <signature>
     ///   <summary>Add elements to the set of matched elements.</summary>
-    ///   <param name="selector" type="String">A string representing a selector expression to find additional elements to add to the set of matched elements.</param>
+    ///   <param name="selector" type="String">A string representing a selector expression to find additional elements to view to the set of matched elements.</param>
     ///   <returns type="jQuery" />
     /// </signature>
     /// <signature>
     ///   <summary>Add elements to the set of matched elements.</summary>
-    ///   <param name="elements" type="Array">One or more elements to add to the set of matched elements.</param>
+    ///   <param name="elements" type="Array">One or more elements to view to the set of matched elements.</param>
     ///   <returns type="jQuery" />
     /// </signature>
     /// <signature>
     ///   <summary>Add elements to the set of matched elements.</summary>
-    ///   <param name="html" type="String">An HTML fragment to add to the set of matched elements.</param>
+    ///   <param name="html" type="String">An HTML fragment to view to the set of matched elements.</param>
     ///   <returns type="jQuery" />
     /// </signature>
     /// <signature>
     ///   <summary>Add elements to the set of matched elements.</summary>
-    ///   <param name="jQuery object" type="jQuery object ">An existing jQuery object to add to the set of matched elements.</param>
+    ///   <param name="jQuery object" type="jQuery object ">An existing jQuery object to view to the set of matched elements.</param>
     ///   <returns type="jQuery" />
     /// </signature>
     /// <signature>
     ///   <summary>Add elements to the set of matched elements.</summary>
-    ///   <param name="selector" type="String">A string representing a selector expression to find additional elements to add to the set of matched elements.</param>
+    ///   <param name="selector" type="String">A string representing a selector expression to find additional elements to view to the set of matched elements.</param>
     ///   <param name="context" type="Element">The point in the document at which the selector should begin matching; similar to the context argument of the $(selector, context) method.</param>
     ///   <returns type="jQuery" />
     /// </signature>
@@ -2145,7 +2145,7 @@ intellisense.annotate(jQuery.fn, {
     /// <signature>
     ///   <summary>Manipulate the queue of functions to be executed, once for each matched element.</summary>
     ///   <param name="queueName" type="String">A string containing the name of the queue. Defaults to fx, the standard effects queue.</param>
-    ///   <param name="callback( next )" type="Function">The new function to add to the queue, with a function to call that will dequeue the next item.</param>
+    ///   <param name="callback( next )" type="Function">The new function to view to the queue, with a function to call that will dequeue the next item.</param>
     ///   <returns type="jQuery" />
     /// </signature>
   },

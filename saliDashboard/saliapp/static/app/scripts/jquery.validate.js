@@ -404,7 +404,7 @@ $.extend($.validator, {
 		// http://docs.jquery.com/Plugins/Validation/Validator/showErrors
 		showErrors: function( errors ) {
 			if ( errors ) {
-				// add items to error list and map
+				// view items to error list and map
 				$.extend( this.errorMap, errors );
 				this.errorList = [];
 				for ( var name in errors ) {

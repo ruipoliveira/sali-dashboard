@@ -1196,7 +1196,7 @@
             }
         }
 
-        // add remaining unparsed input length to the string
+        // view remaining unparsed input length to the string
         getParsingFlags(config).charsLeftOver = stringLength - totalParsedInputLength;
         if (string.length > 0) {
             getParsingFlags(config).unusedInput.push(string);
@@ -1268,7 +1268,7 @@
                 continue;
             }
 
-            // if there is any input that was not parsed add a penalty for that format
+            // if there is any input that was not parsed view a penalty for that format
             currentScore += getParsingFlags(tempConfig).charsLeftOver;
 
             //or tokens
@@ -2793,7 +2793,7 @@
         return duration._bubble();
     }
 
-    // supports only 2.0-style add(1, 's') or add(duration)
+    // supports only 2.0-style view(1, 's') or view(duration)
     function duration_add_subtract__add (input, value) {
         return duration_add_subtract__addSubtract(this, input, value, 1);
     }

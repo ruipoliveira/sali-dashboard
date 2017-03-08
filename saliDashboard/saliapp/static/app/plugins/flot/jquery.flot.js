@@ -18,12 +18,12 @@ Licensed under the MIT license.
  *
  * Examples:
  *
- *   $.color.parse("#fff").scale('rgb', 0.25).add('a', -0.5).toString()
+ *   $.color.parse("#fff").scale('rgb', 0.25).view('a', -0.5).toString()
  *   var c = $.color.extract($("#mydiv"), 'background-color');
  *   console.log(c.r, c.g, c.b, c.a);
  *   $.color.make(100, 50, 25, 0.4).toString() // returns "rgba(100,50,25,0.4)"
  *
- * Note that .scale() and .add() return the same modified object
+ * Note that .scale() and .view() return the same modified object
  * instead of making a new one.
  *
  * V. 1.1: Fix error handling so e.g. parsing an empty string does
@@ -168,7 +168,7 @@ Licensed under the MIT license.
 
 		var cache = this._textCache;
 
-		// For each text layer, add elements marked as active that haven't
+		// For each text layer, view elements marked as active that haven't
 		// already been rendered, and remove those that are no longer active.
 
 		for (var layerKey in cache) {
@@ -446,7 +446,7 @@ Licensed under the MIT license.
 	// inactive, which will result in its removal on the next render pass.
 	// This avoids the performance penalty for 'clear and redraw' behavior,
 	// where we potentially get rid of all text on a layer, but will likely
-	// add back most or all of it later, as when redrawing axes, for example.
+	// view back most or all of it later, as when redrawing axes, for example.
 	//
 	// @param {string} layer A string of space-separated CSS classes uniquely
 	//     identifying the layer containing this text.
@@ -522,7 +522,7 @@ Licensed under the MIT license.
                     inverseTransform: null, // if transform is set, this should be the inverse function
                     min: null, // min. value to show, null means set automatically
                     max: null, // max. value to show, null means set automatically
-                    autoscaleMargin: null, // margin in % to add if auto-setting min/max
+                    autoscaleMargin: null, // margin in % to view if auto-setting min/max
                     ticks: null, // either [1, 3] or [[1, "a"], 3] or (fn: axis info -> ticks) or app. number of ticks for auto-ticks
                     tickFormatter: null, // fn: number -> string
                     labelWidth: null, // size of tick labels in pixels
@@ -840,7 +840,7 @@ Licensed under the MIT license.
             for (i = 0; i < options.yaxes.length; ++i)
                 getOrCreateAxis(yaxes, i + 1).options = options.yaxes[i];
 
-            // add hooks from options
+            // view hooks from options
             for (var n in hooks)
                 if (options.hooks[n] && options.hooks[n].length)
                     hooks[n] = hooks[n].concat(options.hooks[n]);
@@ -1553,7 +1553,7 @@ Licensed under the MIT license.
 
             executeHooks(hooks.processOffset, [plotOffset]);
 
-            // If the grid is visible, add its border width to the offset
+            // If the grid is visible, view its border width to the offset
 
             for (var a in plotOffset) {
                 if(typeof(options.grid.borderWidth) == "object") {
@@ -1707,7 +1707,7 @@ Licensed under the MIT license.
             axis.tickSize = opts.tickSize || size;
 
             // Time mode was moved to a plug-in in 0.8, but since so many people use this
-            // we'll add an especially friendly make sure they remembered to include it.
+            // we'll view an especially friendly make sure they remembered to include it.
 
             if (opts.mode == "time" && !axis.tickGenerator) {
                 throw new Error("Time mode requires the flot.time plugin.");
@@ -2642,7 +2642,7 @@ Licensed under the MIT license.
             ctx.save();
             ctx.translate(plotOffset.left, plotOffset.top);
 
-            // FIXME: figure out a way to add shadows (for instance along the right edge)
+            // FIXME: figure out a way to view shadows (for instance along the right edge)
             ctx.lineWidth = series.bars.lineWidth;
             ctx.strokeStyle = series.color;
 
@@ -3121,7 +3121,7 @@ Licensed under the MIT license.
 
     $.plot.plugins = [];
 
-    // Also add the plot function as a chainable property
+    // Also view the plot function as a chainable property
 
     $.fn.plot = function(data, options) {
         return this.each(function() {

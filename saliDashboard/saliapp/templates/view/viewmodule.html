@@ -2,50 +2,16 @@
 {% block body %}
 
 
-
-
-
-
-
-
-
-
-
-
 <section class="content">
 
-
 {% if messages %}
-{% for message in messages %}
-
-<div class="alert alert-success alert-dismissible">
-<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-<h4><i class="icon fa fa-check"></i> Alert!</h4>
-{{ message }}
-</div>
-{% endfor %}
+    {% for message in messages %}
+        <div class="alert alert-success alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <h4><i class="icon fa fa-check"></i> Alert!</h4>{{ message }}
+        </div>
+    {% endfor %}
 {% endif %}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     <div class="box box-default">
@@ -64,43 +30,55 @@
             <tr>
                 <th>Status</th>
                 <th>Name</th>
-                <th>Create by </th>
+                <th>Sensors</th>
+                <th>Seding time</th>
                 <th>Baterry</th>
-                <th>Memory </th>
-                <th>Communication</th>
                 <th>Localization</th>
-                <th>Managers</th>
+                <th>Communication</th>
                 <th></th>
                 <th></th>
                 <th></th>
 
             </tr>
-                {% for cpu in allCPUs %}
+                {% for sm in allSM %}
 
                     <tr>
-                        {% if cpu.status_cm == 1 %}
+                        {% if sm.status_sm == 1 %}
                         <td><span class="label label-success">ON</span></td>
                         {% else %}
                             <td><span class="label label-danger">OFF</span></td>
                         {% endif %}
-                        <td>{{ cpu.name }}</td>
-                        <td>{{ cpu.id_by_create.username }} ({{ cpu.date_create|date:"d M Y" }})</td>
-                        <td>{{ cpu.baterry_cm }} %</td>
-                        <td>{{ cpu.memory }}</td>
-                        <td>{{ cpu.id_communication.name  }}</td>
-                        <td>{{ cpu.localization_cm }}</td>
+                        <td>{{ sm.name }}</td>
                         <td>
-
-                        {% for user in userAll %}
-
-                            {% if user.id_cm_id == cpu.id %}
-                                {{ user.id_user }};
+                        {% for s in sensor %}
+                            {% if s.id_sm.id == sm.id %}
+                                 <span class="badge bg-teal">{{s.id_sensor_type.name}}</span>  <br/>
                             {% endif %}
                         {% endfor %}
+                        
+                        </td>
+                        <td>{{ sm.seding_time }} min</td>
+                        <td>
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-info progress-bar-striped active" role="progressbar"
+                                     aria-valuenow="{{ sm.baterry_sm }}" aria-valuemin="0" aria-valuemax="100"
+                                     style="width:{{ sm.baterry_sm }}%"> {{ sm.baterry_sm }}%
+                                </div>
+                            </div>
+                        </td>
+                        <td>{{ sm.localization_sm }}</td>
+                        <td>
+
+                            {% for c in commPerSM %}
+                                {% if c.id_sm.id == sm.id %}
+                                    <span class="badge bg-black">{{c.id_communication_type.name }}</span>  <br/>
+                                {% endif %}
+
+                            {% endfor %}
                         </td>
                         <td><a type="button"  class="btn btn-block btn-info btn-xs" ><i class="fa fa-edit"></i></a></td>
-                        <td><a type="button" href="{% url 'deletecm' id_cpu=cpu.id %}" class="btn btn-block btn-danger btn-xs" ><i class="fa fa-trash"></i></a></td>
-                        <td><a type="button" href="{% url 'showdetails' id_cpu=cpu.id %}" class="btn btn-block btn-info btn-xs" ><i class="fa fa-info"></i></a></td>
+                        <td><a type="button" href="{% url 'deletesm' id_cm=id_cpu1 id_sm=sm.id  %}" class="btn btn-block btn-danger btn-xs" ><i class="fa fa-trash"></i></a></td>
+                        <td><a type="button" href="{% url 'viewSensors' id_cm=id_cpu1  id_sm=sm.id %}" class="btn btn-block btn-info btn-xs" ><i class="fa fa-bar-chart"></i></a></td>
 
                     </tr>
 
@@ -112,36 +90,11 @@
 
 </div>
 
-<br/>
-
 
 <button type="submit" class="btn btn-info pull-right" data-toggle="modal" data-target="#myModal">Add</button>
 
+
 </section>
-
-
-
-    <div id="edit-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-
-
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="myModalLabel">Deseja eliminar Controler CPU?</h4>
-                </div>
-
-                <a class="modal-body edit-content"></a>
-
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
 
 
 
@@ -153,7 +106,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Add new Controller model</h4>
+        <h4 class="modal-title">Add new sensor module to {{ titlesmall }}</h4>
       </div>
       <div class="modal-body">
 
@@ -167,10 +120,10 @@
             </div>
         </div>
         <div class="form-group">
-            <label for="inputEmail3" class="col-sm-3 control-label">Memory</label>
+            <label for="inputEmail3" class="col-sm-3 control-label">Seding time	</label>
 
             <div class="col-sm-9">
-                <input type="number" name="memory" class="form-control" id="inputEmail3" placeholder="Memory">
+                <input type="number" name="seding" class="form-control" id="inputEmail3" placeholder="Seding time">
             </div>
         </div>
         <div class="form-group">
@@ -187,34 +140,25 @@
         </div>
         <div class="form-group">
             <label for="inputEmail3" class="col-sm-3 control-label">Communication</label>
-
             <div class="col-sm-9">
-                <select class="form-control">
-                    {% for comm in communicationAll %}
-                        <option>{{ comm.name }}</option>
+                <select class="form-control select2" name="communication" multiple="multiple" data-placeholder="Select users" style="width: 100%;">
+                    {% for ct in commtype%}
+                        <option>{{ ct.name }}</option>
                     {% endfor %}
-
-                    <option>option 1</option>
-
                 </select>
-
-
             </div>
         </div>
 
         <div class="form-group">
-            <label for="inputEmail3" class="col-sm-3 control-label">Managers</label>
+            <label for="inputEmail3" class="col-sm-3 control-label">Sensor</label>
             <div class="col-sm-9">
-                <select class="form-control select2" name="managers" multiple="multiple" data-placeholder="Select a State" style="width: 100%;">
-                    {% for u in totaluser%}
-                        {% if u.username != user.username %}
-                            <option>{{ u.username }}</option>
-                        {% endif %}
+                <select class="form-control select2" name="sensors" multiple="multiple" data-placeholder="Select users" style="width: 100%;">
+                    {% for st in sensortype%}
+                        <option>{{ st.name }}</option>
                     {% endfor %}
                 </select>
             </div>
         </div>
-
 
         <!-- /.box-body -->
         <div class="box-footer">
@@ -229,7 +173,8 @@
   </div>
 </div>
 
-    <script>
+
+<script>
   $(function () {
     //Initialize Select2 Elements
     $(".select2").select2();
@@ -296,5 +241,6 @@
     });
   });
 </script>
+
 
 {% endblock %}

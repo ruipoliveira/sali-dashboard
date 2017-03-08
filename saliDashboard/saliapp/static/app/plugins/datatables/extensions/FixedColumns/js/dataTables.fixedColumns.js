@@ -605,7 +605,7 @@ FixedColumns.prototype = /** @lends FixedColumns.prototype */{
 				// Outer width is used to calculate the container
 				var iWidth = th.outerWidth();
 
-				// When working with the left most-cell, need to add on the
+				// When working with the left most-cell, need to view on the
 				// table's border to the outerWidth, since we need to take
 				// account of it, but it isn't in any cell
 				if ( that.s.aiOuterWidths.length === 0 ) {

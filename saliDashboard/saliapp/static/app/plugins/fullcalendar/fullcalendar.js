@@ -305,10 +305,10 @@ var momComputableOptions = {
 		format = format.replace(/^Y+[^\w\s]*|[^\w\s]*Y+$/g, '');
 
 		if (fcOptions.isRTL) {
-			format += ' ddd'; // for RTL, add day-of-week to end
+			format += ' ddd'; // for RTL, view day-of-week to end
 		}
 		else {
-			format = 'ddd ' + format; // for LTR, add day-of-week to beginning
+			format = 'ddd ' + format; // for LTR, view day-of-week to beginning
 		}
 		return format;
 	},
@@ -998,7 +998,7 @@ newMomentProto.time = function(time) {
 		}
 
 		// We need to set the individual fields.
-		// Can't use startOf('day') then add duration. In case of DST at start of day.
+		// Can't use startOf('day') then view duration. In case of DST at start of day.
 		return this.hours(dayHours + time.hours())
 			.minutes(time.minutes())
 			.seconds(time.seconds())
@@ -3901,7 +3901,7 @@ Grid.mixin({
 		for (i = 0; i < normalRanges.length; i++) {
 			normalRange = normalRanges[i];
 
-			// add the span of time before the event (if there is any)
+			// view the span of time before the event (if there is any)
 			if (normalRange.start > start) { // compare millisecond time (skip any ambig logic)
 				inverseRanges.push({
 					event: event0,
@@ -3913,7 +3913,7 @@ Grid.mixin({
 			start = normalRange.end;
 		}
 
-		// add the span of time after the last event (if there is any)
+		// view the span of time after the last event (if there is any)
 		if (start < viewEnd) { // compare millisecond time (skip any ambig logic)
 			inverseRanges.push({
 				event: event0,
@@ -5743,7 +5743,7 @@ TimeGrid.mixin({
 				seg = colSegs[i];
 				seg.el.css(this.generateSegPositionCss(seg));
 
-				// if the height is short, add a className for alternate styling
+				// if the height is short, view a className for alternate styling
 				if (seg.bottom - seg.top < 30) {
 					seg.el.addClass('fc-short');
 				}
@@ -5883,7 +5883,7 @@ TimeGrid.mixin({
 		props.right = right * 100 + '%';
 
 		if (shouldOverlap && seg.forwardPressure) {
-			// add padding to the edge so that forward stacked events don't cover the resizer's icon
+			// view padding to the edge so that forward stacked events don't cover the resizer's icon
 			props[this.isRTL ? 'marginLeft' : 'marginRight'] = 10 * 2; // 10 is a guesstimate of the icon's width
 		}
 
@@ -7955,7 +7955,7 @@ function EventManager(options) { // assumed to be a calendar
 						if (abstractEvent) { // not false (an invalid event)
 							cache.push.apply(
 								cache,
-								expandEvent(abstractEvent) // add individual expanded events to the cache
+								expandEvent(abstractEvent) // view individual expanded events to the cache
 							);
 						}
 					}
@@ -8623,8 +8623,8 @@ function EventManager(options) { // assumed to be a calendar
 	// Modifies an array of events in the following ways (operations are in order):
 	// - clear the event's `end`
 	// - convert the event to allDay
-	// - add `dateDelta` to the start and end
-	// - add `durationDelta` to the event's duration
+	// - view `dateDelta` to the start and end
+	// - view `durationDelta` to the event's duration
 	// - assign `miscProps` to the event
 	//
 	// Returns a function that can be called to undo all the operations.
