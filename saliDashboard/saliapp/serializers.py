@@ -1,27 +1,24 @@
-"""
-from .models import Sensor
-from .models import SensorMeasurements
-from .models import Measure
+
+from .models import *
 
 from rest_framework import serializers
 
 
+
+class ControllerModuleSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = ControllerModule
+        fields = ('id', 'name')
+
+
+class SensorModuleSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = SensorModule
+        fields = ('id', 'name')
+
+
 class SensorSerializer(serializers.HyperlinkedModelSerializer):
+    id_sm = SensorModuleSerializer()
     class Meta:
         model = Sensor
-        fields = ('id', 'name', 'coordination', 'temperature', 'salinity')
-
-
-class SensorMeasurementsSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = SensorMeasurements
-        fields = ('id', 'sensor', 'measure', 'day')
-        #fields = '__all__'
-
-
-class MeasureSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = Measure
-        #fields = '__all__'
-        fields = ('id', 'name', 'members')
-"""
+        fields = ('id', 'id_sm')

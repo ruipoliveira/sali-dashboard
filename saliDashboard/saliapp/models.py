@@ -111,6 +111,7 @@ class Reading(models.Model):
 
 class Alarms(models.Model):
     id_reading = models.ForeignKey(Reading, on_delete=models.CASCADE)
+    check = models.BooleanField(default=False)
 
     def __str__(self):
         return "Ocorreu alarme : " + str(self.id_reading)

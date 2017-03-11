@@ -22,43 +22,27 @@ from statistics import mean
 from saliapp.forms import *
 from .models import *
 
-"""
-from rest_framework.views import APIView
+
+from rest_framework import viewsets
 from rest_framework.response import Response
 
-
-from .models import Sensor, Measure, SensorMeasurements
-from .serializers import SensorSerializer, MeasureSerializer, SensorMeasurementsSerializer
+from .serializers import *
 
 
-class SensorViewSet(APIView):
-    def get(self, request):
-        queryset = Sensor.objects.all()
-        serializer = SensorSerializer(queryset, many=True)
-        return Response(serializer.data)
-
-    def post(self):
-        pass
+class ControllerModuleViewSet(viewsets.ModelViewSet):
+    queryset = ControllerModule.objects.all()
+    serializer_class = ControllerModuleSerializer
 
 
-class MeasureViewSet(APIView):
-    def get(self, request):
-        queryset = Measure.objects.all()
-        serializer = MeasureSerializer(queryset, many=True)
-        return Response(serializer.data)
+class SensorModuleViewSet(viewsets.ModelViewSet):
+    queryset = SensorModule.objects.all()
+    serializer_class = SensorModuleSerializer
 
-    def post(self):
-        pass
 
-class SensorMeasurementsViewSet(APIView):
-    def get(self, request):
-        queryset = SensorMeasurements.objects.all()
-        serializer = SensorMeasurementsSerializer(queryset, many=True)
-        return Response(serializer.data)
+class SensorViewSet(viewsets.ModelViewSet):
+    queryset = Sensor.objects.all()
+    serializer_class = SensorSerializer
 
-    def post(self):
-        pass
-"""
 
 
 # django_list = list(User.objects.all())
@@ -161,6 +145,7 @@ def home(request):
          'allControllerM': ControllerModule.objects.all(),
          'allSensorM': SensorModule.objects.all(),
          'smpercm': SMPerCM.objects.all(),
+         'allSensor': Sensor.objects.all(),
          'userregistrations': User.objects.all().count(),
          'SMregistrations': SensorModule.objects.all().count(),
          'CMregistrations': ControllerModule.objects.all().count(),

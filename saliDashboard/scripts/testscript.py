@@ -17,4 +17,4 @@ def run():
             red.save()
 
         print "I am a script"
-        time.sleep(60*3)
+        time.sleep(60)

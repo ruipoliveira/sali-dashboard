@@ -42,11 +42,13 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'saliapp',
     'rest_framework',
+    'rest_framework_swagger',
     'django_gravatar',
     'chartit',
     'graphos',
     'leaflet',
-    'django_extensions'
+    'django_extensions',
+
 
 )
 
@@ -81,6 +83,16 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'saliDashboard.wsgi.application'
+
+
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ]
+}
+
 
 
 # Database

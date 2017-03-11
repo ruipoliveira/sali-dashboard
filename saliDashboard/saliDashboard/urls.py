@@ -9,19 +9,36 @@ import django.contrib.auth.views
 from django.contrib import admin
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.decorators import login_required
+from rest_framework_swagger.views import get_swagger_view
 
 from saliapp.views import *
 from django.contrib.auth.views import login
 
-from django.conf.urls import url
+from django.conf.urls import url, include
 from django.contrib import admin
 from rest_framework.urlpatterns import format_suffix_patterns
 from saliapp import views
+from rest_framework import routers
 
 login_forbidden = user_passes_test(lambda u: u.is_anonymous(), 'home')
 
 
+router = routers.DefaultRouter()
+router.register(r'cm', views.ControllerModuleViewSet)
+router.register(r'sm', views.SensorModuleViewSet)
+router.register(r'sensor', views.SensorViewSet)
+
+
+schema_view = get_swagger_view(title='Pastebin API')
+
+
 urlpatterns = [
+
+    url(r'^api/', include(router.urls)),
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    url(r'^doc/$', schema_view),
+
+
     url(r'^$', login_forbidden(login), name="login"),
     url(r'^home/$', home, name='home'),
 
@@ -73,9 +90,11 @@ urlpatterns = [
 #    url(r'^medicoes/', views.MeasureViewSet.as_view()),
 #    url(r'^tudo/', views.SensorMeasurementsViewSet.as_view()),
 
+
+
 ]
 
-urlpatterns = format_suffix_patterns(urlpatterns)
+#urlpatterns = format_suffix_patterns(urlpatterns)
 handler404 = 'views.handler404'
 handler500 = 'views.handler500'
 

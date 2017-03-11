@@ -52,10 +52,13 @@
                         <td>
                         {% for s in sensor %}
                             {% if s.id_sm.id == sm.id %}
-                                 <span class="badge bg-teal">{{s.id_sensor_type.name}}</span>  <br/>
+                                 <span class="badge bg-teal" class="tooltip" >{{s.id_sensor_type.name}}</span> <a href="www.ua.pt"> edit</a> <br/>
                             {% endif %}
                         {% endfor %}
-                        
+
+                        <a href="#" data-toggle="tooltip" data-placement="top" title="Max:12.0 Min:10.0 !" >Top</a>
+
+
                         </td>
                         <td>{{ sm.seding_time }} min</td>
                         <td>
@@ -240,6 +243,11 @@
       showInputs: false
     });
   });
+
+
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();
+});
 </script>
 
 
