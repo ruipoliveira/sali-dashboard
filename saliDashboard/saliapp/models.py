@@ -71,6 +71,7 @@ class SensorType(models.Model):
     name = models.CharField(max_length=128)
     scale_value = models.CharField(max_length=10)
     image_path = models.CharField(max_length=128)
+    color = models.CharField(max_length=100)
 
     def __str__(self):
         return str(self.id) + str(self.name)
@@ -111,7 +112,8 @@ class Reading(models.Model):
 
 class Alarms(models.Model):
     id_reading = models.ForeignKey(Reading, on_delete=models.CASCADE)
-    check = models.BooleanField(default=False)
+    checked = models.BooleanField(default=False)
+    max_or_min = models.BooleanField(default=False)
 
     def __str__(self):
         return "Ocorreu alarme : " + str(self.id_reading)

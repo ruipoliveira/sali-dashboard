@@ -81,18 +81,13 @@
           <div class="nav-tabs-custom">
             <ul class="nav nav-tabs pull-right">
               <li class="active"><a href="#tab_1-1" data-toggle="tab">Alarms</a></li>
-              <li><a href="#tab_2-2" data-toggle="tab">Temperature</a></li>
-              <li><a href="#tab_3-2" data-toggle="tab">Salinity</a></li>
-              <li class="dropdown">
 
-                <ul class="dropdown-menu">
-                  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Action</a></li>
-                  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Another action</a></li>
-                  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Something else here</a></li>
-                  <li role="presentation" class="divider"></li>
-                  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Separated link</a></li>
-                </ul>
-              </li>
+                {% for x in  smpercm %}
+                    {% if x.id_cm.id == cm.id %}
+                        <li><a href="#tab_3-{{ forloop.counter }}" data-toggle="tab">{{ x.id_sm.name }}</a></li>
+                    {% endif %}
+                {% endfor %}
+
               <li class="pull-left header">Evolution</li>
             </ul>
             <div class="tab-content">
@@ -103,41 +98,111 @@
             <div class="box-body">
               <ul class="todo-list">
 
+            {% for x in  smpercm %}
+            {% if x.id_cm.id == cm.id %}
 
 
-                <li>
-                  <!-- drag handle -->
-                      <span>
+
+                {% for alarms in allAlarms %}
+                    {% if alarms.id_reading.id_sensor.id_sm.id == x.id_sm.id %}
+
+                        <li>
+                        <!-- drag handle -->
+                        <span>
                         <i class="fa fa-ellipsis-v"></i>
                         <i class="fa fa-ellipsis-v"></i>
-                      </span>
-                  <!-- todo text -->
-                  <span class="text">Design a nice theme</span>
-                  <!-- Emphasis label -->
-                  <small class="label label-danger"><i class="fa fa-clock-o"></i> 2 mins</small>
-                  <!-- General tools such as edit or delete-->
-                  <div class="tools">
-                    <!--<i class="fa fa-edit"></i>-->
-                    <a href="www.ua.pt" class="fa fa-trash-o"></a>
-                  </div>
-                </li>
+                        </span>
+                        <span class="text">
+                            {% if alarms.max_or_min == 1 %}
+                                <i class="fa fa-arrow-up" style="color:green"></i>
+                            {% else %}
+                                <i class="fa fa-arrow-down" style="color:red"></i>
+                            {% endif %}
+
+                        </span>
+
+                        <!-- todo text -->
+                        <span class="text">{{ alarms.id_reading.id_sensor.id_sensor_type.name }} / {{ alarms.id_reading.id_sensor.id_sm.name }}</span>
+                        <!-- Emphasis label -->
+                        <small class="label label-danger"><i class="fa fa-clock-o"></i> {{ alarms.id_reading.date_time }}</small>
+                        <!-- General tools such as edit or delete-->
+                        <div class="tools">
+                        <!--<i class="fa fa-edit"></i>-->
+                        <a href="www.ua.pt" class="fa fa-trash-o"></a>
+                        </div>
+                        </li>
+
+
+
+
+                    {% endif %}
+
+                {% endfor %}
+
+
+
+
+            {% endif %}
+            {% endfor %}
+
 
               </ul>
             </div>
 
-
-
-
-
               </div>
               <!-- /.tab-pane -->
-              <div class="tab-pane" id="tab_2-2">
 
-              </div>
-              <!-- /.tab-pane -->
-              <div class="tab-pane" id="tab_3-2">
 
-              </div>
+                {% for x in  smpercm %}
+                {% if x.id_cm.id == cm.id %}
+
+                    <div class="tab-pane" id="tab_3-{{ forloop.counter }}">
+
+                        {% for s in allSensor %}
+                            {% if s.id_sm.id == x.id_sm.id %}
+                            {% for r in allReadings %}
+                            {% if r.id_sensor.id == s.id %}
+
+
+                                <div class="info-box {{ s.id_sensor_type.color }}">
+                                <span class="info-box-icon"><img width="50%"  src="/static/resources/typesensor/{{ s.id_sensor_type.image_path }}"></span>
+
+                                <div class="info-box-content">
+                                <span class="info-box-text">{{ s.id_sensor_type.name }}</span>
+
+                                <span class="info-box-number">{{ r.value }} {{ s.id_sensor_type.scale_value }}</span>
+
+                                <div class="progress">
+                                <div class="progress-bar" style="width: 100%"></div>
+                                </div>
+                                <span class="progress-description">
+                                Last value in {{ r.date_time }}
+                                </span>
+                                </div>
+
+
+                                <!-- /.info-box-content -->
+                                </div>
+
+
+                      {% endif %}
+                                {% endfor %}
+
+
+
+
+
+                            {% endif %}
+                        {% endfor %}
+
+
+                    </div>
+
+                {% endif %}
+                {% endfor %}
+
+
+
               <!-- /.tab-pane -->
             </div>
             <!-- /.tab-content -->

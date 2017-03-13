@@ -32,7 +32,7 @@
             {% for sensor in sensorAll %}
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="info-box">
-                        <span class="info-box-icon bg-aqua"> <img width="50%"  src="/static/resources/typesensor/{{ sensor.image_path }}"></span>
+                        <span class="info-box-icon {{ sensor.color }}"> <img width="50%"  src="/static/resources/typesensor/{{ sensor.image_path }}"></span>
                         <div class="info-box-content">
                             <span class="info-box-text">{{ sensor.name }}</span>
                             

@@ -137,6 +137,30 @@ def add_sensor(request):
 
 @login_required
 def home(request):
+
+
+    all_id_sensor = Reading.objects.all().values_list('id_sensor', flat=True)
+
+    out_list = []
+    for val in all_id_sensor:
+        if not val in out_list:
+            out_list.append(val)
+
+
+
+    print out_list
+
+
+    cenas = []
+    for i in out_list:
+       cenas.append(Reading.objects.filter(id_sensor=i).order_by('-date_time')[0])
+
+
+    #Model.objects.
+
+    print cenas
+
+
     return render_to_response(
         'home.html',
         {'user': request.user,
@@ -149,7 +173,9 @@ def home(request):
          'userregistrations': User.objects.all().count(),
          'SMregistrations': SensorModule.objects.all().count(),
          'CMregistrations': ControllerModule.objects.all().count(),
-         'totalReadings': Reading.objects.all().count()
+         'totalReadings': Reading.objects.all().count(),
+         'allReadings': cenas,
+         'allAlarms': Alarms.objects.all()
          # 'obj': CPU.objects.all()
          })
 

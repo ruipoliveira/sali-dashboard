@@ -11,7 +11,7 @@ def run():
 
         for i in Sensor.objects.all():
             red = Reading(id_sensor=i,
-                          value=(randint(0, 100)),
+                          value=(randint(4, 15)),
                           date_time=now)
 
             red.save()
