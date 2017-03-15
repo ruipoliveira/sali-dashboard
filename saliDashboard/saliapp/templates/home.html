@@ -80,7 +80,7 @@
 
           <div class="nav-tabs-custom">
             <ul class="nav nav-tabs pull-right">
-              <li class="active"><a href="#tab_1-1" data-toggle="tab">Alarms</a></li>
+              <li class="active"><a href="#tab_1-1" data-toggle="tab"><i class="fa fa-exclamation-triangle" style="color:red"> </i>Alarms</a></li>
 
                 {% for x in  smpercm %}
                     {% if x.id_cm.id == cm.id %}
@@ -88,7 +88,7 @@
                     {% endif %}
                 {% endfor %}
 
-              <li class="pull-left header">Evolution</li>
+              <li class="pull-left header"> {{ cm.name }}</li>
             </ul>
             <div class="tab-content">
               <div class="tab-pane active" id="tab_1-1">
@@ -104,7 +104,7 @@
 
 
                 {% for alarms in allAlarms %}
-                    {% if alarms.id_reading.id_sensor.id_sm.id == x.id_sm.id %}
+                    {% if alarms.id_reading.id_sensor.id_sm.id == x.id_sm.id  and alarms.checked == False %}
 
                         <li>
                         <!-- drag handle -->
@@ -122,18 +122,17 @@
                         </span>
 
                         <!-- todo text -->
-                        <span class="text">{{ alarms.id_reading.id_sensor.id_sensor_type.name }} / {{ alarms.id_reading.id_sensor.id_sm.name }}</span>
+                        <span class="text">Sensor {{ alarms.id_reading.id_sensor.id_sensor_type.name }} in {{ alarms.id_reading.id_sensor.id_sm.name }}</span>
                         <!-- Emphasis label -->
                         <small class="label label-danger"><i class="fa fa-clock-o"></i> {{ alarms.id_reading.date_time }}</small>
                         <!-- General tools such as edit or delete-->
                         <div class="tools">
                         <!--<i class="fa fa-edit"></i>-->
-                        <a href="www.ua.pt" class="fa fa-trash-o"></a>
+                        <a data-toggle="tooltip" data-placement="top" title="Value: {{ alarms.id_reading.value }}" class="fa fa-eye"></a>
+                        <a data-toggle="tooltip" data-placement="top" title="Max:{{ alarms.id_reading.id_sensor.id_sensor_type.name }} Min:10.0 " class="fa fa-info-circle"></a>
+                        <a data-toggle="tooltip" data-placement="top" title="Verificado" href="{% url 'deleteallarm' id_allarm=alarms.id %}" class="fa fa-check"></a>
                         </div>
                         </li>
-
-
-
 
                     {% endif %}
 
@@ -163,19 +162,19 @@
                             {% for r in allReadings %}
                             {% if r.id_sensor.id == s.id %}
 
-
-                                <div class="info-box {{ s.id_sensor_type.color }}">
+                                <div align="center" >
+                                <div style="width: 85%;"  class="info-box {{ s.id_sensor_type.color }}">
                                 <span class="info-box-icon"><img width="50%"  src="/static/resources/typesensor/{{ s.id_sensor_type.image_path }}"></span>
 
                                 <div class="info-box-content">
-                                <span class="info-box-text">{{ s.id_sensor_type.name }}</span>
+                                <span class="info-box-text" align="left">{{ s.id_sensor_type.name }}</span>
 
-                                <span class="info-box-number">{{ r.value }} {{ s.id_sensor_type.scale_value }}</span>
+                                <span class="info-box-number" align="left">{{ r.value }} {{ s.id_sensor_type.scale_value }}</span>
 
                                 <div class="progress">
                                 <div class="progress-bar" style="width: 100%"></div>
                                 </div>
-                                <span class="progress-description">
+                                <span align="left" class="progress-description">
                                 Last value in {{ r.date_time }}
                                 </span>
                                 </div>
@@ -183,7 +182,7 @@
 
                                 <!-- /.info-box-content -->
                                 </div>
-
+                                </div>
 
                       {% endif %}
                                 {% endfor %}
@@ -221,7 +220,7 @@
         <div class="col-md-6">
     <div class="box box-default">
         <div class="box-header with-border">
-        <h3 class="box-title">Localization {{ cm.name }}</h3>
+        <h3 class="box-title"><i class="fa fa-map-marker" ></i>Localization </h3>
         <div class="box-tools pull-right">
         <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
         <!--<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button> -->
@@ -290,7 +289,7 @@
         {% for fa in smpercm %}
             {% if fa.id_cm.id == foo.id %}
                 var marker = L.marker([{{ fa.id_sm.localization_sm }}]).addTo(map);
-                marker.bindPopup("<b>{{ fa.id_sm.name }}</b><br><a href=\"/devices/cm/{{ foo.id }}/sm/{{ fa.id_sm.id }}\">+info</a>");
+                marker.bindPopup("<b>{{ fa.id_sm.name }}</b><br><a href=\"/devices/cm/{{ foo.id }}/sm/{{ fa.id_sm.id }}\">show values</a>");
 
             {% endif %}
         {% endfor %}

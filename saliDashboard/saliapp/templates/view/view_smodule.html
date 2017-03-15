@@ -52,11 +52,17 @@
                         <td>
                         {% for s in sensor %}
                             {% if s.id_sm.id == sm.id %}
-                                 <span class="badge bg-teal" class="tooltip" >{{s.id_sensor_type.name}}</span> <a href="www.ua.pt"> edit</a> <br/>
+                                <span class="badge bg-teal" class="tooltip" >{{s.id_sensor_type.name}}</span>
+
+                                {% for max_min in allAllarms %}
+                                    {% if max_min.id_sensor.id == s.id %}
+                                        <a ata-toggle="tooltip" data-placement="top" title="Min: {{ max_min.min }} Max: {{ max_min.max }}" >
+                                            <i class="fa fa-info-circle"></i></i>
+                                        </a> <br/>
+                                    {% endif %}
+                                {% endfor %}
                             {% endif %}
                         {% endfor %}
-
-                        <a href="#" data-toggle="tooltip" data-placement="top" title="Max:12.0 Min:10.0 !" >Top</a>
 
 
                         </td>
@@ -144,7 +150,7 @@
         <div class="form-group">
             <label for="inputEmail3" class="col-sm-3 control-label">Communication</label>
             <div class="col-sm-9">
-                <select class="form-control select2" name="communication" multiple="multiple" data-placeholder="Select users" style="width: 100%;">
+                <select class="form-control select2" name="communication" multiple="multiple" data-placeholder="Select all communication type" style="width: 100%;">
                     {% for ct in commtype%}
                         <option>{{ ct.name }}</option>
                     {% endfor %}
@@ -152,16 +158,118 @@
             </div>
         </div>
 
+    <input style="visibility: hidden; height: 1px" id = "nritems" name="nritems" value="" />
+
+        <hr>
         <div class="form-group">
-            <label for="inputEmail3" class="col-sm-3 control-label">Sensor</label>
+            <label for="inputEmail3" class="col-sm-3 control-label">Sensor type</label>
             <div class="col-sm-9">
-                <select class="form-control select2" name="sensors" multiple="multiple" data-placeholder="Select users" style="width: 100%;">
+                <select  class="form-control" name="sensors" data-placeholder="Select users" style="width: 100%;">
                     {% for st in sensortype%}
-                        <option>{{ st.name }}</option>
+                        <option value={{ st.id }}>{{ st.name }}</option>
                     {% endfor %}
                 </select>
+
             </div>
+<br/> <br/>
+            <label for="inputEmail3" class="col-sm-3 control-label">Max value</label>
+            <div class="col-sm-9">
+                <input type="number" name="max" class="form-control" id="inputEmail3" placeholder="Max">
+            </div>
+            <br/> <br/>
+
+            <label for="inputEmail3" class="col-sm-3 control-label">Max msg</label>
+            <div class="col-sm-9">
+                <input type="text" name="max_msg" class="form-control" placeholder="Message after max">
+            </div>
+            <br/> <br/>
+
+            <label for="inputEmail3" class="col-sm-3 control-label">Min</label>
+
+            <div class="col-sm-9">
+                <input type="number" name="min" class="form-control" id="inputEmail3" placeholder="Min">
+            </div>
+
+            <br/> <br/>
+            <label for="inputEmail3" class="col-sm-3 control-label">Min msg</label>
+            <div class="col-sm-9">
+                <input type="text" name="min_msg" class="form-control" placeholder="Message after min">
+            </div>
+            <br/> <br/>
+
+
         </div>
+
+
+
+
+<div class="hidden">
+  <div class="example-template">
+<div class="form-group">
+            <label for="inputEmail3" class="col-sm-3 control-label">Sensor type</label>
+            <div class="col-sm-9">
+                <select class="form-control" name="sensors" data-placeholder="Select users" style="width: 100%;">
+                    {% for st in sensortype%}
+                        <option value={{ st.id }}>{{ st.name }}</option>
+                    {% endfor %}
+                </select>
+
+            </div>
+            <br/> <br/>
+
+        <!-- show after select one sensor-->
+
+            <label for="inputEmail3" class="col-sm-3 control-label">Max</label>
+            <div class="col-sm-9">
+                <input type="number"  name="max" class="form-control" id="inputEmail3" placeholder="Max">
+            </div>
+            <br/> <br/>
+
+            <label for="inputEmail3" class="col-sm-3 control-label">Max msg</label>
+            <div class="col-sm-9">
+                <input type="text" name="max_msg" class="form-control" placeholder="Message after max">
+            </div>
+            <br/> <br/>
+
+            <label for="inputEmail3" class="col-sm-3 control-label">Min</label>
+
+            <div class="col-sm-9">
+                <input type="number"   name="min" class="form-control" id="inputEmail3" placeholder="Min">
+            </div>
+
+            <br/> <br/>
+            <label for="inputEmail3" class="col-sm-3 control-label">Min msg</label>
+            <div class="col-sm-9">
+                <input type="text" name="min_msg" class="form-control" placeholder="Message after min">
+            </div>
+            <br/> <br/>
+
+
+        </div>
+    <div class="btn-group" align="right" >
+
+
+        <button type="button" class="btn btn-default add"><i class="fa fa-plus"></i></button>
+        <button type="button" class="btn btn-default del"><i class="fa fa-minus"></i></button>
+        <br/>
+    </div>
+
+    <hr>
+
+    </div>
+</div>
+
+<div class="edit-area" align="right">
+
+  <div class="btn-group">
+    <button type="button" class="btn btn-default add"><i class="fa fa-plus"></i></button>
+<br/>
+
+  </div>
+    <hr>
+</div>
+
+
 
         <!-- /.box-body -->
         <div class="box-footer">
@@ -245,10 +353,35 @@
   });
 
 
-$(document).ready(function(){
-    $('[data-toggle="tooltip"]').tooltip();
-});
-</script>
+  (function($) {
+  "use strict";
 
+  var itemTemplate = $('.example-template').detach(),
+      editArea = $('.edit-area'),
+      itemNumber = 1;
+
+  document.getElementById('nritems').value = itemNumber;
+
+  $(document).on('click', '.edit-area .add', function(event) {
+    var item = itemTemplate.clone();
+    item.find('[name]').attr('name', function() {
+      return $(this).attr('name') + '_' + itemNumber;
+    });
+    ++itemNumber;
+    document.getElementById('nritems').value = itemNumber;
+    item.appendTo(editArea);
+  });
+
+  $(document).on('click', '.edit-area .del', function(event) {
+    --itemNumber;
+    document.getElementById('nritems').value = itemNumber;
+    var target = $(event.target),
+        row = target.closest('.example-template');
+    row.remove();
+  });
+}(jQuery));
+
+
+</script>
 
 {% endblock %}

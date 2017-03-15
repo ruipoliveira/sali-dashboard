@@ -18,10 +18,8 @@ from django.views import View
 from django.views.decorators.csrf import csrf_protect, csrf_exempt
 from statistics import mean
 
-
 from saliapp.forms import *
 from .models import *
-
 
 from rest_framework import viewsets
 from rest_framework.response import Response
@@ -42,7 +40,6 @@ class SensorModuleViewSet(viewsets.ModelViewSet):
 class SensorViewSet(viewsets.ModelViewSet):
     queryset = Sensor.objects.all()
     serializer_class = SensorSerializer
-
 
 
 # django_list = list(User.objects.all())
@@ -120,7 +117,7 @@ def logout_page(request):
 @login_required
 def add_module(request):
     return render_to_response(
-        'view/viewmodule.html', {
+        'view/view_smodule.html', {
             'user': request.user,
             'title': 'Contact'
         })
@@ -129,7 +126,7 @@ def add_module(request):
 @login_required
 def add_sensor(request):
     return render_to_response(
-        'view/viewsensor.html', {
+        'view/view_sensor.html', {
             'user': request.user,
             'title': 'Contact'
         })
@@ -137,8 +134,6 @@ def add_sensor(request):
 
 @login_required
 def home(request):
-
-
     all_id_sensor = Reading.objects.all().values_list('id_sensor', flat=True)
 
     out_list = []
@@ -146,20 +141,15 @@ def home(request):
         if not val in out_list:
             out_list.append(val)
 
-
-
     print out_list
-
 
     cenas = []
     for i in out_list:
-       cenas.append(Reading.objects.filter(id_sensor=i).order_by('-date_time')[0])
+        cenas.append(Reading.objects.filter(id_sensor=i).order_by('-date_time')[0])
 
-
-    #Model.objects.
+    # Model.objects.
 
     print cenas
-
 
     return render_to_response(
         'home.html',
@@ -204,6 +194,15 @@ def deletecm(request, id_cpu):
     return redirect('addcpu')
 
 
+@login_required
+def checkedAllarms(request, id_allarm):
+    d = Alarms.objects.get(id=id_allarm)
+    d.checked = True
+    d.save()
+
+    return redirect('home')
+
+
 @csrf_exempt
 def addSensorModule(request, id_cm):
     print "yooobrooo"
@@ -238,9 +237,9 @@ def foo(request):
         usern = request.POST.get('username', '')
         print (usern)
 
-        return redirect('view/addcpu.html')
+        return redirect('view/view_cmodule.html')
     else:
-        return render_to_response('view/addcpu.html', context_instance=RequestContext(request))
+        return render_to_response('view/view_cmodule.html', context_instance=RequestContext(request))
 
 
 # class Coisas(View):
@@ -341,8 +340,7 @@ class SensorValues(View):
                 print final
             k0 += 1
 
-
-        #calculate statistic
+        # calculate statistic
 
 
         maxValue = []
@@ -351,20 +349,17 @@ class SensorValues(View):
         nrmeasure = []
 
         for i in final:
-            if len(i) >0:
+            if len(i) > 0:
                 withoutnull = [x for x in i if isinstance(x, float)]
-                #print withoutnull
-                if len(withoutnull) !=0:
+                # print withoutnull
+                if len(withoutnull) != 0:
                     nrmeasure.append(len(withoutnull))
                     maxValue.append("{0:.3f}".format(max(withoutnull)))
                     minValue.append("{0:.3f}".format(min(withoutnull)))
                     avg.append("{0:.3f}".format(mean(withoutnull)))
 
-
-
-
         return render(request,
-                      'view/viewsensor.html', {
+                      'view/view_sensor.html', {
                           'user': request.user,
                           'title': 'Data visualization',
                           'titlesmall': SensorModule.objects.get(
@@ -412,13 +407,14 @@ class ShowSensorModule(View):
         print y1
 
         return render(request,
-                      'view/viewmodule.html',
+                      'view/view_smodule.html',
                       {'user': request.user,
                        'title': 'Sensor modules',
                        'titlesmall': ControllerModule.objects.get(id=id_cpu).name,
                        'id_cpu1': id_cpu,
                        'allSM': y,
                        'comm': y1,
+                       'allAllarms': AlarmsSettings.objects.all(),
                        'sensor': Sensor.objects.all(),
                        'sensortype': SensorType.objects.all(),
                        'commtype': CommunicationType.objects.all(),
@@ -451,10 +447,34 @@ class ShowSensorModule(View):
                                                id_communication_type=CommunicationType.objects.get(name=comm))
             commPerSM.save()
 
-        for sensor in request.POST.getlist("sensors"):
-            print sensor
-            sensor = Sensor(id_sm=sm, id_sensor_type=SensorType.objects.get(name=sensor))
-            sensor.save()
+
+        nrItemsSensor = request.POST["nritems"]
+
+        sensor_req = Sensor(id_sm=sm, id_sensor_type=SensorType.objects.get(id=request.POST["sensors"]))
+        sensor_req.save()
+
+        sensor_allarms_req = AlarmsSettings(id_sensor=sensor_req,
+                                            max=request.POST["max"],
+                                            msgMax=request.POST["max_msg"],
+                                            min=request.POST["min"],
+                                            msgMin=request.POST["min_msg"])
+
+        sensor_allarms_req.save()
+
+        if int(nrItemsSensor) > 1:
+            for i in range(1, int(nrItemsSensor)):
+                sensor_req = Sensor(id_sm=sm, id_sensor_type=SensorType.objects.get(id=request.POST["sensors_"+str(i)]))
+                sensor_req.save()
+
+                sensor_allarms_req = AlarmsSettings(id_sensor=sensor_req,
+                                                    max=request.POST["max_"+str(i)],
+                                                    msgMax=request.POST["max_msg_"+str(i)],
+                                                    min=request.POST["min_"+str(i)],
+                                                    msgMin=request.POST["min_msg_"+str(i)])
+
+                sensor_allarms_req.save()
+
+
 
         return redirect('showdetails', id_cm=self.kwargs['id_cm'])
 
@@ -479,7 +499,7 @@ class ShowDevices(View):
         form = PostForm()
 
         return render(request,
-                      'view/addcpu.html', {
+                      'view/view_cmodule.html', {
                           'user': request.user,
                           'title': 'Controller module',
                           'titlesmall': 'All devices',
@@ -530,10 +550,13 @@ class TypeSensor(View):
                       })
 
     def post(self, request, shortcode=None, *args, **kwargs):
+        print request.POST['color']
+
         st = SensorType(name=request.POST["name"],
                         scale_value=request.POST["scale"],
-                        image_path=request.POST["path"])
-        messages.success(request, str(ct.name) + ' adicionado com sucesso!')
+                        image_path=request.POST["path"],
+                        color="bg-" + request.POST['color'])
+        messages.success(request, str(st.name) + ' adicionado com sucesso!')
         st.save()
 
         return redirect('typesensor')

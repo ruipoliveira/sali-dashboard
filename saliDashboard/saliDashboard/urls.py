@@ -82,6 +82,10 @@ urlpatterns = [
     url(r'^deletesensor/(?P<id_sensor>[-\w]+)/$', views.deletesensor, name="deletesensor"),
 
 
+
+    url(r'^deleteallarm/(?P<id_allarm>[-\w]+)/$', views.checkedAllarms, name="deleteallarm"),
+
+
     #url(r'^post1/$', views.post1, name="post1"),
 
     #API
