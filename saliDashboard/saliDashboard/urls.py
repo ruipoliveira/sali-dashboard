@@ -2,34 +2,26 @@
 Definition of urls for DjangoSalicornia.
 """
 
-from datetime import datetime
-
-import django.contrib.auth.views
-
-from django.contrib import admin
-from django.contrib.auth.decorators import user_passes_test
-from django.contrib.auth.decorators import login_required
-from rest_framework_swagger.views import get_swagger_view
-
-from saliapp.views import *
-from django.contrib.auth.views import login
-
 from django.conf.urls import url, include
 from django.contrib import admin
-from rest_framework.urlpatterns import format_suffix_patterns
-from saliapp import views
+from django.contrib.auth.decorators import user_passes_test
+from django.contrib.auth.views import login
 from rest_framework import routers
+from rest_framework_swagger.views import get_swagger_view
+
+from saliapp import views
+from saliapp.views import *
 
 login_forbidden = user_passes_test(lambda u: u.is_anonymous(), 'home')
-
 
 router = routers.DefaultRouter()
 router.register(r'cm', views.ControllerModuleViewSet)
 router.register(r'sm', views.SensorModuleViewSet)
 router.register(r'sensor', views.SensorViewSet)
+router.register(r'comm', views.CommunicationViewSet)
+router.register(r'user', views.UserViewSet)
 
-
-schema_view = get_swagger_view(title='Pastebin API')
+schema_view = get_swagger_view(title='API documentation')
 
 
 urlpatterns = [
@@ -80,8 +72,6 @@ urlpatterns = [
     url(r'^deletesm/cm/(?P<id_cm>[-\w]+)/sm/(?P<id_sm>[-\w]+)$', views.deletesm, name="deletesm"),
 
     url(r'^deletesensor/(?P<id_sensor>[-\w]+)/$', views.deletesensor, name="deletesensor"),
-
-
 
     url(r'^deleteallarm/(?P<id_allarm>[-\w]+)/$', views.checkedAllarms, name="deleteallarm"),
 

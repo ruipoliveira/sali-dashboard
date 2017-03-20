@@ -19,27 +19,7 @@ from django.views.decorators.csrf import csrf_protect, csrf_exempt
 from statistics import mean
 
 from saliapp.forms import *
-from .models import *
-
-from rest_framework import viewsets
-from rest_framework.response import Response
-
-from .serializers import *
-
-
-class ControllerModuleViewSet(viewsets.ModelViewSet):
-    queryset = ControllerModule.objects.all()
-    serializer_class = ControllerModuleSerializer
-
-
-class SensorModuleViewSet(viewsets.ModelViewSet):
-    queryset = SensorModule.objects.all()
-    serializer_class = SensorModuleSerializer
-
-
-class SensorViewSet(viewsets.ModelViewSet):
-    queryset = Sensor.objects.all()
-    serializer_class = SensorSerializer
+from .apiViews import *
 
 
 # django_list = list(User.objects.all())

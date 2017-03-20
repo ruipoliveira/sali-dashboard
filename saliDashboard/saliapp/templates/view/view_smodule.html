@@ -150,9 +150,9 @@
         <div class="form-group">
             <label for="inputEmail3" class="col-sm-3 control-label">Communication</label>
             <div class="col-sm-9">
-                <select class="form-control select2" name="communication" multiple="multiple" data-placeholder="Select all communication type" style="width: 100%;">
+                <select class="form-control select2" name="communication" multiple="multiple" data-placeholder="Communication type" style="width: 100%;">
                     {% for ct in commtype%}
-                        <option>{{ ct.name }}</option>
+                        <option   >{{ ct.name }}</option>
                     {% endfor %}
                 </select>
             </div>
