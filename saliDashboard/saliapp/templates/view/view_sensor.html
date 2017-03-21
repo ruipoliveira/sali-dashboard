@@ -1,60 +1,41 @@
 {% extends "layout.html" %}
 {% block body %}
 
-<script type="text/javascript" src="https://www.google.com/jsapi"></script>
-<script type="text/javascript">
-    google.load("visualization", "1", {packages:["corechart"]});
-</script>
+    <script src="https://cdn.zingchart.com/zingchart.min.js"></script>
+    <script>
+        zingchart.MODULESDIR = "https://cdn.zingchart.com/modules/";
+        ZC.LICENSE = ["569d52cefae586f634c54f86dc99e6a9", "ee6b7db5b51705a13dc2339db3edaf6d"];
+    </script>
+    <script type="text/javascript">
+        @import 'https://fonts.googleapis.com/css?family=Open+Sans:300';
+        .zc-ref {
+        display: none;
+        }
+    </script>
+    <style>
+    {% for a in final %}
+        #myChart{{ forloop.counter }} {
+        height:100%;
+        width:100%;
+        }
+    {% endfor %}
 
+    </style>
 <section class="content">
 
-    <br/>
-    <div class="row">
-        <div class="col-md-4" ></div>
-        <div class="col-md-4" ></div>
-        <div class="col-md-4" >
-            <form class="form-horizontal" method="post" > {% csrf_token %}
 
-                <button type="submit" class="btn btn-info pull-right">Filter</button>
-
-                <div class="input-group">
-                    <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-                    <input type="text" class="form-control pull-right" name="rangedate" id="reservation">
-                </div>
-                <br/>
-            </form>
-        </div>
+    <div style="float: right;">
+        <a type="button" href="{% url 'showalldata' id_sm=id_sm id_cm=id_cm %}" class="btn bg-navy btn-flat margin">Dataset view</a>
     </div>
 
+    <br/><br/><br/>
 
-    <div id='myChart'><a class="zc-ref" href="https://www.zingchart.com/">Powered by ZingChart</a></div>
-
-    <br/>
-    <a type="button" style="float: right;" class="btn bg-navy btn-flat margin">Export CSV</a>
-    <br/>
-<br/>
-<!--
-    <div class="row">
-        <div class="col-lg-3 col-xs-6">
-            <div class="small-box bg-blue">
-                <div class="inner">
-                    <h3> CSV <sup style="font-size: 20px"></sup></h3>
-                    <p>export file</p>
-                </div>
-                <div class="icon"><i class="ion ion-android-download"></i></div>
-                <a href="#" class="small-box-footer">Download <i class="fa fa-arrow-circle-right"></i></a>
-            </div>
-        </div>
-    </div>
--->
-
-    <br/>
-
-    {% for name, nrmeasureSensor, maxvalueSensor, minvalueSensor, avg in statistic %}
+{% for name, id, color, values, nrmeasureSensor, maxvalueSensor, minvalueSensor, avg in final %}
+<div>
 
     <div class="box box-default">
         <div class="box-header with-border">
-        <h3 class="box-title">Sensor: {{ name }} </h3>
+        <h3 class="box-title">{{ name }} </h3>
         <div class="box-tools pull-right">
         <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
         <!--<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button> -->
@@ -62,6 +43,13 @@
     </div>
     <!-- /.box-header -->
     <div class="box-body">
+
+        <div id='myChart{{ forloop.counter }}'  >
+
+            <a class="zc-ref"  href="https://www.zingchart.com/">Powered by ZingChart</a>
+
+        </div>
+
         <div class="col-lg-3 col-xs-6">
             <!-- small box -->
             <div class="small-box bg-aqua-gradient">
@@ -103,214 +91,225 @@
             </div>
         </div>
 
-        </div>
+        <br/>
+
+        <br/>
+
     </div>
-    <br/>
+
+</div>
+
+<br/>
+{% endfor %}
 
 
-    {% endfor %}
+
+<br/><br/>
+
+
+
+
+
+
+
+
 
 </section>
 
 
 
+<script>
 
-    <script>
+    {% for name, id, color, values, nrmeasure, maxValue, minValue, avg in final %}
 
+    var dates = {{ time_format|safe }};
+    var closes = {{ values }};
 
-  $(function () {
-    //Initialize Select2 Elements
-    $(".select2").select2();
-
-    //Datemask dd/mm/yyyy
-    $("#datemask").inputmask("dd/mm/yyyy", {"placeholder": "dd/mm/yyyy"});
-    //Datemask2 mm/dd/yyyy
-    $("#datemask2").inputmask("mm/dd/yyyy", {"placeholder": "mm/dd/yyyy"});
-    //Money Euro
-    $("[data-mask]").inputmask();
-
-    //Date range picker
-    $('#reservation').daterangepicker();
-    //Date range picker with time picker
-    $('#reservationtime').daterangepicker({timePicker: true, timePickerIncrement: 30, format: 'MM/DD/YYYY h:mm A'});
-    //Date range as a button
-    $('#daterange-btn').daterangepicker(
-        {
-          ranges: {
-            'Today': [moment(), moment()],
-            'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-            'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-            'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-            'This Month': [moment().startOf('month'), moment().endOf('month')],
-            'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-          },
-          startDate: moment().subtract(29, 'days'),
-          endDate: moment()
-        },
-        function (start, end) {
-          $('#daterange-btn span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
-        }
-    );
-
-    //Date picker
-    $('#datepicker').datepicker({
-      autoclose: true
-    });
-
-    //iCheck for checkbox and radio inputs
-    $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
-      checkboxClass: 'icheckbox_minimal-blue',
-      radioClass: 'iradio_minimal-blue'
-    });
-    //Red color scheme for iCheck
-    $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
-      checkboxClass: 'icheckbox_minimal-red',
-      radioClass: 'iradio_minimal-red'
-    });
-    //Flat red color scheme for iCheck
-    $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
-      checkboxClass: 'icheckbox_flat-green',
-      radioClass: 'iradio_flat-green'
-    });
-
-    //Colorpicker
-    $(".my-colorpicker1").colorpicker();
-    //color picker with addon
-    $(".my-colorpicker2").colorpicker();
-
-    //Timepicker
-    $(".timepicker").timepicker({
-      showInputs: false
-    });
-  });
-
-
-    var myConfig = {
-      "type": "line",
-      "utc": true,
-      "title": {
-        "text": "",
-        "font-size": "24px",
-        "adjust-layout": true
-      },
-      "plotarea": {
-        "margin": "dynamic 45 60 dynamic",
-      },
-      "legend": {
-        "layout": "float",
-        "background-color": "none",
-        "border-width": 0,
-        "shadow": 0,
-        "align": "center",
-        "adjust-layout": true,
-        "item": {
-          "padding": 7,
-          "marginRight": 17,
-          "cursor": "hand"
-        }
-      },
-      "scale-x": {
-        "values": {{ time_format|safe }} ,
-
-      },
-      "scale-y": {
-        "values": "{{ minValue }}:{{ maxvalue }}:1",
-        "line-color": "#f6f7f8",
-        "shadow": 0,
-        "guide": {
-          "line-style": "dashed"
-        },
-        "label": {
-          "text": "Values",
-        },
-        "minor-ticks": 0,
-        "thousands-separator": ","
-      },
-      "crosshair-x": {
-        "line-color": "#efefef",
-        "plot-label": {
-          "border-radius": "5px",
-          "border-width": "1px",
-          "border-color": "#f6f7f8",
-          "padding": "10px",
-          "font-weight": "bold"
-        },
-        "scale-label": {
-          "font-color": "#000",
-          "background-color": "#f6f7f8",
-          "border-radius": "5px"
-        }
-      },
-      "tooltip": {
-        "visible": false
-      },
-      "plot": {
-        "highlight": true,
-        "tooltip-text": "%t views: %v<br>%k",
-        "shadow": 0,
-        "line-width": "2px",
-        "marker": {
-          "type": "circle",
-          "size": 3
-        },
-        "highlight-state": {
-          "line-width": 3
-        },
-        "animation": {
-          "effect": 1,
-          "sequence": 2,
-          "speed": 100,
-        }
-      },
-
-
-        "series": [
-
-
-            {% for name,values,color in final %}
-
-
-
-            {
-        "values": {{ values|safe }},
-        "text": "{{ name }}",
-        "line-color": "{{ color }}",
-        "legend-item": {
-          "background-color": "{{ color }}",
-          "borderRadius": 5,
-          "font-color": "white"
-        },
-        "legend-marker": {
-          "visible": false
-        },
-        "marker": {
-          "background-color": "#1b900e",
-          "border-width": 2,
-          "shadow": 1,
-          "border-color": "#69dbf1"
-        },
-        "highlight-marker": {
-          "size": 6,
-          "background-color": "#007790",
-        }
-      },
-
-{% endfor %}
-
-
-
-
-
-      ]
+    var stockState{{ forloop.counter }} = {
+      current: '2Y',
+      dates: dates,
+      closes: closes
     };
 
+    function getCloseConfig{{ forloop.counter }}(dates, values, current) {
+      return {
+        type: 'area',
+        backgroundColor: "#ffffff",
+        height: 420,
+        x: 0,
+        y: 0,
+        crosshairX: {
+          shared: true,
+          plotLabel: {
+            backgroundColor: "#00a65a",
+            fontColor: "#ffffff",
+            text: "Value: %v",
+            fontFamily: "Open Sans",
+            y: 0,
+          },
+          scaleLabel: {
+            fontColor: "#ffffff",
+            fontFamily: "Open Sans",
+            backgroundColor: "#00a65a",
+          }
+        },
+        zoom: {
+          shared: true
+        },
+        plotarea: {
+          margin: "60 50 40 50"
+        },
+        plot: {
+          marker: {
+            visible: false
+          }
+        },
+        tooltip: {
+          text: "Value: %v",
+          backgroundColor: "#00a65a",
+          borderColor: "transparent"
+        },
+        scaleY: {
+          guide: {
+            visible: true,
+            lineStyle: 'solid',
+            lineColor: "#347915"
+          },
+          values: "{{ minValue }}:{{ maxvalue }}:1",
+          item: {
+            fontColor: "#000000",
+            fontFamily: "Open Sans"
+          }
+        },
+        scaleX: {
+          guide: {
+            visible: true,
+            lineStyle: 'solid',
+            lineColor: "#4fbb0f"
+          },
+          values: dates,
+          zooming: {
+            shared: true
+          },
+          item: {
+            fontColor: "#000000",
+            fontFamily: "Open Sans"
+          }
+        },
+        series: [{
+          values: values,
+          lineColor: "#4d78ff",
+          lineWidth: 1,
+          backgroundColor: "#909090 #313131"
+        }],
+        labels: [{
+          x: 490,
+          y: 10,
+          id: '1W',
+          fontColor: (current === '1W') ? "#3B3D3A" : "#777",
+          fontSize: "16",
+          fontFamily: "Open Sans",
+          cursor: "hand",
+          text: "5"
+        }, {
+          x: 530,
+          y: 10,
+          id: '1M',
+          fontColor: (current === '1M') ? "#3B3D3A" : "#777",
+          fontSize: "16",
+          fontFamily: "Open Sans",
+          cursor: "hand",
+          text: "20"
+        }, {
+          x: 570,
+          y: 10,
+          id: '6M',
+          fontColor: (current === '6M') ? "#3B3D3A" : "#777",
+          fontSize: "16",
+          fontFamily: "Open Sans",
+          cursor: "hand",
+          text: "130"
+        }, {
+          x: 610,
+          y: 10,
+          id: '1Y',
+          fontColor: (current === '1Y') ? "#3B3D3A" : "#777",
+          fontSize: "16",
+          fontFamily: "Open Sans",
+          cursor: "hand",
+          text: "260"
+        }, {
+          x: 650,
+          y: 10,
+          id: '2Y',
+          fontColor: (current === '2Y') ? "#3B3D3A" : "#777",
+          fontSize: "16",
+          fontFamily: "Open Sans",
+          cursor: "hand",
+          text: "All"
+        }]
+      };
+    }
+
+
     zingchart.render({
-      id: 'myChart',
-      data: myConfig,
-      height: '100%',
-      width: '100%'
+      id: 'myChart{{ forloop.counter }}',
+      data: {
+        graphset: [
+          getCloseConfig{{ forloop.counter }}(stockState{{ forloop.counter }}.dates, stockState{{ forloop.counter }}.closes, '2Y'),
+        ]
+      },
+      height: 450,
+      width: 825,
+
     });
-  </script>
+
+
+    zingchart.bind('myChart{{ forloop.counter }}', 'label_click', function(e) {
+      if (stockState{{ forloop.counter }}.current === e.labelid) {
+        return;
+      }
+
+      var windowClose = [];
+      var windowDates = [];
+      var cut = 0;
+      switch (e.labelid) {
+        case '1W':
+          cut = 5;
+          break;
+        case '1M':
+          cut = 20;
+          break;
+        case '6M':
+          cut = 130;
+          break;
+        case '1Y':
+          cut = 260;
+          break;
+        default:
+          cut = stockState{{ forloop.counter }}.dates.length;
+          break;
+      }
+      windowClose = stockState{{ forloop.counter }}.closes.slice(stockState{{ forloop.counter }}.closes.length - cut);
+      windowDates = stockState{{ forloop.counter }}.dates.slice(stockState{{ forloop.counter }}.dates.length - cut);
+
+      zingchart.exec('myChart{{ forloop.counter }}', 'setdata', {
+
+        data: {
+          graphset: [
+            getCloseConfig{{ forloop.counter }}(windowDates, windowClose, e.labelid),
+          ]
+        }
+      });
+
+      stockState{{ forloop.counter }}.current = e.labelid;
+
+    });
+
+    {% endfor %}
+
+
+</script>
 
 
 

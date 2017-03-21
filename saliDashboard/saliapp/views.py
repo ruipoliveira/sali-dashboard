@@ -1,6 +1,7 @@
 """
 Definition of views.
 """
+import csv
 import datetime
 import random
 
@@ -20,6 +21,7 @@ from statistics import mean
 
 from saliapp.forms import *
 from .apiViews import *
+from django.http import HttpResponse
 
 
 # django_list = list(User.objects.all())
@@ -229,26 +231,20 @@ def foo(request):
 #        return redirect('addcpu')
 
 
-ola = True
-
 
 class SensorValues(View):
-    if ola:
-        date_start = datetime.now().strftime("%Y-%m-%d")
-        date_finish = datetime.now().strftime("%Y-%m-%d")
-        print date_start
-        ola = False
+    date_start = datetime.now().strftime("%Y-%m-%d")
+    date_finish = datetime.now().strftime("%Y-%m-%d")
 
     def get(self, request, shortcode=None, *args, **kwargs):
-        # Step 1: Create a DataPool with the data we want to retrieve.
-
+        # get id_sm and id_cm
         id_sm = self.kwargs['id_sm']
         id_cm = self.kwargs['id_cm']
+
         # , date_time__range=[self.date_start, self.date_finish]
 
-        readWithFilter = Reading.objects.filter(id_sensor=id_sm,
-                                                date_time__range=[self.date_start + ' 00:00:00',
-                                                                  self.date_finish + ' 23:59:59'])
+        readWithFilter = Reading.objects.filter(id_sensor=id_sm, date_time__range=[self.date_start + ' 00:00:00',
+                                                                                   self.date_finish + ' 23:59:59'])
 
         # avgReadWithFilter = readWithFilter.aggregate(Avg('value')).values()[0]
         # print avgReadWithFilter
@@ -270,8 +266,10 @@ class SensorValues(View):
 
         name_sensors = []
         color_random = []
+        id_sensor = []
         for a in Sensor.objects.filter(id_sm=id_sm):
             name_sensors.append(str(a.id_sensor_type.name) + " (" + str(a.id_sensor_type.scale_value) + ")")
+            id_sensor.append(a.id)
             r = lambda: random.randint(0, 255)
             color_random.append('#%02X%02X%02X' % (r(), r(), r()))
 
@@ -297,9 +295,8 @@ class SensorValues(View):
         for i in Sensor.objects.filter(id_sm=id_sm):
             print "#" + str(i.id) + " type:" + str(i.id_sensor_type.name)
 
-            for x in Reading.objects.filter(id_sensor=i.id,
-                                            date_time__range=[self.date_start + ' 00:00:00',
-                                                              self.date_finish + ' 23:59:59']).order_by(
+            for x in Reading.objects.filter(id_sensor=i.id, date_time__range=[self.date_start + ' 00:00:00',
+                                                                              self.date_finish + ' 23:59:59']).order_by(
                 'date_time'):
                 # for a in reversed(time_format):
                 #    if a == x.date_time.strftime('%d/%m/%Y %H:%M'):
@@ -342,35 +339,71 @@ class SensorValues(View):
                       'view/view_sensor.html', {
                           'user': request.user,
                           'title': 'Data visualization',
-                          'titlesmall': SensorModule.objects.get(
-                              id=id_sm).name + " of controller module " + ControllerModule.objects.get(id=id_cm).name,
-                          'avg': 12,
-                          'id_cpu': id_cm,
-                          'final': zip(name_sensors, final, color_random),
+                          'titlesmall': SensorModule.objects.get(id=id_sm).name +
+                                        " of controller module " +
+                                        ControllerModule.objects.get(id=id_cm).name,
+                          'final': zip(name_sensors, id_sensor, color_random, final, nrmeasure, maxValue, minValue,
+                                       avg),
+                          'time_format': time,
                           'maxvalue': maxValueAll,
                           'minValue': minValueAll,
-                          'time_format': time,
-                          'statistic': zip(name_sensors, nrmeasure, maxValue, minValue, avg),
-                          # 'time_x': time_format,
-                          'sensor': [e.id_sensor_type for e in Sensor.objects.filter(id_sm=id_sm)]
+                          'id_sm': id_sm,
+                          'id_cm': id_cm
                       })
 
     def post(self, request, shortcode=None, *args, **kwargs):
-        print request.POST["rangedate"]
-
-        xs = request.POST["rangedate"].split(' - ')[0]
-        xf = request.POST["rangedate"].split(' - ')[1]
-
-        # x1 = datetime.datetime.strptime(xs, "%m/%d/%Y")
-
-        xss = xs.split('/')
-        xff = xf.split('/')
-
-        # Y-m-d
-        self.date_start = str(xss[2]) + '-' + str(xss[0]) + '-' + str(xss[1])
-        self.date_finish = str(xss[2]) + '-' + str(xss[0]) + '-' + str(xss[1])
 
         return redirect(request.path)
+
+
+@login_required
+def showalldata(request, id_sm, id_cm):
+    allSensorID = map(int, Sensor.objects.filter(id_sm=id_sm).values_list('id', flat=True))
+
+    print allSensorID
+
+    return render(
+        request,
+        'view/viewAllData.html',
+        dict(user=request.user, title='Dataset',
+             titlesmall=SensorModule.objects.get(id=id_sm).name +
+                        " of controller module " +
+                        ControllerModule.objects.get(id=id_cm).name,
+             datashow=Reading.objects.filter(id_sensor__in=allSensorID).all(),
+             id_sm=id_sm,
+             id_cm=id_cm, ),
+
+    )
+
+
+@login_required
+def exportcsv(request, id_sm, id_cm):
+    import csv
+    from django.utils.encoding import smart_str
+
+    allSensorID = map(int, Sensor.objects.filter(id_sm=id_sm).values_list('id', flat=True))
+
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="sensor_'+datetime.now().strftime("%Y-%m-%d_%H:%M:%S")+'.csv"'
+
+    writer = csv.writer(response, csv.excel)
+
+    response.write(u'\ufeff'.encode('utf8'))
+    writer.writerow([
+        smart_str(u"ID"),
+        smart_str(u"Sensor type"),
+        smart_str(u"Scale"),
+        smart_str(u"Value"),
+    ])
+    for obj in Reading.objects.filter(id_sensor__in=allSensorID).all():
+        writer.writerow([
+            smart_str(obj.id),
+            smart_str(obj.id_sensor.id_sensor_type.name),
+            smart_str(obj.id_sensor.id_sensor_type.scale_value),
+            smart_str(obj.value)
+        ])
+
+    return response
 
 
 class ShowSensorModule(View):
@@ -427,7 +460,6 @@ class ShowSensorModule(View):
                                                id_communication_type=CommunicationType.objects.get(name=comm))
             commPerSM.save()
 
-
         nrItemsSensor = request.POST["nritems"]
 
         sensor_req = Sensor(id_sm=sm, id_sensor_type=SensorType.objects.get(id=request.POST["sensors"]))
@@ -443,18 +475,17 @@ class ShowSensorModule(View):
 
         if int(nrItemsSensor) > 1:
             for i in range(1, int(nrItemsSensor)):
-                sensor_req = Sensor(id_sm=sm, id_sensor_type=SensorType.objects.get(id=request.POST["sensors_"+str(i)]))
+                sensor_req = Sensor(id_sm=sm,
+                                    id_sensor_type=SensorType.objects.get(id=request.POST["sensors_" + str(i)]))
                 sensor_req.save()
 
                 sensor_allarms_req = AlarmsSettings(id_sensor=sensor_req,
-                                                    max=request.POST["max_"+str(i)],
-                                                    msgMax=request.POST["max_msg_"+str(i)],
-                                                    min=request.POST["min_"+str(i)],
-                                                    msgMin=request.POST["min_msg_"+str(i)])
+                                                    max=request.POST["max_" + str(i)],
+                                                    msgMax=request.POST["max_msg_" + str(i)],
+                                                    min=request.POST["min_" + str(i)],
+                                                    msgMin=request.POST["min_msg_" + str(i)])
 
                 sensor_allarms_req.save()
-
-
 
         return redirect('showdetails', id_cm=self.kwargs['id_cm'])
 

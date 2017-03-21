@@ -88,6 +88,11 @@
                         <td><a type="button"  class="btn btn-block btn-info btn-xs" ><i class="fa fa-edit"></i></a></td>
                         <td><a type="button" href="{% url 'deletesm' id_cm=id_cpu1 id_sm=sm.id  %}" class="btn btn-block btn-danger btn-xs" ><i class="fa fa-trash"></i></a></td>
                         <td><a type="button" href="{% url 'viewSensors' id_cm=id_cpu1  id_sm=sm.id %}" class="btn btn-block btn-info btn-xs" ><i class="fa fa-bar-chart"></i></a></td>
+                        <td><a type="button" href="{% url 'showalldata' id_sm=sm.id id_cm=id_cpu1 %}" class="btn btn-block btn-info btn-xs" ><i class="fa fa-database"></i></a></td>
+
+
+
+
 
                     </tr>
 
