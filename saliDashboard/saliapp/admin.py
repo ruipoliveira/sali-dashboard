@@ -13,6 +13,6 @@ admin.site.register(Sensor)
 admin.site.register(AlarmsSettings)
 admin.site.register(Reading)
 admin.site.register(Alarms)
-
+admin.site.register(SecretKey)
 
 

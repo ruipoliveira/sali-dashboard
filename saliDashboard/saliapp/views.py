@@ -26,6 +26,7 @@ from django.http import HttpResponse
 
 # django_list = list(User.objects.all())
 
+current_date_y_m_d = datetime.now().strftime('%Y-%m-%d')
 
 def home2(request):
     assert isinstance(request, HttpRequest)
@@ -142,6 +143,7 @@ def home(request):
          'allSensorM': SensorModule.objects.all(),
          'smpercm': SMPerCM.objects.all(),
          'allSensor': Sensor.objects.all(),
+         'current_date': current_date_y_m_d,
          'userregistrations': User.objects.all().count(),
          'SMregistrations': SensorModule.objects.all().count(),
          'CMregistrations': ControllerModule.objects.all().count(),
@@ -233,18 +235,17 @@ def foo(request):
 
 
 class SensorValues(View):
-    date_start = datetime.now().strftime("%Y-%m-%d")
-    date_finish = datetime.now().strftime("%Y-%m-%d")
 
     def get(self, request, shortcode=None, *args, **kwargs):
         # get id_sm and id_cm
         id_sm = self.kwargs['id_sm']
         id_cm = self.kwargs['id_cm']
+        date = self.kwargs['date']
 
         # , date_time__range=[self.date_start, self.date_finish]
 
-        readWithFilter = Reading.objects.filter(id_sensor=id_sm, date_time__range=[self.date_start + ' 00:00:00',
-                                                                                   self.date_finish + ' 23:59:59'])
+        readWithFilter = Reading.objects.filter(id_sensor=id_sm, date_time__range=[date + ' 00:00:00',
+                                                                                   date + ' 23:59:59'])
 
         # avgReadWithFilter = readWithFilter.aggregate(Avg('value')).values()[0]
         # print avgReadWithFilter
@@ -253,8 +254,8 @@ class SensorValues(View):
         time = []
 
         for f in Sensor.objects.filter(id_sm=id_sm):
-            for r in Reading.objects.filter(id_sensor=f.id, date_time__range=[self.date_start + ' 00:00:00',
-                                                                              self.date_finish + ' 23:59:59']):
+            for r in Reading.objects.filter(id_sensor=f.id, date_time__range=[date + ' 00:00:00',
+                                                                              date + ' 23:59:59']):
                 if r.date_time.strftime('%d/%m/%Y %H:%M') not in time:
                     time.append(r.date_time.strftime('%d/%m/%Y %H:%M'))
 
@@ -295,9 +296,8 @@ class SensorValues(View):
         for i in Sensor.objects.filter(id_sm=id_sm):
             print "#" + str(i.id) + " type:" + str(i.id_sensor_type.name)
 
-            for x in Reading.objects.filter(id_sensor=i.id, date_time__range=[self.date_start + ' 00:00:00',
-                                                                              self.date_finish + ' 23:59:59']).order_by(
-                'date_time'):
+            for x in Reading.objects.filter(id_sensor=i.id, date_time__range=[date + ' 00:00:00',
+                                                                              date + ' 23:59:59']).order_by('date_time'):
                 # for a in reversed(time_format):
                 #    if a == x.date_time.strftime('%d/%m/%Y %H:%M'):
                 #        print a
@@ -427,6 +427,7 @@ class ShowSensorModule(View):
                        'id_cpu1': id_cpu,
                        'allSM': y,
                        'comm': y1,
+                       'current_date': current_date_y_m_d,
                        'allAllarms': AlarmsSettings.objects.all(),
                        'sensor': Sensor.objects.all(),
                        'sensortype': SensorType.objects.all(),

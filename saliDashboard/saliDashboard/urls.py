@@ -14,19 +14,21 @@ from saliapp.views import *
 
 login_forbidden = user_passes_test(lambda u: u.is_anonymous(), 'home')
 
-router = routers.DefaultRouter()
-router.register(r'cm', views.ControllerModuleViewSet)
-router.register(r'sm', views.SensorModuleViewSet)
-router.register(r'sensor', views.SensorViewSet)
-router.register(r'comm', views.CommunicationViewSet)
-router.register(r'user', views.UserViewSet)
+#router = routers.DefaultRouter()
+#router.register(r'cm', views.ControllerModuleViewSet)
+#router.register(r'sm', views.SensorModuleViewSet)
+#router.register(r'sensor', views.SensorViewSet)
+#router.register(r'comm', views.CommunicationViewSet)
+#router.register(r'user', views.UserViewSet)
+
+
 
 schema_view = get_swagger_view(title='API documentation')
 
 
 urlpatterns = [
 
-    url(r'^api/', include(router.urls)),
+    #url(r'^api/', include(router.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^doc/$', schema_view),
 
@@ -53,14 +55,13 @@ urlpatterns = [
     url(r'^addmodule/$', views.add_module, name="addmodule"),
 
 
-
     url(r'^deletecm/(?P<id_cpu>[-\w]+)/$', views.deletecm, name="deletecm"),
 
     url(r'^devices/cm/(?P<id_cm>[-\w]+)/$', login_required(ShowSensorModule.as_view()), name="showdetails"),
 
     url(r'^addsm/(?P<id_cm>[-\w]+)/$', views.addSensorModule, name="addsm"),
 
-    url(r'^devices/cm/(?P<id_cm>[-\w]+)/sm/(?P<id_sm>[-\w]+)$', login_required(SensorValues.as_view()),
+    url(r'^devices/cm/(?P<id_cm>[-\w]+)/sm/(?P<id_sm>[-\w]+)/date/(?P<date>[-\w]+)$', login_required(SensorValues.as_view()),
         name="viewSensors"),
 
     url(r'^typesensor/$', login_required(TypeSensor.as_view()), name="typesensor"),
@@ -89,6 +90,26 @@ urlpatterns = [
 #    url(r'^medicoes/', views.MeasureViewSet.as_view()),
 #    url(r'^tudo/', views.SensorMeasurementsViewSet.as_view()),
 
+
+    url(r'^api/users/', views.ControllerModuleViewSet.as_view()),
+
+    #communication type
+    url(r'^api/communication/$', views.CommunicationTypeList.as_view()),
+    url(r'^api/communication_id/(?P<pk>[0-9]+)/$', views.CommunicationType_by_id.as_view(), name='snippet-detail'),
+    url(r'^api/communication_name/(?P<name>[-\w]+)/$', views.CommunicationType_by_name.as_view()),
+
+    #sensor type
+    url(r'^api/sensortype/$', views.SensorTypeList.as_view()),
+    url(r'^api/sensortype_id/(?P<pk>[0-9]+)/$', views.SensorType_by_id.as_view()),
+    url(r'^api/sensortype_name/(?P<name>[-\w]+)/$', views.SensorType_by_name.as_view()),
+
+    # user
+    url(r'^api/user/$', views.UserList.as_view()),
+    url(r'^api/user_id/(?P<pk>[0-9]+)/$', views.User_by_id.as_view(), ),
+    url(r'^api/user_username/(?P<username>[-\w]+)/$', views.User_by_username.as_view()),
+
+    # user
+    url(r'^api/cm/$', views.ControllerModuleList.as_view()),
 
 
 ]
