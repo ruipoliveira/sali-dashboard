@@ -22,16 +22,19 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class ControllerModuleSerializer(serializers.HyperlinkedModelSerializer):
+    id_communication = CommunicationTypeSerializer()
+    id_by_create = UserSerializer()
+
     class Meta:
         model = ControllerModule
-        id_communication = serializers.HyperlinkedRelatedField(many=True, view_name='snippet-detail', read_only=True)
+        # id_communication = CommunicationTypeSerializer
 
-        #id_communication = CommunicationTypeSerializer
-        #id_by_create = UserSerializer
+        # id_communication = CommunicationTypeSerializer
+        # id_by_create = UserSerializer
         fields = ('id',
                   'name',
                   'id_communication',
-                  #'id_by_create',
+                  'id_by_create',
                   'baterry_cm',
                   'status_cm',
                   'date_create',
@@ -42,12 +45,46 @@ class ControllerModuleSerializer(serializers.HyperlinkedModelSerializer):
 class SensorModuleSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = SensorModule
-        fields = ('id', 'name', 'seding_time', 'status_sm', 'baterry_sm', 'localization_sm')
+        fields = ('id',
+                  'name',
+                  'seding_time',
+                  'status_sm',
+                  'baterry_sm',
+                  'localization_sm')
 
+
+class SMperCMSerializer(serializers.HyperlinkedModelSerializer):
+    id_sm = SensorModuleSerializer()
+    id_cm = ControllerModuleSerializer()
+
+    class Meta:
+        model = SMPerCM
+        fields = ('id_cm',
+                  'id_sm',
+                  )
 
 class SensorSerializer(serializers.HyperlinkedModelSerializer):
     id_sm = SensorModuleSerializer()
-
+    id_sensor_type = SensorTypeSerializer()
     class Meta:
         model = Sensor
-        fields = ('id', 'id_sm')
+        fields = ('id', 'id_sm', 'id_sensor_type')
+
+class SensorPerSMSerializer(serializers.HyperlinkedModelSerializer):
+    id_sensor_type = SensorTypeSerializer()
+    class Meta:
+        model = Sensor
+        fields = ('id', 'id_sensor_type')
+
+
+class ReadingSerializer(serializers.HyperlinkedModelSerializer):
+
+    class Meta:
+        model = Reading
+        fields = ('id', 'value', 'date_time')
+
+
+class AlarmsSettingsSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = AlarmsSettings
+        fields = ('id', 'max', 'min', 'msgMax', 'msgMin')

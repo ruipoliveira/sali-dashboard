@@ -30,7 +30,7 @@ urlpatterns = [
 
     #url(r'^api/', include(router.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    url(r'^doc/$', schema_view),
+    url(r'^api/doc/$', schema_view),
 
 
     url(r'^$', login_forbidden(login), name="login"),
@@ -95,21 +95,46 @@ urlpatterns = [
 
     #communication type
     url(r'^api/communication/$', views.CommunicationTypeList.as_view()),
-    url(r'^api/communication_id/(?P<pk>[0-9]+)/$', views.CommunicationType_by_id.as_view(), name='snippet-detail'),
-    url(r'^api/communication_name/(?P<name>[-\w]+)/$', views.CommunicationType_by_name.as_view()),
+    url(r'^api/communication/(?P<pk_or_name>[-\w]+)/$', views.CommunicationType_param.as_view(), name='comm_type'),
 
     #sensor type
     url(r'^api/sensortype/$', views.SensorTypeList.as_view()),
-    url(r'^api/sensortype_id/(?P<pk>[0-9]+)/$', views.SensorType_by_id.as_view()),
-    url(r'^api/sensortype_name/(?P<name>[-\w]+)/$', views.SensorType_by_name.as_view()),
+    url(r'^api/sensortype/(?P<pk_or_name>[-\w]+)/$', views.SensorType_param.as_view()),
+
 
     # user
-    url(r'^api/user/$', views.UserList.as_view()),
+    url(r'^api/user/$', views.UserList.as_view(), name='user'),
     url(r'^api/user_id/(?P<pk>[0-9]+)/$', views.User_by_id.as_view(), ),
     url(r'^api/user_username/(?P<username>[-\w]+)/$', views.User_by_username.as_view()),
 
-    # user
+    # cm
     url(r'^api/cm/$', views.ControllerModuleList.as_view()),
+    url(r'^api/cm_id/(?P<pk>[0-9]+)/$', views.ControllerModule_by_id.as_view(), ),
+    url(r'^api/cm_name/(?P<name>[-\w]+)/$', views.ControllerModule_by_name.as_view()),
+
+    # sm
+    url(r'^api/sm/$', views.SensorModuleList.as_view()),
+    url(r'^api/sm/(?P<pk_or_name>[-\w]+)/$', views.SensorModule_param.as_view()),
+
+    #sm per cm
+    url(r'^api/smpercm/$', views.SMperCMList.as_view()),
+    url(r'^api/smpercm/(?P<pk_or_name_cm>[-\w]+)$', views.SMperCM_param.as_view()),
+
+    #sensor
+    url(r'^api/sensor/$', views.SensorList.as_view()),
+    url(r'^api/sensor/(?P<pk_or_sensor_type>[-\w]+)$', views.Sensor_param.as_view()),
+
+
+    #sensor per sm
+    url(r'^api/sensorpersm/(?P<id_sm_or_name_sm>[-\w]+)$', views.SensorperSM_param.as_view()),
+
+
+    #reading
+    url(r'^api/reading/(?P<id_sensor>[0-9]+)/(?P<date_start>[-\w]+)/(?P<date_end>[-\w]+)$',
+        views.Reading_param.as_view()),
+
+    # allarms settings
+    url(r'^api/allarmssettings/(?P<id_sensor>[0-9]+)$', views.AllarmsSettings_param.as_view()),
 
 
 ]
