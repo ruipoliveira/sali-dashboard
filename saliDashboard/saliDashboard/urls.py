@@ -30,7 +30,7 @@ urlpatterns = [
 
     #url(r'^api/', include(router.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    url(r'^api/doc/$', schema_view),
+    url(r'^api/$', schema_view),
 
 
     url(r'^$', login_forbidden(login), name="login"),
@@ -91,7 +91,6 @@ urlpatterns = [
 #    url(r'^tudo/', views.SensorMeasurementsViewSet.as_view()),
 
 
-    url(r'^api/users/', views.ControllerModuleViewSet.as_view()),
 
     #communication type
     url(r'^api/communication/$', views.CommunicationTypeList.as_view()),
@@ -101,16 +100,13 @@ urlpatterns = [
     url(r'^api/sensortype/$', views.SensorTypeList.as_view()),
     url(r'^api/sensortype/(?P<pk_or_name>[-\w]+)/$', views.SensorType_param.as_view()),
 
-
     # user
     url(r'^api/user/$', views.UserList.as_view(), name='user'),
-    url(r'^api/user_id/(?P<pk>[0-9]+)/$', views.User_by_id.as_view(), ),
-    url(r'^api/user_username/(?P<username>[-\w]+)/$', views.User_by_username.as_view()),
+    url(r'^api/user/(?P<pk_or_username>[-\w]+)/$', views.User_param.as_view(), ),
 
     # cm
     url(r'^api/cm/$', views.ControllerModuleList.as_view()),
-    url(r'^api/cm_id/(?P<pk>[0-9]+)/$', views.ControllerModule_by_id.as_view(), ),
-    url(r'^api/cm_name/(?P<name>[-\w]+)/$', views.ControllerModule_by_name.as_view()),
+    url(r'^api/cm/(?P<pk_or_name>[-\w]+)/$', views.ControllerModule_param.as_view()),
 
     # sm
     url(r'^api/sm/$', views.SensorModuleList.as_view()),
@@ -124,18 +120,21 @@ urlpatterns = [
     url(r'^api/sensor/$', views.SensorList.as_view()),
     url(r'^api/sensor/(?P<pk_or_sensor_type>[-\w]+)$', views.Sensor_param.as_view()),
 
-
     #sensor per sm
     url(r'^api/sensorpersm/(?P<id_sm_or_name_sm>[-\w]+)$', views.SensorperSM_param.as_view()),
-
 
     #reading
     url(r'^api/reading/(?P<id_sensor>[0-9]+)/(?P<date_start>[-\w]+)/(?P<date_end>[-\w]+)$',
         views.Reading_param.as_view()),
+    url(r'^api/reading/(?P<id_sensor>[0-9]+)$',
+        views.Reading_param_all.as_view()),
 
     # allarms settings
-    url(r'^api/allarmssettings/(?P<id_sensor>[0-9]+)$', views.AllarmsSettings_param.as_view()),
+    url(r'^api/alarmssettings/(?P<id_sensor>[0-9]+)$', views.AlarmsSettings_param.as_view()),
 
+    # allarms
+    url(r'^api/alarms_reading/(?P<id_reading>[0-9]+)$', views.Alarms_param_reading.as_view()),
+    url(r'^api/alarms_sensor/(?P<id_sensor>[0-9]+)$', views.Alarms_param_sensor.as_view()), ### problemaaaa
 
 ]
 

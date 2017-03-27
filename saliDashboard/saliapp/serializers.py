@@ -55,13 +55,11 @@ class SensorModuleSerializer(serializers.HyperlinkedModelSerializer):
 
 class SMperCMSerializer(serializers.HyperlinkedModelSerializer):
     id_sm = SensorModuleSerializer()
-    id_cm = ControllerModuleSerializer()
 
     class Meta:
         model = SMPerCM
-        fields = ('id_cm',
-                  'id_sm',
-                  )
+        fields = ('id_sm', )
+
 
 class SensorSerializer(serializers.HyperlinkedModelSerializer):
     id_sm = SensorModuleSerializer()
@@ -88,3 +86,10 @@ class AlarmsSettingsSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = AlarmsSettings
         fields = ('id', 'max', 'min', 'msgMax', 'msgMin')
+
+
+class AlarmsSerializer(serializers.HyperlinkedModelSerializer):
+    id_reading = ReadingSerializer()
+    class Meta:
+        model = Alarms
+        fields = ('id_reading', 'checked', 'max_or_min')
