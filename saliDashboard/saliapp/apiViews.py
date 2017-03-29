@@ -1,4 +1,6 @@
 from datetime import datetime
+
+from django.core.exceptions import ObjectDoesNotExist
 from rest_framework import viewsets
 from rest_framework.generics import ListAPIView, ListCreateAPIView
 from rest_framework.views import APIView
@@ -7,6 +9,7 @@ from .serializers import *
 from rest_framework.response import Response
 from rest_framework import status
 from django.http import Http404
+from django.http import HttpResponseRedirect
 
 
 class ControllerModuleViewSet(APIView):
@@ -33,12 +36,9 @@ class SensorModuleViewSet(viewsets.ModelViewSet):
     serializer_class = SensorModuleSerializer
 
 
-
-
 class CommunicationViewSet(viewsets.ModelViewSet):
     queryset = CommunicationType.objects.all()
     serializer_class = CommunicationTypeSerializer
-
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -94,7 +94,6 @@ class CommunicationType_param(APIView):
         snippet = self.get_object(pk_or_name)
         snippet.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
-
 
 
 #########################################################
@@ -178,7 +177,6 @@ class User_param(APIView):
             except User.DoesNotExist:
                 raise Http404
 
-
     def get(self, request, pk_or_username, format=None):
         user = self.get_object(pk_or_username)
         serializer = UserSerializer(user)
@@ -196,7 +194,6 @@ class User_param(APIView):
         user = self.get_object(pk_or_username)
         user.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
-
 
 
 #########################################################
@@ -249,10 +246,34 @@ class ControllerModule_param(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
+#########################################################
+# CM per user
+#########################################################
+
+class CMperUser_param(ListCreateAPIView):
+    queryset = CMPerUsers.objects.all()
+    serializer_class = CMperUserSerializer
+
+    def list(self, request, pk_or_username):
+        # Note the use of `get_queryset()` instead of `self.queryset`
+
+        try:
+            if pk_or_username.isdigit():
+                queryset = CMPerUsers.objects.filter(id_user=User.objects.get(id=pk_or_username))
+
+            else:
+                queryset = CMPerUsers.objects.filter(id_user=User.objects.get(username=pk_or_username))
+        except ObjectDoesNotExist:
+            queryset = None
+
+        serializer = CMperUserSerializer(queryset, many=True)
+
+        return Response(serializer.data)
+
 
 #########################################################
 # Sensor module
-#########################################################
+##################r#######################################
 
 class SensorModuleList(APIView):
     def get(self, request, format=None):
@@ -270,6 +291,7 @@ class SensorModuleList(APIView):
 
 class SensorModule_param(APIView):
     def get_object(self, pk_or_name):
+
         if pk_or_name.isdigit():
             try:
                 return SensorModule.objects.get(pk=pk_or_name)
@@ -300,8 +322,6 @@ class SensorModule_param(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
-
-
 #########################################################
 # Sensor module per Controller module
 #########################################################
@@ -321,19 +341,17 @@ class SMperCMList(APIView):
 
 
 class SMperCM_param(ListCreateAPIView):
-
     queryset = SMPerCM.objects.all()
     serializer_class = SMperCMSerializer
 
     def list(self, request, pk_or_name_cm):
         # Note the use of `get_queryset()` instead of `self.queryset`
         if pk_or_name_cm.isdigit():
-            queryset = SMPerCM.objects.filter(id_cm = pk_or_name_cm)
+            queryset = SMPerCM.objects.filter(id_cm=pk_or_name_cm)
         else:
             queryset = SMPerCM.objects.filter(id_cm=ControllerModule.objects.get(name__iexact=pk_or_name_cm))
         serializer = SMperCMSerializer(queryset, many=True)
         return Response(serializer.data)
-
 
 
 #########################################################
@@ -355,7 +373,6 @@ class SensorList(APIView):
 
 
 class Sensor_param(ListCreateAPIView):
-
     queryset = Sensor.objects.all()
     serializer_class = SensorSerializer
 
@@ -369,12 +386,12 @@ class Sensor_param(ListCreateAPIView):
         serializer = SensorSerializer(queryset, many=True)
         return Response(serializer.data)
 
+
 #########################################################
 # Sensor per sensor module
 #########################################################
 
 class SensorperSM_param(ListCreateAPIView):
-
     queryset = Sensor.objects.all()
     serializer_class = SensorPerSMSerializer
 
@@ -388,7 +405,7 @@ class SensorperSM_param(ListCreateAPIView):
         serializer = SensorPerSMSerializer(queryset, many=True)
         return Response(serializer.data)
 
-    def post(self, request,id_sm_or_name_sm, format=None):
+    def post(self, request, id_sm_or_name_sm, format=None):
 
         if id_sm_or_name_sm.isdigit():
             queryset = Sensor.objects.filter(id_sm=id_sm_or_name_sm)
@@ -401,33 +418,29 @@ class SensorperSM_param(ListCreateAPIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
 #########################################################
 # Reading per sensor
 #########################################################
 
 class Reading_param(ListCreateAPIView):
-
     queryset = Reading.objects.all()
     serializer_class = SensorPerSMSerializer
-
 
     def list(self, request, id_sensor, date_start, date_end):
         # Note the use of `get_queryset()` instead of `self.queryset`
 
         queryset = Reading.objects.filter(id_sensor=Sensor.objects
-                                          .get(pk=id_sensor) , date_time__range=[date_start + ' 00:00:00',
-                                                                             date_end + ' 23:59:59'])
+                                          .get(pk=id_sensor), date_time__range=[date_start + ' 00:00:00',
+                                                                                date_end + ' 23:59:59'])
 
         serializer = ReadingSerializer(queryset, many=True)
         return Response(serializer.data)
 
 
-    ### tem que ser criado aqui o posttt!!!!!
-
-
 class Reading_param_all(ListCreateAPIView):
     queryset = Reading.objects.all()
-    serializer_class = SensorPerSMSerializer
+    serializer_class = ReadingSerializer
 
     def list(self, request, id_sensor):
         # Note the use of `get_queryset()` instead of `self.queryset`
@@ -437,15 +450,22 @@ class Reading_param_all(ListCreateAPIView):
         serializer = ReadingSerializer(queryset, many=True)
         return Response(serializer.data)
 
+    def post(self, request, id_sensor, format=None):
+
+        read = Reading(id_sensor=Sensor.objects.get(id=id_sensor),
+                       value=float(request.data.get("value", "0")))
+        read.save()
+
+        return Response(status=status.HTTP_201_CREATED)
+
+
 #########################################################
 # Alarms Settings per sensor
 #########################################################
 
 class AlarmsSettings_param(ListCreateAPIView):
-
     queryset = AlarmsSettings.objects.all()
     serializer_class = AlarmsSettingsSerializer
-
 
     def list(self, request, id_sensor):
         # Note the use of `get_queryset()` instead of `self.queryset`
@@ -461,7 +481,6 @@ class AlarmsSettings_param(ListCreateAPIView):
 #########################################################
 
 class Alarms_param_reading(ListCreateAPIView):
-
     queryset = Alarms.objects.all()
     serializer_class = AlarmsSerializer
 
@@ -475,7 +494,6 @@ class Alarms_param_reading(ListCreateAPIView):
 
 
 class Alarms_param_sensor(ListCreateAPIView):
-
     queryset = Alarms.objects.all()
     serializer_class = AlarmsSerializer
 
@@ -486,8 +504,3 @@ class Alarms_param_sensor(ListCreateAPIView):
 
         serializer = AlarmsSerializer(queryset, many=True)
         return Response(serializer.data)
-
-
-
-
-

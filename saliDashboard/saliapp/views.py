@@ -170,7 +170,7 @@ def newuser(request):
 @login_required
 def deletecm(request, id_cpu):
     u = ControllerModule.objects.get(pk=id_cpu)
-    messages.success(request, str(u.name) + ' Eliminado com sucesso!')
+    messages.success(request, str(u.name) + ' deleted successfully!')
     u.delete()
 
     # messages.add_message(request, messages.INFO, 'Improve your profile today!')
@@ -443,7 +443,7 @@ class ShowSensorModule(View):
             status_sm = False
 
         # criacao de uma instancia SM
-        sm = SensorModule(name=request.POST["name"],
+        sm = SensorModule(name=request.POST["name"].replace("_", " "),
                           localization_sm="3243242432423,423423432423432",
                           baterry_sm=80,
                           status_sm=status_sm,
@@ -494,7 +494,7 @@ class ShowSensorModule(View):
 @login_required
 def deletesm(request, id_cm, id_sm):
     u = SensorModule.objects.get(pk=id_sm)
-    messages.success(request, str(u.name) + ' eliminado com sucesso!')
+    messages.success(request, str(u.name) + ' deleted successfully!')
     u.delete()
 
     # messages.add_message(request, messages.INFO, 'Improve your profile today!')
@@ -530,7 +530,7 @@ class ShowDevices(View):
 
         cm = ControllerModule(id_communication=CommunicationType.objects.get(id=request.POST["comm"]),
                               id_by_create=self.request.user,
-                              name=request.POST["name"],
+                              name=request.POST["name"].replace("_", " "),
                               status_cm=status,
                               memory=request.POST["memory"],
                               localization_cm="4123123,32131231",
@@ -545,7 +545,7 @@ class ShowDevices(View):
             cmperusera = CMPerUsers(id_cm=cm, id_user=User.objects.get(username=manager))
             cmperusera.save()
 
-        messages.success(request, cm.name + 'New cpu adicionado com sucesso!')
+        messages.success(request, cm.name + ' created successfully!')
         return redirect('addcpu')
 
 
@@ -568,7 +568,7 @@ class TypeSensor(View):
                         scale_value=request.POST["scale"],
                         image_path=request.POST["path"],
                         color="bg-" + request.POST['color'])
-        messages.success(request, str(st.name) + ' adicionado com sucesso!')
+        messages.success(request, str(st.name) + ' created successfully!')
         st.save()
 
         return redirect('typesensor')
@@ -589,7 +589,7 @@ class TypeCommunication(View):
                                path_or_number=request.POST["source"],
                                image_path=request.POST["path"])
 
-        messages.success(request, str(ct.name) + ' adicionado com sucesso!')
+        messages.success(request, str(ct.name) + ' created successfully!')
         ct.save()
 
         return redirect('typecommunication')
@@ -598,7 +598,7 @@ class TypeCommunication(View):
 @login_required
 def deletecomm(request, id_comm):
     u = CommunicationType.objects.get(pk=id_comm)
-    messages.success(request, str(u.name) + ' eliminado com sucesso!')
+    messages.success(request, str(u.name) + ' deleted successfully!')
     u.delete()
 
     # messages.add_message(request, messages.INFO, 'Improve your profile today!')
@@ -610,7 +610,7 @@ def deletecomm(request, id_comm):
 def deletesensor(request, id_sensor):
     print id_sensor
     u = SensorType.objects.get(pk=id_sensor)
-    messages.success(request, str(u.name) + ' eliminado com sucesso!')
+    messages.success(request, str(u.name) + ' deleted successfully!')
     u.delete()
 
     # messages.add_message(request, messages.INFO, 'Improve your profile today!')
@@ -634,7 +634,7 @@ class ShowUsers(View):
         st = SensorType(name=request.POST["name"],
                         scale_value=request.POST["scale"],
                         image_path=request.POST["path"])
-        messages.success(request, str(ct.name) + ' adicionado com sucesso!')
+        messages.success(request, str(ct.name) + ' created successfully!')
         st.save()
 
         return redirect('showusers')

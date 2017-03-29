@@ -6,13 +6,12 @@
 
 <section class="content">
 
+    <br/>
     {% if messages %}
         {% for message in messages %}
-
             <div class="alert alert-success alert-dismissible">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                <h4><i class="icon fa fa-check"></i> Alert!</h4>
-                {{ message }}
+                <i class="icon fa fa-check"></i>{{ message }}
             </div>
         {% endfor %}
     {% endif %}
@@ -20,11 +19,7 @@
 
     <div class="box box-default">
         <div class="box-header with-border">
-        <h3 class="box-title">All </h3>
-        <div class="box-tools pull-right">
-        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-        <!--<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button> -->
-        </div>
+        <h3 class="box-title"></h3>
     </div>
     <!-- /.box-header -->
     <div class="box-body">
@@ -37,7 +32,13 @@
                         <span class="info-box-icon bg-gray"><img width="50%"  src="/static/resources/typecomm/{{ comm.image_path }}"></span>
                         <div class="info-box-content">
                             <span class="info-box-text">{{ comm.name }}</span>
-                            <span class="info-box-number">{{ comm.path_or_number }}</span>
+
+                            {% if not comm.path_or_number %}
+                                <span class="info-box-number">-</span>
+                            {% else %}
+                                <span class="info-box-number">{{ comm.path_or_number }}</span>
+                            {% endif %}
+
                             <a  type="button" style="width:25px; float: right;" href="{% url 'deletecomm' id_comm=comm.id %}" class="btn btn-block btn-danger btn-xs"><i class="fa fa-trash"></i></a>
 
                         </div>

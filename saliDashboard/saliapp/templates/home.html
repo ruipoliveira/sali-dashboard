@@ -7,8 +7,6 @@
 <section class="content">
 
 
-
-
       <div class="row">
         <div class="col-lg-3 col-xs-6">
           <!-- small box -->
@@ -72,15 +70,15 @@
 <br/>
 
 
-
+    {% for cm in allControllerM %}
     <div class="row">
-        {% for cm in allControllerM %}
+
 
         <div class="col-md-6">
 
           <div class="nav-tabs-custom">
             <ul class="nav nav-tabs pull-right">
-              <li class="active"><a href="#tab_1-1" data-toggle="tab"><i class="fa fa-exclamation-triangle" style="color:red"> </i>Alarms</a></li>
+              <li class="active"><a href="#tab_1-{{ forloop.counter }}" data-toggle="tab"><i class="fa fa-exclamation-triangle" style="color:red"> </i> Alarms</a></li>
 
                 {% for x in  smpercm %}
                     {% if x.id_cm.id == cm.id %}
@@ -91,7 +89,7 @@
               <li class="pull-left header"> {{ cm.name }}</li>
             </ul>
             <div class="tab-content">
-              <div class="tab-pane active" id="tab_1-1">
+              <div class="tab-pane active" id="tab_1-{{ forloop.counter }}">
 
 
             <!-- /.box-header -->
@@ -220,7 +218,7 @@
         <div class="col-md-6">
     <div class="box box-default">
         <div class="box-header with-border">
-        <h3 class="box-title"><i class="fa fa-map-marker" ></i>Localization </h3>
+        <h3 class="box-title"><i class="fa fa-map-marker" ></i>  Localization </h3>
         <div class="box-tools pull-right">
         <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
         <!--<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button> -->
@@ -245,11 +243,10 @@
 
 
       </div>
+</div>
+{% endfor %}
 
- {% endfor %}
 
-
-    <br/>
     </section>
 
 

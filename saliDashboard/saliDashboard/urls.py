@@ -30,7 +30,7 @@ urlpatterns = [
 
     #url(r'^api/', include(router.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    url(r'^api/$', schema_view),
+    url(r'^api/$', schema_view, name="api-doc"),
 
 
     url(r'^$', login_forbidden(login), name="login"),
@@ -107,6 +107,10 @@ urlpatterns = [
     # cm
     url(r'^api/cm/$', views.ControllerModuleList.as_view()),
     url(r'^api/cm/(?P<pk_or_name>[-\w]+)/$', views.ControllerModule_param.as_view()),
+
+    # cm per users
+
+    url(r'^api/cmperusers/(?P<pk_or_username>[-\w]+)/$', views.CMperUser_param.as_view()),
 
     # sm
     url(r'^api/sm/$', views.SensorModuleList.as_view()),

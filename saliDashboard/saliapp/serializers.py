@@ -42,6 +42,14 @@ class ControllerModuleSerializer(serializers.HyperlinkedModelSerializer):
                   'localization_cm')
 
 
+class CMperUserSerializer(serializers.HyperlinkedModelSerializer):
+    id_cm = ControllerModuleSerializer()
+    class Meta:
+
+        model = CMPerUsers
+        fields = ('id_cm',)
+
+
 class SensorModuleSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = SensorModule
