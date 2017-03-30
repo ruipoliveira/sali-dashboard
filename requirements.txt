@@ -19,7 +19,6 @@ djangorestframework==3.6.2
 docutils==0.13.1
 Flask==0.12
 google-api-python-client==1.6.2
-gyp==0.1
 httplib2==0.10.3
 itsdangerous==0.24
 itypes==1.1.0
