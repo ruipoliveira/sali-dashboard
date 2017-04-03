@@ -28,9 +28,6 @@ SECRET_KEY = '_z61jv0_m!p1_28#czvgrcb^^_la#t$w2wrjf17x*6pa030_2c'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
-
 # Application definition
 
 INSTALLED_APPS = (
@@ -127,3 +124,5 @@ USE_TZ = True
 
 STATIC_ROOT = posixpath.join(*(BASE_DIR.split(os.path.sep) + ['static']))
 STATIC_URL = '/static/'
+
+### ALLOWED_HOSTS = []

@@ -33,7 +33,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="typesensors.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="typesensors.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/saliapp/templates/add/typesensors.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="230">
@@ -43,7 +43,17 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="settings.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/saliDashboard/settings.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="170">
+              <caret line="119" column="13" lean-forward="true" selection-start-line="119" selection-start-column="13" selection-end-line="119" selection-end-column="13" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/saliapp/views.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="311">
@@ -127,13 +137,13 @@
         <option value="$PROJECT_DIR$/saliapp/admin.py" />
         <option value="$PROJECT_DIR$/saliapp/models.py" />
         <option value="$PROJECT_DIR$/saliapp/templates/registration/login.html" />
-        <option value="$PROJECT_DIR$/saliDashboard/settings.py" />
         <option value="$PROJECT_DIR$/saliDashboard/urls.py" />
         <option value="$PROJECT_DIR$/saliapp/templates/add/typecommunication.html" />
         <option value="$PROJECT_DIR$/saliapp/templates/view/view_smodule.html" />
         <option value="$PROJECT_DIR$/saliapp/templates/view/view_cmodule.html" />
         <option value="$PROJECT_DIR$/saliapp/templates/add/typesensors.html" />
         <option value="$PROJECT_DIR$/saliapp/views.py" />
+        <option value="$PROJECT_DIR$/saliDashboard/settings.py" />
       </list>
     </option>
   </component>
@@ -637,7 +647,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="30" width="1366" height="738" extended-state="6" />
+    <frame x="0" y="30" width="1366" height="738" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -1058,16 +1068,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/saliDashboard/settings.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="50" column="19" lean-forward="false" selection-start-line="50" selection-start-column="5" selection-end-line="50" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/saliapp/templates/add/typesensors.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="230">
-          <caret line="25" column="43" lean-forward="false" selection-start-line="25" selection-start-column="43" selection-end-line="25" selection-end-column="43" />
+        <state relative-caret-position="170">
+          <caret line="119" column="13" lean-forward="true" selection-start-line="119" selection-start-column="13" selection-end-line="119" selection-end-column="13" />
           <folding />
         </state>
       </provider>
@@ -1076,6 +1078,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="311">
           <caret line="560" column="77" lean-forward="true" selection-start-line="560" selection-start-column="77" selection-end-line="560" selection-end-column="77" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/saliapp/templates/add/typesensors.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="230">
+          <caret line="25" column="43" lean-forward="false" selection-start-line="25" selection-start-column="43" selection-end-line="25" selection-end-column="43" />
           <folding />
         </state>
       </provider>
