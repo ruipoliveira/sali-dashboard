@@ -555,7 +555,7 @@ class TypeSensor(View):
         return render(request,
                       'add/typesensors.html', {
                           'user': request.user,
-                          'title': 'Type XXXXXXXXXXXXXXXX sensor',
+                          'title': 'Sensor type',
                           'titlesmall': 'All types',
                           'sensorAll': SensorType.objects.all(),
                           'notSensor': SensorType.objects.all().count() == 0,

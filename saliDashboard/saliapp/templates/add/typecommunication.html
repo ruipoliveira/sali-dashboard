@@ -1,12 +1,8 @@
 {% extends "layout.html" %}
 {% block body %}
 
-
-
-
 <section class="content">
 
-    <br/>
     {% if messages %}
         {% for message in messages %}
             <div class="alert alert-success alert-dismissible">
@@ -26,8 +22,9 @@
         <div class="box-body table-responsive no-padding">
 
             {% if notComm %}
-                <h4><i class="fa fa-info-circle" aria-hidden="true"></i> No communication type available.</h4>
-                <p>Add one!</p>
+                <div class="alert" style="background-color: lightgrey;">
+                    <h4><i class="icon fa fa-info-circle"></i> {{ title }} not available!</h4>
+                </div>
             {% endif %}
 
             {% for comm in commAll %}

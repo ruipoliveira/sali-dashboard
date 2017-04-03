@@ -33,8 +33,9 @@
 
         <div class="box-body table-responsive no-padding">
             {% if notCm %}
-                <h4><i class="fa fa-info-circle" aria-hidden="true"></i> No controller module available.</h4>
-                <p>Add one!</p>
+                <div class="alert" style="background-color: lightgrey;">
+                    <h4><i class="icon fa fa-info-circle"></i> {{ title }} not available!</h4>
+                </div>
             {% endif %}
 
             {% if not notCm %}
