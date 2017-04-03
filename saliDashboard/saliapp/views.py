@@ -558,7 +558,7 @@ class TypeSensor(View):
                           'title': 'Type sensor',
                           'titlesmall': 'All types',
                           'sensorAll': SensorType.objects.all(),
-                          'notSensor': SensorType.objects.all().count()==0,
+                          'notSensor': SensorType.objects.all().count() == 0,
                           'exist': Sensor.objects.filter(id_sensor_type=2).exists()
 
                       })
