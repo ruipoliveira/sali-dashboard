@@ -516,6 +516,7 @@ class ShowDevices(View):
                           'title': 'Controller module',
                           'titlesmall': 'All devices',
                           'allCPUs': allCPUs,
+                          'notCm': allCPUs.count()==0,
                           'totaluser': User.objects.all(),
                           'userAll': userAll,
                           'communicationAll': communicationAll
@@ -557,6 +558,7 @@ class TypeSensor(View):
                           'title': 'Type sensor',
                           'titlesmall': 'All types',
                           'sensorAll': SensorType.objects.all(),
+                          'notSensor': SensorType.objects.all().count()==0,
                           'exist': Sensor.objects.filter(id_sensor_type=2).exists()
 
                       })
@@ -568,7 +570,7 @@ class TypeSensor(View):
                         scale_value=request.POST["scale"],
                         image_path=request.POST["path"],
                         color="bg-" + request.POST['color'])
-        messages.success(request, str(st.name) + ' created successfully!')
+        messages.success(request, '\"'+str(st.name) + '\" created successfully!')
         st.save()
 
         return redirect('typesensor')
@@ -581,6 +583,7 @@ class TypeCommunication(View):
                           'user': request.user,
                           'title': 'Type Communication',
                           'titlesmall': 'All types',
+                          'notComm': CommunicationType.objects.all().count() == 0,
                           'commAll': CommunicationType.objects.all(),
                       })
 
@@ -610,7 +613,7 @@ def deletecomm(request, id_comm):
 def deletesensor(request, id_sensor):
     print id_sensor
     u = SensorType.objects.get(pk=id_sensor)
-    messages.success(request, str(u.name) + ' deleted successfully!')
+    messages.success(request, '\"'+str(u.name) + '\" deleted successfully!')
     u.delete()
 
     # messages.add_message(request, messages.INFO, 'Improve your profile today!')

@@ -22,7 +22,6 @@ login_forbidden = user_passes_test(lambda u: u.is_anonymous(), 'home')
 #router.register(r'user', views.UserViewSet)
 
 
-
 schema_view = get_swagger_view(title='API documentation')
 
 

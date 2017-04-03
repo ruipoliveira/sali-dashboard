@@ -6,11 +6,9 @@
 
     {% if messages %}
         {% for message in messages %}
-
             <div class="alert alert-success alert-dismissible">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                <h4><i class="icon fa fa-check"></i> Alert!</h4>
-                {{ message }}
+                <i class="icon fa fa-check"></i>{{ message }}
             </div>
         {% endfor %}
     {% endif %}
@@ -18,18 +16,20 @@
 
     <div class="box box-default">
         <div class="box-header with-border">
-        <h3 class="box-title">All </h3>
-        <div class="box-tools pull-right">
-        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-        <!--<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button> -->
-        </div>
     </div>
     <!-- /.box-header -->
     <div class="box-body">
 
         <div class="box-body table-responsive no-padding">
 
+            {% if notSensor %}
+                <h4><i class="fa fa-info-circle" aria-hidden="true"></i> No sensor type available.</h4>
+                <p>Add one!</p>
+            {% endif %}
+
+
             {% for sensor in sensorAll %}
+
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="info-box">
                         <span class="info-box-icon {{ sensor.color }}"> <img width="50%"  src="/static/resources/typesensor/{{ sensor.image_path }}"></span>
@@ -96,7 +96,7 @@
             </div>
         </div>
         <div class="form-group">
-            <label for="inputEmail3" class="col-sm-3 control-label">Identification color</label>
+            <label for="inputEmail3" class="col-sm-3 control-label">Color</label>
 
             <div class="col-sm-9">
                 <select name="color" class="form-control">
