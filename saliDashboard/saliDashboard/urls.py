@@ -6,7 +6,6 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.views import login
-from rest_framework import routers
 from rest_framework_swagger.views import get_swagger_view
 
 from saliapp import views
@@ -23,6 +22,9 @@ login_forbidden = user_passes_test(lambda u: u.is_anonymous(), 'home')
 
 
 schema_view = get_swagger_view(title='API documentation')
+
+handler400 = 'views.handler404'
+handler500 = 'views.handler500'
 
 
 urlpatterns = [
@@ -142,7 +144,6 @@ urlpatterns = [
 ]
 
 #urlpatterns = format_suffix_patterns(urlpatterns)
-handler404 = 'views.handler404'
-handler500 = 'views.handler500'
+
 
 
