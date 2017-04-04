@@ -170,7 +170,7 @@ def newuser(request):
 @login_required
 def deletecm(request, id_cpu):
     u = ControllerModule.objects.get(pk=id_cpu)
-    messages.success(request, str(u.name) + ' deleted successfully!')
+    messages.success(request, '\"'+str(u.name) + '\" deleted successfully!')
     u.delete()
 
     # messages.add_message(request, messages.INFO, 'Improve your profile today!')
@@ -240,12 +240,13 @@ class SensorValues(View):
         # get id_sm and id_cm
         id_sm = self.kwargs['id_sm']
         id_cm = self.kwargs['id_cm']
-        date = self.kwargs['date']
+        date_start = self.kwargs['dates']
+        date_finish = self.kwargs['datef']
 
         # , date_time__range=[self.date_start, self.date_finish]
 
-        readWithFilter = Reading.objects.filter(id_sensor=id_sm, date_time__range=[date + ' 00:00:00',
-                                                                                   date + ' 23:59:59'])
+        readWithFilter = Reading.objects.filter(id_sensor=id_sm, date_time__range=[date_start + ' 00:00:00',
+                                                                                   date_finish + ' 23:59:59'])
 
         # avgReadWithFilter = readWithFilter.aggregate(Avg('value')).values()[0]
         # print avgReadWithFilter
@@ -254,8 +255,8 @@ class SensorValues(View):
         time = []
 
         for f in Sensor.objects.filter(id_sm=id_sm):
-            for r in Reading.objects.filter(id_sensor=f.id, date_time__range=[date + ' 00:00:00',
-                                                                              date + ' 23:59:59']):
+            for r in Reading.objects.filter(id_sensor=f.id, date_time__range=[date_start + ' 00:00:00',
+                                                                              date_finish + ' 23:59:59']):
                 if r.date_time.strftime('%d/%m/%Y %H:%M') not in time:
                     time.append(r.date_time.strftime('%d/%m/%Y %H:%M'))
 
@@ -296,8 +297,8 @@ class SensorValues(View):
         for i in Sensor.objects.filter(id_sm=id_sm):
             print "#" + str(i.id) + " type:" + str(i.id_sensor_type.name)
 
-            for x in Reading.objects.filter(id_sensor=i.id, date_time__range=[date + ' 00:00:00',
-                                                                              date + ' 23:59:59']).order_by('date_time'):
+            for x in Reading.objects.filter(id_sensor=i.id, date_time__range=[date_start + ' 00:00:00',
+                                                                              date_finish + ' 23:59:59']).order_by('date_time'):
                 # for a in reversed(time_format):
                 #    if a == x.date_time.strftime('%d/%m/%Y %H:%M'):
                 #        print a
@@ -345,6 +346,8 @@ class SensorValues(View):
                           'final': zip(name_sensors, id_sensor, color_random, final, nrmeasure, maxValue, minValue,
                                        avg),
                           'time_format': time,
+                          'current_date': current_date_y_m_d,
+                          'notData': len(time) ==0,
                           'maxvalue': maxValueAll,
                           'minValue': minValueAll,
                           'id_sm': id_sm,
@@ -357,7 +360,7 @@ class SensorValues(View):
 
 
 @login_required
-def showalldata(request, id_sm, id_cm):
+def showalldata(request, id_sm, id_cm, dates, datef):
     allSensorID = map(int, Sensor.objects.filter(id_sm=id_sm).values_list('id', flat=True))
 
     print allSensorID
@@ -369,7 +372,9 @@ def showalldata(request, id_sm, id_cm):
              titlesmall=SensorModule.objects.get(id=id_sm).name +
                         " of controller module " +
                         ControllerModule.objects.get(id=id_cm).name,
-             datashow=Reading.objects.filter(id_sensor__in=allSensorID).all(),
+             datashow=Reading.objects.filter(id_sensor__in=allSensorID,
+                                             date_time__range=[dates + ' 00:00:00',
+                                                               datef + ' 23:59:59']).all(),
              id_sm=id_sm,
              id_cm=id_cm, ),
 
@@ -413,6 +418,8 @@ class ShowSensorModule(View):
         x = SMPerCM.objects.filter(id_cm=id_cpu)
         y = [e.id_sm for e in x]
 
+        print
+
         x1 = CommunicationTypePerSM.objects.filter(id_sm=id_cpu)
         print x1
 
@@ -429,6 +436,7 @@ class ShowSensorModule(View):
                        'comm': y1,
                        'current_date': current_date_y_m_d,
                        'allAllarms': AlarmsSettings.objects.all(),
+                       'notSM': len(y) == 0,
                        'sensor': Sensor.objects.all(),
                        'sensortype': SensorType.objects.all(),
                        'commtype': CommunicationType.objects.all(),
@@ -442,13 +450,17 @@ class ShowSensorModule(View):
         except MultiValueDictKeyError:
             status_sm = False
 
+        if not request.POST["seding"]:
+            seding = 10
+        else:
+            seding = request.POST["seding"]
+
         # criacao de uma instancia SM
         sm = SensorModule(name=request.POST["name"].replace("_", " "),
-                          localization_sm="3243242432423,423423432423432",
-                          baterry_sm=80,
+                          localization_sm="36.974,-122.025",
+                          baterry_sm=100,
                           status_sm=status_sm,
-                          seding_time=request.POST["seding"],
-                          )
+                          seding_time=seding)
         sm.save()
 
         # adicionar SM a este CM
@@ -488,13 +500,15 @@ class ShowSensorModule(View):
 
                 sensor_allarms_req.save()
 
+        messages.success(request, '\"' + str(sm.name) + '\" created successfully!')
+
         return redirect('showdetails', id_cm=self.kwargs['id_cm'])
 
 
 @login_required
 def deletesm(request, id_cm, id_sm):
     u = SensorModule.objects.get(pk=id_sm)
-    messages.success(request, str(u.name) + ' deleted successfully!')
+    messages.success(request, '\"' +str(u.name) + '\" deleted successfully!')
     u.delete()
 
     # messages.add_message(request, messages.INFO, 'Improve your profile today!')
@@ -529,12 +543,17 @@ class ShowDevices(View):
         except MultiValueDictKeyError:
             status = False
 
+        if not request.POST["memory"]:
+            memory ="0"
+        else:
+            memory = request.POST["memory"]
+
         cm = ControllerModule(id_communication=CommunicationType.objects.get(id=request.POST["comm"]),
                               id_by_create=self.request.user,
                               name=request.POST["name"].replace("_", " "),
                               status_cm=status,
-                              memory=request.POST["memory"],
-                              localization_cm="4123123,32131231",
+                              memory=memory,
+                              localization_cm="36.964,-122.015",
                               baterry_cm=100)
         cm.save()
 
@@ -546,7 +565,7 @@ class ShowDevices(View):
             cmperusera = CMPerUsers(id_cm=cm, id_user=User.objects.get(username=manager))
             cmperusera.save()
 
-        messages.success(request, cm.name + ' created successfully!')
+        messages.success(request, '\"' + cm.name + '\" created successfully!')
         return redirect('addcpu')
 
 
@@ -560,7 +579,6 @@ class TypeSensor(View):
                           'sensorAll': SensorType.objects.all(),
                           'notSensor': SensorType.objects.all().count() == 0,
                           'exist': Sensor.objects.filter(id_sensor_type=2).exists()
-
                       })
 
     def post(self, request, shortcode=None, *args, **kwargs):
@@ -592,7 +610,7 @@ class TypeCommunication(View):
                                path_or_number=request.POST["source"],
                                image_path=request.POST["path"])
 
-        messages.success(request, str(ct.name) + ' created successfully!')
+        messages.success(request, '\"'+str(ct.name) + +'\" created successfully!')
         ct.save()
 
         return redirect('typecommunication')
@@ -601,7 +619,7 @@ class TypeCommunication(View):
 @login_required
 def deletecomm(request, id_comm):
     u = CommunicationType.objects.get(pk=id_comm)
-    messages.success(request, str(u.name) + ' deleted successfully!')
+    messages.success(request, '\"'+str(u.name) + '\" deleted successfully!')
     u.delete()
 
     # messages.add_message(request, messages.INFO, 'Improve your profile today!')

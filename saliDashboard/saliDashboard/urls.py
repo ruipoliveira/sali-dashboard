@@ -60,7 +60,7 @@ urlpatterns = [
 
     url(r'^addsm/(?P<id_cm>[-\w]+)/$', views.addSensorModule, name="addsm"),
 
-    url(r'^devices/cm/(?P<id_cm>[-\w]+)/sm/(?P<id_sm>[-\w]+)/date/(?P<date>[-\w]+)$', login_required(SensorValues.as_view()),
+    url(r'^devices/cm/(?P<id_cm>[-\w]+)/sm/(?P<id_sm>[-\w]+)/visual/(?P<dates>[-\w]+)/(?P<datef>[-\w]+)$', login_required(SensorValues.as_view()),
         name="viewSensors"),
 
     url(r'^typesensor/$', login_required(TypeSensor.as_view()), name="typesensor"),
@@ -76,7 +76,7 @@ urlpatterns = [
     url(r'^deleteallarm/(?P<id_allarm>[-\w]+)/$', views.checkedAllarms, name="deleteallarm"),
 
 
-    url(r'^devices/cm/(?P<id_cm>[-\w]+)/sm/(?P<id_sm>[-\w]+)/showalldata/$', views.showalldata, name="showalldata"),
+    url(r'^devices/cm/(?P<id_cm>[-\w]+)/sm/(?P<id_sm>[-\w]+)/dataset/(?P<dates>[-\w]+)/(?P<datef>[-\w]+)$', views.showalldata, name="showalldata"),
 
     url(r'^devices/cm/(?P<id_cm>[-\w]+)/sm/(?P<id_sm>[-\w]+)/export/$', views.exportcsv, name="exportcsv"),
 

@@ -25,10 +25,19 @@
 
 
     <div style="float: right;">
-        <a type="button" href="{% url 'showalldata' id_sm=id_sm id_cm=id_cm %}" class="btn bg-navy btn-flat margin">Dataset view</a>
+        <a type="button" href="{% url 'showalldata' id_sm=id_sm id_cm=id_cm dates=current_date datef=current_date%}" class="btn bg-navy btn-flat margin">Dataset view</a>
     </div>
 
     <br/><br/><br/>
+
+    {% if notData %}
+        <div class="alert" style="background-color: lightgrey;">
+            <h4><i class="icon fa fa-info-circle"></i> Data not available!</h4>
+        </div>
+    {% endif %}
+
+
+
 
 {% for name, id, color, values, nrmeasureSensor, maxvalueSensor, minvalueSensor, avg in final %}
 <div>
@@ -43,6 +52,8 @@
     </div>
     <!-- /.box-header -->
     <div class="box-body">
+
+
 
         <div id='myChart{{ forloop.counter }}'  >
 
