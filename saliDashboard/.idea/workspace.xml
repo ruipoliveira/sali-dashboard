@@ -36,8 +36,18 @@
       <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/saliapp/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="273">
-              <caret line="378" column="28" lean-forward="true" selection-start-line="378" selection-start-column="28" selection-end-line="378" selection-end-column="28" />
+            <state relative-caret-position="160">
+              <caret line="613" column="17" lean-forward="true" selection-start-line="613" selection-start-column="17" selection-end-line="613" selection-end-column="17" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="typecommunication.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/saliapp/templates/add/typecommunication.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-468">
+              <caret line="18" column="25" lean-forward="true" selection-start-line="18" selection-start-column="25" selection-end-line="18" selection-end-column="25" />
               <folding />
             </state>
           </provider>
@@ -85,8 +95,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>All</find>
-      <find>commu</find>
       <find>rest</find>
       <find>sucesso</find>
       <find>SMPerCM</find>
@@ -115,6 +123,8 @@
       <find>smodu</find>
       <find>view_sens</find>
       <find>showalldata</find>
+      <find>show</find>
+      <find>ct.m</find>
     </findStrings>
   </component>
   <component name="IdeDocumentHistory">
@@ -1033,14 +1043,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/saliapp/templates/add/typecommunication.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="18" column="25" lean-forward="true" selection-start-line="18" selection-start-column="25" selection-end-line="18" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/saliapp/templates/addusers.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="108">
@@ -1097,10 +1099,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/saliapp/templates/add/typecommunication.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-468">
+          <caret line="18" column="25" lean-forward="true" selection-start-line="18" selection-start-column="25" selection-end-line="18" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/saliapp/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="273">
-          <caret line="378" column="28" lean-forward="true" selection-start-line="378" selection-start-column="28" selection-end-line="378" selection-end-column="28" />
+        <state relative-caret-position="160">
+          <caret line="613" column="17" lean-forward="true" selection-start-line="613" selection-start-column="17" selection-end-line="613" selection-end-column="17" />
           <folding />
         </state>
       </provider>

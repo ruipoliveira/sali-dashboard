@@ -610,7 +610,7 @@ class TypeCommunication(View):
                                path_or_number=request.POST["source"],
                                image_path=request.POST["path"])
 
-        messages.success(request, '\"'+str(ct.name) + +'\" created successfully!')
+        messages.success(request, '\"'+str(ct.name) +'\" created successfully!')
         ct.save()
 
         return redirect('typecommunication')
