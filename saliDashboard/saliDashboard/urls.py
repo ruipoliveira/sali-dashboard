@@ -23,9 +23,6 @@ login_forbidden = user_passes_test(lambda u: u.is_anonymous(), 'home')
 
 schema_view = get_swagger_view(title='API documentation')
 
-handler400 = 'views.handler404'
-handler500 = 'views.handler500'
-
 
 urlpatterns = [
 
