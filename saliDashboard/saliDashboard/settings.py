@@ -26,7 +26,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '_z61jv0_m!p1_28#czvgrcb^^_la#t$w2wrjf17x*6pa030_2c'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 # Application definition
 
@@ -45,7 +45,9 @@ INSTALLED_APPS = (
     'graphos',
     'leaflet',
     'django_extensions',
-    'password_reset'
+    'password_reset',
+    'rest_framework.authtoken'
+
 
 
 )
@@ -83,8 +85,12 @@ TEMPLATES = [
 WSGI_APPLICATION = 'saliDashboard.wsgi.application'
 
 REST_FRAMEWORK = {
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 100,
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+    )
 }
 
 
@@ -125,5 +131,5 @@ USE_TZ = True
 STATIC_ROOT = posixpath.join(*(BASE_DIR.split(os.path.sep) + ['static']))
 STATIC_URL = '/static/'
 
-### # # ALLOWED_HOSTS = ['*']
+### # ## ALLOWED_HOSTS = ['*']
 

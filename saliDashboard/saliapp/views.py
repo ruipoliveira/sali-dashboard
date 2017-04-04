@@ -4,6 +4,7 @@ Definition of views.
 import csv
 import datetime
 import random
+from rest_framework.authtoken.models import Token
 
 from django.contrib import messages
 from django.contrib.auth import logout
@@ -133,6 +134,11 @@ def home(request):
     # Model.objects.
 
     print cenas
+
+    #token = Token.objects.create(user=request.user)
+
+    #print token.key
+
 
     return render_to_response(
         'home.html',
@@ -679,4 +685,5 @@ def sendRedings(request):
     form = PostForm()
 
     return render(request, 'view/post_edit.html', {'form': form})
+
 

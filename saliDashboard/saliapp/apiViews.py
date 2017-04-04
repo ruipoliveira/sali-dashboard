@@ -9,8 +9,8 @@ from .serializers import *
 from rest_framework.response import Response
 from rest_framework import status
 from django.http import Http404
-from django.http import HttpResponseRedirect
-
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication
+from rest_framework.permissions import IsAuthenticated
 
 class ControllerModuleViewSet(APIView):
     def get(self, request, format=None):
@@ -51,9 +51,14 @@ class UserViewSet(viewsets.ModelViewSet):
 #########################################################
 
 class CommunicationTypeList(APIView):
+    authentication_classes = (SessionAuthentication, BasicAuthentication)
+    permission_classes = (IsAuthenticated,)
+
     def get(self, request, format=None):
         snippets = CommunicationType.objects.all()
-        serializer = CommunicationTypeSerializer(snippets, many=True, context={'request': request})
+        serializer = CommunicationTypeSerializer(snippets, many=True, context={'request': request,
+                                                                               'user': unicode(request.user),
+                                                                               'auth': unicode(request.auth), })
         return Response(serializer.data)
 
     def post(self, request, format=None):
