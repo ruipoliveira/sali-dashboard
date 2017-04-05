@@ -4,6 +4,8 @@ Definition of views.
 import csv
 import datetime
 import random
+from django.contrib.auth.models import Group
+from django.core.mail import EmailMessage
 
 from django.contrib import messages
 from django.contrib.auth import logout
@@ -23,10 +25,10 @@ from saliapp.forms import *
 from .apiViews import *
 from django.http import HttpResponse
 
-
 # django_list = list(User.objects.all())
 
 current_date_y_m_d = datetime.now().strftime('%Y-%m-%d')
+
 
 def home2(request):
     assert isinstance(request, HttpRequest)
@@ -40,16 +42,23 @@ def home2(request):
     )
 
 
-def register(request):
-    assert isinstance(request, HttpRequest)
-    return render(
-        request,
-        'registration/register.html',
-        {
-            'title': 'roliveira',
-            'year': datetime.now().year,
-        }
-    )
+class Register(View):
+    def get(self, request, shortcode=None, *args, **kwargs):
+        return render(request, 'registration/register.html', {
+            'allCompany': Group.objects.get(name="company").user_set.all()
+        })
+
+    def post(self, request, shortcode=None, *args, **kwargs):
+
+        email = EmailMessage(
+            'Subject here',
+            'Here is the message.',
+            to=['ruipedrooliveira@ua.pt']
+        )
+        email.send()
+
+
+        return redirect('home')
 
 
 def recover(request):
@@ -64,8 +73,6 @@ def recover(request):
     )
 
 
-
-
 def addNewUser(resquest):
     new_user = User.objects.create_user(self.cleaned_data['username'],
                                         self.cleaned_data['email'],
@@ -75,7 +82,6 @@ def addNewUser(resquest):
     new_user.save()
 
     return render(request, 'home.html');
-
 
 
 def logout_page(request):
@@ -120,9 +126,9 @@ def home(request):
 
     print cenas
 
-    #token = Token.objects.create(user=request.user)
+    # token = Token.objects.create(user=request.user)
 
-    #print token.key
+    # print token.key
 
 
     return render_to_response(
@@ -135,7 +141,7 @@ def home(request):
          'smpercm': SMPerCM.objects.all(),
          'allSensor': Sensor.objects.all(),
          'current_date': current_date_y_m_d,
-         'allarms_settings':AlarmsSettings.objects.all(),
+         'allarms_settings': AlarmsSettings.objects.all(),
          'userregistrations': User.objects.all().count(),
          'SMregistrations': SensorModule.objects.all().count(),
          'CMregistrations': ControllerModule.objects.all().count(),
@@ -162,7 +168,7 @@ def newuser(request):
 @login_required
 def deletecm(request, id_cpu):
     u = ControllerModule.objects.get(pk=id_cpu)
-    messages.success(request, '\"'+str(u.name) + '\" deleted successfully!')
+    messages.success(request, '\"' + str(u.name) + '\" deleted successfully!')
     u.delete()
 
     # messages.add_message(request, messages.INFO, 'Improve your profile today!')
@@ -227,7 +233,6 @@ def foo(request):
 
 
 class SensorValues(View):
-
     def get(self, request, shortcode=None, *args, **kwargs):
         # get id_sm and id_cm
         id_sm = self.kwargs['id_sm']
@@ -290,7 +295,8 @@ class SensorValues(View):
             print "#" + str(i.id) + " type:" + str(i.id_sensor_type.name)
 
             for x in Reading.objects.filter(id_sensor=i.id, date_time__range=[date_start + ' 00:00:00',
-                                                                              date_finish + ' 23:59:59']).order_by('date_time'):
+                                                                              date_finish + ' 23:59:59']).order_by(
+                'date_time'):
                 # for a in reversed(time_format):
                 #    if a == x.date_time.strftime('%d/%m/%Y %H:%M'):
                 #        print a
@@ -341,7 +347,7 @@ class SensorValues(View):
                           'date_start': date_start,
                           'date_finish': date_finish,
                           'current_date': current_date_y_m_d,
-                          'notData': len(time) ==0,
+                          'notData': len(time) == 0,
                           'maxvalue': maxValueAll,
                           'minValue': minValueAll,
                           'id_sm': id_sm,
@@ -383,7 +389,8 @@ def exportcsv(request, id_sm, id_cm):
     allSensorID = map(int, Sensor.objects.filter(id_sm=id_sm).values_list('id', flat=True))
 
     response = HttpResponse(content_type='text/csv')
-    response['Content-Disposition'] = 'attachment; filename="sensor_'+datetime.now().strftime("%Y-%m-%d_%H:%M:%S")+'.csv"'
+    response['Content-Disposition'] = 'attachment; filename="sensor_' + datetime.now().strftime(
+        "%Y-%m-%d_%H:%M:%S") + '.csv"'
 
     writer = csv.writer(response, csv.excel)
 
@@ -502,7 +509,7 @@ class ShowSensorModule(View):
 @login_required
 def deletesm(request, id_cm, id_sm):
     u = SensorModule.objects.get(pk=id_sm)
-    messages.success(request, '\"' +str(u.name) + '\" deleted successfully!')
+    messages.success(request, '\"' + str(u.name) + '\" deleted successfully!')
     u.delete()
 
     # messages.add_message(request, messages.INFO, 'Improve your profile today!')
@@ -524,7 +531,7 @@ class ShowDevices(View):
                           'title': 'Controller module',
                           'titlesmall': 'All devices',
                           'allCPUs': allCPUs,
-                          'notCm': allCPUs.count()==0,
+                          'notCm': allCPUs.count() == 0,
                           'totaluser': User.objects.all(),
                           'userAll': userAll,
                           'communicationAll': communicationAll
@@ -538,7 +545,7 @@ class ShowDevices(View):
             status = False
 
         if not request.POST["memory"]:
-            memory ="0"
+            memory = "0"
         else:
             memory = request.POST["memory"]
 
@@ -582,7 +589,7 @@ class TypeSensor(View):
                         scale_value=request.POST["scale"],
                         image_path=request.POST["path"],
                         color="bg-" + request.POST['color'])
-        messages.success(request, '\"'+str(st.name) + '\" created successfully!')
+        messages.success(request, '\"' + str(st.name) + '\" created successfully!')
         st.save()
 
         return redirect('typesensor')
@@ -604,7 +611,7 @@ class TypeCommunication(View):
                                path_or_number=request.POST["source"],
                                image_path=request.POST["path"])
 
-        messages.success(request, '\"'+str(ct.name) +'\" created successfully!')
+        messages.success(request, '\"' + str(ct.name) + '\" created successfully!')
         ct.save()
 
         return redirect('typecommunication')
@@ -613,7 +620,7 @@ class TypeCommunication(View):
 @login_required
 def deletecomm(request, id_comm):
     u = CommunicationType.objects.get(pk=id_comm)
-    messages.success(request, '\"'+str(u.name) + '\" deleted successfully!')
+    messages.success(request, '\"' + str(u.name) + '\" deleted successfully!')
     u.delete()
 
     # messages.add_message(request, messages.INFO, 'Improve your profile today!')
@@ -625,7 +632,7 @@ def deletecomm(request, id_comm):
 def deletesensor(request, id_sensor):
     print id_sensor
     u = SensorType.objects.get(pk=id_sensor)
-    messages.success(request, '\"'+str(u.name) + '\" deleted successfully!')
+    messages.success(request, '\"' + str(u.name) + '\" deleted successfully!')
     u.delete()
 
     # messages.add_message(request, messages.INFO, 'Improve your profile today!')
@@ -673,5 +680,3 @@ def sendRedings(request):
     form = PostForm()
 
     return render(request, 'view/post_edit.html', {'form': form})
-
-

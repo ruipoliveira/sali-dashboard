@@ -34,9 +34,8 @@ urlpatterns = [
 
     url(r'^admin/', admin.site.urls),
 
-    url(r'^register/$', views.register, name='register'),
+    url(r'^register/$', Register.as_view(), name='register'),
     url(r'^recover/$', views.recover, name='recover'),
-
 
     # url(r'^recoverpassword/', views.recoverpassword),
 
