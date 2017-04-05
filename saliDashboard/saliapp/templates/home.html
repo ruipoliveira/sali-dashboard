@@ -1,295 +1,312 @@
 {% extends "layout.html" %}
 {% block body %}
 
+    <br/>
 
-<br/>
+    <section class="content">
 
-<section class="content">
+        <div class="row">
+            <div class="col-lg-3 col-xs-6">
+                <!-- small box -->
+                <div class="small-box bg-aqua">
+                    <div class="inner">
+                        <h3>{{ userregistrations }}</h3>
 
-
-      <div class="row">
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box bg-aqua">
-            <div class="inner">
-              <h3>{{ userregistrations }}</h3>
-
-              <p>User Registrations</p>
+                        <p>User Registrations</p>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-person-add"></i>
+                    </div>
+                </div>
             </div>
-            <div class="icon">
-              <i class="ion ion-person-add"></i>
+            <!-- ./col -->
+            <div class="col-lg-3 col-xs-6">
+                <!-- small box -->
+                <div class="small-box bg-green">
+                    <div class="inner">
+                        <h3>{{ CMregistrations }} <!--<sup style="font-size: 20px">%</sup>--></h3>
+
+                        <p>Controller Modules Registrations</p>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-ios-settings-strong"></i>
+                    </div>
+                </div>
             </div>
-          </div>
+            <!-- ./col -->
+            <div class="col-lg-3 col-xs-6">
+                <!-- small box -->
+                <div class="small-box bg-yellow">
+                    <div class="inner">
+                        <h3>{{ SMregistrations }}</h3>
+
+                        <p>Sensor Modules Registrations</p>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-stats-bars "></i>
+                    </div>
+                </div>
+            </div>
+            <!-- ./col -->
+            <div class="col-lg-3 col-xs-6">
+                <!-- small box -->
+                <div class="small-box bg-red">
+                    <div class="inner">
+                        <h3>{{ totalReadings }}</h3>
+
+                        <p>Number of Readings</p>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-pie-graph"></i>
+                    </div>
+                </div>
+            </div>
+            <!-- ./col -->
         </div>
-        <!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box bg-green">
-            <div class="inner">
-              <h3>{{ CMregistrations }} <!--<sup style="font-size: 20px">%</sup>--></h3>
 
-              <p>Controller Modules Registrations</p>
-            </div>
-            <div class="icon">
-              <i class="ion ion-ios-settings-strong"></i>
-            </div>
-          </div>
-        </div>
-        <!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box bg-yellow">
-            <div class="inner">
-              <h3>{{ SMregistrations }}</h3>
+        <br/>
 
-              <p>Sensor Modules Registrations</p>
-            </div>
-            <div class="icon">
-              <i class="ion ion-stats-bars "></i>
-            </div>
-          </div>
-        </div>
-        <!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box bg-red">
-            <div class="inner">
-              <h3>{{ totalReadings }}</h3>
+        {% for cm in allControllerM %}
+            <div class="row">
 
-              <p>Number of Readings</p>
-            </div>
-            <div class="icon">
-              <i class="ion ion-pie-graph"></i>
-            </div>
-          </div>
-        </div>
-        <!-- ./col -->
-      </div>
+                <div class="col-md-6">
 
+                    <div class="nav-tabs-custom">
+                        <ul class="nav nav-tabs pull-right">
+                            <li class="active"><a href="#tab_1-{{ forloop.counter }}" data-toggle="tab"><i
+                                    class="fa fa-exclamation-triangle" style="color:red"> </i> Alarms</a></li>
 
-<br/>
+                            {% for x in  smpercm %}
+                                {% if x.id_cm.id == cm.id %}
+                                    <li><a href="#tab_3-{{ forloop.counter }}" data-toggle="tab">{{ x.id_sm.name }}</a>
+                                    </li>
+                                {% endif %}
+                            {% endfor %}
 
+                            <li class="pull-left header"> {{ cm.name }}</li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="tab_1-{{ forloop.counter }}">
 
-    {% for cm in allControllerM %}
-    <div class="row">
+                                <!-- /.box-header -->
+                                <div class="box-body">
+                                    <ul class="todo-list">
 
+                                        {% for x in  smpercm %}
+                                            {% if x.id_cm.id == cm.id %}
 
-        <div class="col-md-6">
+                                                {% for alarms in allAlarms %}
+                                                    {% if alarms.id_reading.id_sensor.id_sm.id == x.id_sm.id  and alarms.checked == False %}
 
-          <div class="nav-tabs-custom">
-            <ul class="nav nav-tabs pull-right">
-              <li class="active"><a href="#tab_1-{{ forloop.counter }}" data-toggle="tab"><i class="fa fa-exclamation-triangle" style="color:red"> </i> Alarms</a></li>
+                                                        <li>
+                                                            <!-- drag handle -->
+                                                            <span>
+                                                                <i class="fa fa-ellipsis-v"></i>
+                                                                <i class="fa fa-ellipsis-v"></i>
+                                                            </span>
+                                                            <span class="text">
+                                                                {% if alarms.max_or_min == 1 %}
+                                                                    <i class="fa fa-arrow-up" style="color:green"></i>
+                                                                {% else %}
+                                                                    <i class="fa fa-arrow-down" style="color:red"></i>
+                                                                {% endif %}
+                                                            </span>
 
-                {% for x in  smpercm %}
-                    {% if x.id_cm.id == cm.id %}
-                        <li><a href="#tab_3-{{ forloop.counter }}" data-toggle="tab">{{ x.id_sm.name }}</a></li>
-                    {% endif %}
-                {% endfor %}
+                                                            <!-- todo text -->
+                                                            <span class="text">Sensor {{ alarms.id_reading.id_sensor.id_sensor_type.name }} in {{ alarms.id_reading.id_sensor.id_sm.name }}</span>
+                                                            <!-- Emphasis label -->
+                                                            <small class="label label-danger"><i
+                                                                    class="fa fa-clock-o"></i> {{ alarms.id_reading.date_time }}
+                                                            </small>
+                                                            <!-- General tools such as edit or delete-->
+                                                            <div class="tools">
 
-              <li class="pull-left header"> {{ cm.name }}</li>
-            </ul>
-            <div class="tab-content">
-              <div class="tab-pane active" id="tab_1-{{ forloop.counter }}">
+                                                                {% for settings in allarms_settings %}
+                                                                    {% if settings.id_sensor.id == alarms.id_reading.id_sensor.id  %}
+                                                                        {% if alarms.max_or_min == 1 %}
+                                                                            <a data-toggle="tooltip" data-placement="top"
+                                                                            title="{{ settings.msgMax }}"
+                                                                            class="fa fa-comment-o"></a>
+                                                                        {% else %}
+                                                                            <a data-toggle="tooltip" data-placement="top"
+                                                                            title="{{ settings.msgMin }}"
+                                                                            class="fa fa-comment-o"></a>
+                                                                        {% endif %}
+                                                                    {% endif %}
+                                                                {% endfor %}
 
+                                                                <a data-toggle="tooltip" data-placement="top"
+                                                                   title="Read value: {{ alarms.id_reading.value }}"
+                                                                   class="fa fa-eye"></a>
+                                                                <a data-toggle="tooltip" data-placement="top"
+                                                                   title="Checked"
+                                                                   href="{% url 'deleteallarm' id_allarm=alarms.id %}"
+                                                                   class="fa fa-check"></a>
+                                                            </div>
+                                                        </li>
 
-            <!-- /.box-header -->
-            <div class="box-body">
-              <ul class="todo-list">
+                                                    {% endif %}
 
-            {% for x in  smpercm %}
-            {% if x.id_cm.id == cm.id %}
-
-
-
-                {% for alarms in allAlarms %}
-                    {% if alarms.id_reading.id_sensor.id_sm.id == x.id_sm.id  and alarms.checked == False %}
-
-                        <li>
-                        <!-- drag handle -->
-                        <span>
-                        <i class="fa fa-ellipsis-v"></i>
-                        <i class="fa fa-ellipsis-v"></i>
-                        </span>
-                        <span class="text">
-                            {% if alarms.max_or_min == 1 %}
-                                <i class="fa fa-arrow-up" style="color:green"></i>
-                            {% else %}
-                                <i class="fa fa-arrow-down" style="color:red"></i>
-                            {% endif %}
-
-                        </span>
-
-                        <!-- todo text -->
-                        <span class="text">Sensor {{ alarms.id_reading.id_sensor.id_sensor_type.name }} in {{ alarms.id_reading.id_sensor.id_sm.name }}</span>
-                        <!-- Emphasis label -->
-                        <small class="label label-danger"><i class="fa fa-clock-o"></i> {{ alarms.id_reading.date_time }}</small>
-                        <!-- General tools such as edit or delete-->
-                        <div class="tools">
-                        <!--<i class="fa fa-edit"></i>-->
-                        <a data-toggle="tooltip" data-placement="top" title="Value: {{ alarms.id_reading.value }}" class="fa fa-eye"></a>
-                        <a data-toggle="tooltip" data-placement="top" title="Max:{{ alarms.id_reading.id_sensor.id_sensor_type.name }} Min:10.0 " class="fa fa-info-circle"></a>
-                        <a data-toggle="tooltip" data-placement="top" title="Verificado" href="{% url 'deleteallarm' id_allarm=alarms.id %}" class="fa fa-check"></a>
-                        </div>
-                        </li>
-
-                    {% endif %}
-
-                {% endfor %}
+                                                {% endfor %}
 
 
 
 
-            {% endif %}
-            {% endfor %}
+                                            {% endif %}
+                                        {% endfor %}
 
 
-              </ul>
-            </div>
-
-              </div>
-              <!-- /.tab-pane -->
-
-
-                {% for x in  smpercm %}
-                {% if x.id_cm.id == cm.id %}
-
-                    <div class="tab-pane" id="tab_3-{{ forloop.counter }}">
-
-                        {% for s in allSensor %}
-                            {% if s.id_sm.id == x.id_sm.id %}
-                            {% for r in allReadings %}
-                            {% if r.id_sensor.id == s.id %}
-
-                                <div align="center" >
-                                <div style="width: 85%;"  class="info-box {{ s.id_sensor_type.color }}">
-                                <span class="info-box-icon"><img width="50%"  src="/static/resources/typesensor/{{ s.id_sensor_type.image_path }}"></span>
-
-                                <div class="info-box-content">
-                                <span class="info-box-text" align="left">{{ s.id_sensor_type.name }}</span>
-
-                                <span class="info-box-number" align="left">{{ r.value }} {{ s.id_sensor_type.scale_value }}</span>
-
-                                <div class="progress">
-                                <div class="progress-bar" style="width: 100%"></div>
+                                    </ul>
                                 </div>
-                                <span align="left" class="progress-description">
+
+                            </div>
+                            <!-- /.tab-pane -->
+
+
+                            {% for x in  smpercm %}
+                                {% if x.id_cm.id == cm.id %}
+
+                                    <div class="tab-pane" id="tab_3-{{ forloop.counter }}">
+
+                                        {% for s in allSensor %}
+                                            {% if s.id_sm.id == x.id_sm.id %}
+                                                {% for r in allReadings %}
+                                                    {% if r.id_sensor.id == s.id %}
+
+                                                        <div align="center">
+                                                            <div style="width: 85%;"
+                                                                 class="info-box {{ s.id_sensor_type.color }}">
+                                                                <span class="info-box-icon"><img width="50%"
+                                                                                                 src="/static/resources/typesensor/{{ s.id_sensor_type.image_path }}"></span>
+
+                                                                <div class="info-box-content">
+                                                                    <span class="info-box-text"
+                                                                          align="left">{{ s.id_sensor_type.name }}</span>
+
+                                                                    <span class="info-box-number"
+                                                                          align="left">{{ r.value }} {{ s.id_sensor_type.scale_value }}</span>
+
+                                                                    <div class="progress">
+                                                                        <div class="progress-bar"
+                                                                             style="width: 100%"></div>
+                                                                    </div>
+                                                                    <span align="left" class="progress-description">
                                 Last value in {{ r.date_time }}
                                 </span>
-                                </div>
+                                                                </div>
 
 
-                                <!-- /.info-box-content -->
-                                </div>
-                                </div>
+                                                                <!-- /.info-box-content -->
+                                                            </div>
+                                                        </div>
 
-                      {% endif %}
-                                {% endfor %}
-
-
+                                                    {% endif %}
+                                                {% endfor %}
 
 
 
-                            {% endif %}
-                        {% endfor %}
+
+
+                                            {% endif %}
+                                        {% endfor %}
+
+
+                                    </div>
+
+                                {% endif %}
+                            {% endfor %}
+
+
+
+                            <!-- /.tab-pane -->
+                        </div>
+                        <!-- /.tab-content -->
+                    </div>
+
+
+                    <div class="box-body border-radius-none">
+                        <div class="chart" id="line-chart" style="height: 250px;"></div>
+                    </div>
+
+
+                </div>
+                <!-- /.col -->
+
+                <div class="col-md-6">
+                    <div class="box box-default">
+                        <div class="box-header with-border">
+                            <h3 class="box-title"><i class="fa fa-map-marker"></i> Localization </h3>
+                            <div class="box-tools pull-right">
+                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
+                                        class="fa fa-minus"></i></button>
+                                <!--<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button> -->
+                            </div>
+                        </div>
+                        <!-- /.box-header -->
+                        <!-- form start -->
+                        <form class="form-horizontal">
+                            <div class="box-body">
+
+
+                                <div id="map{{ cm.id }}" style="height: 500px; "></div>
+
+                            </div>
+                        </form>
 
 
                     </div>
-
-                {% endif %}
-                {% endfor %}
+                    <!-- /.col -->
 
 
-
-              <!-- /.tab-pane -->
+                </div>
             </div>
-            <!-- /.tab-content -->
-          </div>
-
-
-            <div class="box-body border-radius-none">
-              <div class="chart" id="line-chart" style="height: 250px;"></div>
-            </div>
-
-
-
-        </div>
-        <!-- /.col -->
-
-        <div class="col-md-6">
-    <div class="box box-default">
-        <div class="box-header with-border">
-        <h3 class="box-title"><i class="fa fa-map-marker" ></i>  Localization </h3>
-        <div class="box-tools pull-right">
-        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-        <!--<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button> -->
-        </div>
-    </div>
-<!-- /.box-header -->
-<!-- form start -->
-<form class="form-horizontal">
-<div class="box-body">
-
-
-
-
- <div id="map{{ cm.id }}" style="height: 500px; " ></div>
-
-</div>
-</form>
-
-
-        </div>
-        <!-- /.col -->
-
-
-      </div>
-</div>
-{% endfor %}
+        {% endfor %}
 
 
     </section>
 
 
-        <script>
+    <script>
 
         {% for foo in allControllerM %}
 
 
 
-        var map = L.map('map'+{{ foo.id }},{
-            center: [{{ foo.localization_cm }}],
-            zoom: 17
-        });
+            var map = L.map('map' +{{ foo.id }}, {
+                center: [{{ foo.localization_cm }}],
+                zoom: 17
+            });
 
-        googleSat = L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',{
-            maxZoom: 17,
-            subdomains:['mt0','mt1','mt2','mt3'] }).addTo(map);
+            googleSat = L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
+                maxZoom: 17,
+                subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
+            }).addTo(map);
 
-        // add controller module
+            // add controller module
 
-        var greenIcon = new L.Icon({
-            iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
-            shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-            iconSize: [25, 41],
-            iconAnchor: [12, 41],
-            popupAnchor: [1, -34],
-            shadowSize: [41, 41]
-        });
-
-
-        var marker = L.marker([{{ foo.localization_cm }}], {icon: greenIcon}).addTo(map);
-        marker.bindPopup("<b>{{ foo.name }}</b><br><a href=\"/devices/cm/{{ foo.id }}\">+info</a>").openPopup();
+            var greenIcon = new L.Icon({
+                iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+                shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+                iconSize: [25, 41],
+                iconAnchor: [12, 41],
+                popupAnchor: [1, -34],
+                shadowSize: [41, 41]
+            });
 
 
+            var marker = L.marker([{{ foo.localization_cm }}], {icon: greenIcon}).addTo(map);
+            marker.bindPopup("<b>{{ foo.name }}</b><br><a href=\"/devices/cm/{{ foo.id }}\">+info</a>").openPopup();
 
-        //add sensor module
-        {% for fa in smpercm %}
-            {% if fa.id_cm.id == foo.id %}
-                var marker = L.marker([{{ fa.id_sm.localization_sm }}]).addTo(map);
-                marker.bindPopup("<b>{{ fa.id_sm.name }}</b><br><a href=\"/devices/cm/{{ foo.id }}/sm/{{ fa.id_sm.id }}/date/{{ current_date }}\">show values</a>");
 
-            {% endif %}
-        {% endfor %}
+
+            //add sensor module
+            {% for fa in smpercm %}
+                {% if fa.id_cm.id == foo.id %}
+                    var marker = L.marker([{{ fa.id_sm.localization_sm }}]).addTo(map);
+                    marker.bindPopup("<b>{{ fa.id_sm.name }}</b><br><a href=\"/devices/cm/{{ foo.id }}/sm/{{ fa.id_sm.id }}/date/{{ current_date }}\">show values</a>");
+
+                {% endif %}
+            {% endfor %}
 
         {% endfor %}
 

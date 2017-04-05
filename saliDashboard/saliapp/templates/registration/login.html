@@ -66,11 +66,10 @@
             <p class="login-box-msg">Your username and password didn't match. Please try again.</p>
         {% endif %}
 
+        <a href={% url 'recover' %}  >I forgot my password</a><br>
+        <a href={% url 'register' %}  >Register a new membership</a><br>
 
-        <a href="#" >I forgot my password</a><br>
-        <!--
-        <a href="register.html" class="text-center">Register a new membership</a>
-        -->
+
     </div>
     <!-- /.login-box-body -->
 </div>

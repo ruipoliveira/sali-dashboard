@@ -40,7 +40,19 @@ def home2(request):
     )
 
 
-def recoverpassword(request):
+def register(request):
+    assert isinstance(request, HttpRequest)
+    return render(
+        request,
+        'registration/register.html',
+        {
+            'title': 'roliveira',
+            'year': datetime.now().year,
+        }
+    )
+
+
+def recover(request):
     assert isinstance(request, HttpRequest)
     return render(
         request,
@@ -52,27 +64,6 @@ def recoverpassword(request):
     )
 
 
-@csrf_protect
-def register(request):
-    if request.method == 'POST':
-        form = RegistrationForm(request.POST)
-        if form.is_valid():
-            user = User.objects.create_user(
-                username=form.cleaned_data['username'],
-                password=form.cleaned_data['password1'],
-                email=form.cleaned_data['email']
-            )
-            return HttpResponseRedirect('/register/success/')
-    else:
-        form = RegistrationForm()
-    variables = RequestContext(request, {
-        'form': form
-    })
-
-    return render_to_response(
-        'registration/register.html',
-        variables,
-    )
 
 
 def addNewUser(resquest):
@@ -85,11 +76,6 @@ def addNewUser(resquest):
 
     return render(request, 'home.html');
 
-
-def register_success(request):
-    return render_to_response(
-        'registration/success.html',
-    )
 
 
 def logout_page(request):
@@ -149,6 +135,7 @@ def home(request):
          'smpercm': SMPerCM.objects.all(),
          'allSensor': Sensor.objects.all(),
          'current_date': current_date_y_m_d,
+         'allarms_settings':AlarmsSettings.objects.all(),
          'userregistrations': User.objects.all().count(),
          'SMregistrations': SensorModule.objects.all().count(),
          'CMregistrations': ControllerModule.objects.all().count(),
