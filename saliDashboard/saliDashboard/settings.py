@@ -101,7 +101,7 @@ EMAIL_HOST='smtp.live.com'
 
 EMAIL_HOST_USER = 'salidashboard@hotmail.com'
 EMAIL_HOST_PASSWORD = 'salverde2016'
-EMAIL_PORT = 587
+EMAIL_PORT = 25
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 
