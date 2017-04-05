@@ -351,6 +351,8 @@ class SensorValues(View):
                           'final': zip(name_sensors, id_sensor, color_random, final, nrmeasure, maxValue, minValue,
                                        avg),
                           'time_format': time,
+                          'date_start': date_start,
+                          'date_finish': date_finish,
                           'current_date': current_date_y_m_d,
                           'notData': len(time) ==0,
                           'maxvalue': maxValueAll,

@@ -14,7 +14,6 @@ from rest_framework.permissions import IsAuthenticated
 
 
 class ControllerModuleViewSet(APIView):
-    permission_classes = (IsAuthenticated,)
 
     def get(self, request, format=None):
         users = ControllerModule.objects.all()

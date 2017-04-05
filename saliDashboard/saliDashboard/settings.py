@@ -84,6 +84,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'saliDashboard.wsgi.application'
 
+"""
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
@@ -92,8 +93,7 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.TokenAuthentication',
     )
 }
-
-
+"""
 
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
