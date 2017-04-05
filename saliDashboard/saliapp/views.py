@@ -5,7 +5,7 @@ import csv
 import datetime
 import random
 from django.contrib.auth.models import Group
-from django.core.mail import EmailMessage
+from django.core.mail import send_mail
 
 from django.contrib import messages
 from django.contrib.auth import logout
@@ -49,14 +49,8 @@ class Register(View):
         })
 
     def post(self, request, shortcode=None, *args, **kwargs):
-
-        email = EmailMessage(
-            'Subject here',
-            'Here is the message.',
-            to=['ruipedrooliveira@ua.pt']
-        )
-        email.send()
-
+        send_mail('Your Email subject', 'Your Email message.', 'salicorniaua@gmail.com',
+                  ['ruipedrooliveira@ua.pt'], fail_silently=False)
 
         return redirect('home')
 
