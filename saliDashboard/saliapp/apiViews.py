@@ -12,7 +12,10 @@ from django.http import Http404
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from rest_framework.permissions import IsAuthenticated
 
+
 class ControllerModuleViewSet(APIView):
+    permission_classes = (IsAuthenticated,)
+
     def get(self, request, format=None):
         users = ControllerModule.objects.all()
         serializer = ControllerModuleSerializer(users, many=True)
@@ -456,7 +459,6 @@ class Reading_param_all(ListCreateAPIView):
         return Response(serializer.data)
 
     def post(self, request, id_sensor, format=None):
-
         read = Reading(id_sensor=Sensor.objects.get(id=id_sensor),
                        value=float(request.data.get("value", "0")))
         read.save()

@@ -4,7 +4,6 @@ Definition of views.
 import csv
 import datetime
 import random
-from rest_framework.authtoken.models import Token
 
 from django.contrib import messages
 from django.contrib.auth import logout
