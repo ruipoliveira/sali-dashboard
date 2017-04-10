@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.contrib.auth.models import Permission, ContentType
 
 from .models import *
 
@@ -15,4 +16,7 @@ admin.site.register(Reading)
 admin.site.register(Alarms)
 admin.site.register(SecretKey)
 
+admin.site.register(Permission)
+admin.site.register(ContentType)
 
+admin.site.register(UserPerCompany)

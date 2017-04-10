@@ -46,11 +46,15 @@ INSTALLED_APPS = (
     'leaflet',
     'django_extensions',
     'password_reset',
-    'rest_framework.authtoken'
-
-
+    'rest_framework.authtoken',
+    #'snowpenguin.django.recaptcha2'
 
 )
+
+
+#RECAPTCHA_PRIVATE_KEY = '6LcD4xsUAAAAAH6fFQvpEzDQToXTPtGUFCxQIYID'
+#RECAPTCHA_PUBLIC_KEY = '6LcD4xsUAAAAAMpbtutcRU8MX08mkDeMmf04y_9u'
+
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -97,12 +101,13 @@ REST_FRAMEWORK = {
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
-EMAIL_HOST='smtp.live.com'
+EMAIL_HOST='smtp.office365.com'
 
-EMAIL_HOST_USER = 'salidashboard@hotmail.com'
-EMAIL_HOST_PASSWORD = 'salverde2016'
-EMAIL_PORT = 25
+EMAIL_HOST_USER = 'ruipedrooliveira@ua.pt'
+EMAIL_HOST_PASSWORD = 'Ro1993194+'
+EMAIL_PORT = 587
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
 
 
 

@@ -62,7 +62,6 @@
 
 <body class="hold-transition skin-green sidebar-mini">
 {% load gravatar %}
-
 <div class="wrapper">
 
     <header class="main-header">
@@ -189,12 +188,14 @@
                         <li><a href={% url 'typesensor' %}><i class="fa fa-circle-o"></i> Sensor type</a></li>
                         <li><a href={% url 'typecommunication' %}><i class="fa fa-circle-o"></i> Communication type</a>
                         </li>
-                        <li><a href="{% url 'showusers' %}"><i class="fa fa-circle-o"></i> User management</a></li>
-
                     </ul>
                 </li>
 
                 <li><a href={% url 'api-doc' %}><i class="fa fa-book"></i> <span>Documentation API</span></a></li>
+
+                {% if user.groups.all.0.name == 'company' %}
+                    <li><a href="{% url 'managerUser' %}"><i class="fa fa-users"></i>User management</a></li>
+                {% endif %}
 
             </ul>
         </section>

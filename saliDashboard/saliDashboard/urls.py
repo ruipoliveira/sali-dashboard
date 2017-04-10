@@ -27,7 +27,7 @@ urlpatterns = [
     url(r'^accounts/login/$', login),
     url(r'^logout/$', logout_page),
 
-    url(r'^showusers/$', login_required(ShowUsers.as_view()), name='showusers'),
+    url(r'^managerUser/$', login_required(ManagerUser.as_view()), name='managerUser'),
 
     url(r'^novo/$', views.addNewUser),
     url(r'^profile/$', views.changeprofile, name='profile'),

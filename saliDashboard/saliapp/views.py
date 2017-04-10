@@ -49,11 +49,36 @@ class Register(View):
         })
 
     def post(self, request, shortcode=None, *args, **kwargs):
-        send_mail('Your Email subject', 'Your Email message.', 'salicorniaua@gmail.com',
-                  ['ruipedrooliveira@ua.pt'], fail_silently=False)
+        # if User.objects.filter(username=request.POST["username"]).exists():
+        #    messages.success(request, '\"' + request.POST["username"] + '\" deleted successfully!')
+        #    return render(request, 'register')
+
+
+        newUser = User(username=request.POST["username"],
+                       last_name=request.POST["last"],
+                       first_name=request.POST["first"],
+                       email=request.POST["email"],
+                       password=request.POST["password1"]
+                       )
+
+        newUser.is_active = False
+
+        newUser.save()
+
+        company = User.objects.get(first_name=request.POST["company"])
+
+        userpercompany = UserPerCompany(id_company=company,
+                                        id_general_user= newUser)
+
+        userpercompany.save()
+
+        header = 'Novo utilizador registado associado a sua empresa '
+        msg = 'Novo utilizador'+ newUser.username +' registado. Aceda a sua conta para o validar.'
+
+        send_mail(header, msg, 'ruipedrooliveira@ua.pt',
+                  [company.email], fail_silently=False)
 
         return redirect('home')
-
 
 def recover(request):
     assert isinstance(request, HttpRequest)
@@ -634,16 +659,15 @@ def deletesensor(request, id_sensor):
     return redirect('typesensor')
 
 
-class ShowUsers(View):
+class ManagerUser(View):
     def get(self, request, shortcode=None, *args, **kwargs):
+
         return render(request,
                       'addusers.html', {
                           'user': request.user,
                           'title': 'User management',
                           'titlesmall': 'All types',
-                          'userAll': User.objects.all(),
-                          'exist': Sensor.objects.filter(id_sensor_type=2).exists()
-
+                          'userAll': UserPerCompany.objects.filter(id_company=request.user)
                       })
 
     def post(self, request, shortcode=None, *args, **kwargs):

@@ -135,6 +135,13 @@ class Alarms(models.Model):
         return "Ocorreu alarme : " + str(self.id_reading)
 
 
+class UserPerCompany(models.Model):
+    id = models.AutoField(primary_key=True)
+    id_general_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='general')
+    id_company = models.ForeignKey(User, on_delete=models.CASCADE, related_name='company')
+
+
+
 # This code is triggered whenever a new user has been created and saved to the database
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)
 def create_auth_token(sender, instance=None, created=False, **kwargs):
