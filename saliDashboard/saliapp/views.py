@@ -258,7 +258,7 @@ def profile(request):
         company = request.user.first_name
 
     return render_to_response(
-        'changeProfile.html',{
+        'profile.html',{
             'user': request.user,
             'company': company,
             'token': Token.objects.get(user=request.user),
