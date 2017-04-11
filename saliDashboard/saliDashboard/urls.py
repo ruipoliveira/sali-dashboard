@@ -27,9 +27,11 @@ urlpatterns = [
     url(r'^accounts/login/$', login),
     url(r'^logout/$', logout_page),
 
-    url(r'^managerUser/$', login_required(ManagerUser.as_view()), name='managerUser'),
+    url(r'^manageruser/$', login_required(ManagerUser.as_view()), name='managerUser'),
 
-    url(r'^novo/$', views.addNewUser),
+    url(r'^validateuser/(?P<id_user>[-\w]+)/$', views.validate_user, name='validateuser'),
+    url(r'^removeuser/(?P<id_user>[-\w]+)/$', views.remove_user, name='removeuser'),
+
     url(r'^profile/$', views.changeprofile, name='profile'),
 
     url(r'^admin/', admin.site.urls),

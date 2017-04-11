@@ -53,6 +53,18 @@ class Register(View):
         #    messages.success(request, '\"' + request.POST["username"] + '\" deleted successfully!')
         #    return render(request, 'register')
 
+        if not User.objects.filter(username=request.POST["username"]).exists():
+            messages.error(request, 'This username already exists!')
+            return redirect('register')
+
+        if request.POST["password1"] != request.POST["password2"]:
+            messages.error(request, 'Passwords do not match!')
+            return redirect('register')
+
+        print request.POST["company"]
+
+
+        # print request.POST["terms"]
 
         newUser = User(username=request.POST["username"],
                        last_name=request.POST["last"],
@@ -67,18 +79,22 @@ class Register(View):
 
         company = User.objects.get(first_name=request.POST["company"])
 
+        g = Group.objects.get(name='general')
+        g.user_set.add(newUser)
+
         userpercompany = UserPerCompany(id_company=company,
-                                        id_general_user= newUser)
+                                        id_general_user=newUser)
 
         userpercompany.save()
 
         header = 'Novo utilizador registado associado a sua empresa '
-        msg = 'Novo utilizador'+ newUser.username +' registado. Aceda a sua conta para o validar.'
+        msg = 'Novo utilizador ' + newUser.username + ' registado. Aceda a sua conta para o validar.'
 
         send_mail(header, msg, 'ruipedrooliveira@ua.pt',
                   [company.email], fail_silently=False)
 
         return redirect('home')
+
 
 def recover(request):
     assert isinstance(request, HttpRequest)
@@ -92,15 +108,30 @@ def recover(request):
     )
 
 
-def addNewUser(resquest):
-    new_user = User.objects.create_user(self.cleaned_data['username'],
-                                        self.cleaned_data['email'],
-                                        self.cleaned_data['password1'])
-    new_user.first_name = self.cleaned_data['first_name']
-    new_user.last_name = self.cleaned_data['last_name']
-    new_user.save()
+@login_required
+def validate_user(request, id_user):
+    user = User.objects.get(id=id_user)
+    user.is_active = True
+    user.save()
 
-    return render(request, 'home.html');
+    header = 'Validacao do utilizador ' + user.username
+    msg = 'Caro ' + user.first_name + ' ' + user.last_name + '\nO seu utilizador acabou de ser valiado pela sua empresa!'
+
+    send_mail(header, msg, 'ruipedrooliveira@ua.pt',
+              ['rui.oliveira.rpo@gmail.com'], fail_silently=False)
+
+    messages.success(request, '\"' + str(user.username) + '\" validated successfully!')
+
+    return redirect('managerUser')
+
+
+@login_required
+def remove_user(request, id_user):
+    user = User.objects.get(id=id_user)
+    user.delete()
+    user.save()
+    messages.success(request, '\"' + str(user.username) + '\" removed successfully!')
+    return redirect('managerUser')
 
 
 def logout_page(request):
@@ -661,7 +692,6 @@ def deletesensor(request, id_sensor):
 
 class ManagerUser(View):
     def get(self, request, shortcode=None, *args, **kwargs):
-
         return render(request,
                       'addusers.html', {
                           'user': request.user,

@@ -194,7 +194,7 @@
                 <li><a href={% url 'api-doc' %}><i class="fa fa-book"></i> <span>Documentation API</span></a></li>
 
                 {% if user.groups.all.0.name == 'company' %}
-                    <li><a href="{% url 'managerUser' %}"><i class="fa fa-users"></i>User management</a></li>
+                    <li><a href={% url 'managerUser' %}><i class="fa fa-users"></i> <span>User management</span></a></li>
                 {% endif %}
 
             </ul>

@@ -1,70 +1,79 @@
 {% extends "layout.html" %}
 {% block body %}
 
+    <section class="content">
+        {% load gravatar %}
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-success alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    <i class="icon fa fa-check"></i>{{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
 
-<section class="content">
-    {% load gravatar %}
-    {% if messages %}
-        {% for message in messages %}
-            <div class="alert alert-success alert-dismissible">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                <i class="icon fa fa-check"></i>{{ message }}
+
+        <div class="box box-default">
+            <div class="box-header with-border">
+
             </div>
-        {% endfor %}
-    {% endif %}
-
-
-    <div class="box box-default">
-        <div class="box-header with-border">
-
-    </div>
-    <!-- /.box-header -->
-    <div class="box-body">
-
             <!-- /.box-header -->
             <div class="box-body">
-              <table class="table table-bordered">
-                <tr>
-                  <th style="width: 10px">#</th>
-                  <th> </th>
-                  <th>Username</th>
-                  <th>First name</th>
-                    <th>Last name</th>
-                    <th>Last name</th>
-                    <th>Validate</th>
-                    <th>Remove</th>
-                </tr>
 
-                  {% for user in userAll %}
-                <tr>
-                  <td>{{ user.id_general_user.id }}</td>
-                    <td align="center"><img style="width: 20%;" src={% gravatar_url user.id_general_user.email %}  class="img-circle" alt="User Image"></td>
-                  <td>{{ user.id_general_user.username }}</td>
-                  <td>{{ user.id_general_user.first_name }}</td>
-                  <td>{{ user.id_general_user.last_name }}</td>
-                  <td>{{ user.id_general_user.email }}</td>
-                <td>
-                    <a type="button" href="www.ua.pt" class="btn btn-block btn-info btn-xs"><i class="fa fa-plus"></i></a>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <table class="table table-bordered">
+                        <tr>
+                            <th style="width: 10px">#</th>
+                            <th>Username</th>
+                            <th>First name</th>
+                            <th>Last name</th>
+                            <th>Email</th>
+                            <th>Date joined</th>
+                            <th>Validate</th>
+                            <th>Remove</th>
+                        </tr>
 
-                </td>
-                <td>
-                    <a type="button" href="www.ua.pt" class="btn btn-block btn-danger btn-xs"><i class="fa fa-remove"></i></a>
-                </td>
-                </tr>
-                 {% endfor %}
+                        {% for user in userAll %}
+                            <tr>
+                                <td>{{ user.id_general_user.id }}</td>
+                                <td>
+                                    <div style="display: inline">
+                                        <img style="width: 20%;"
+                                             src={% gravatar_url user.id_general_user.email %}  class="img-circle"
+                                             alt="User Image"> {{ user.id_general_user.username }}
+                                    </div>
+                                </td>
+                                <td>{{ user.id_general_user.first_name }}</td>
+                                <td>{{ user.id_general_user.last_name }}</td>
+                                <td>{{ user.id_general_user.email }}</td>
+                                <td>{{ user.id_general_user.date_joined }}</td>
+                                <td>
+                                    {% if user.id_general_user.is_active == False %}
+                                        <a type="button" href="{% url 'validateuser' id_user=user.id_general_user.id %}"
+                                           class="btn btn-block btn-info btn-xs"><i class="fa fa-check"></i></a>
+                                    {% else %}
+                                        <a type="button" href="{% url 'validateuser' id_user=user.id_general_user.id %}"
+                                           class="btn btn-block btn-info btn-xs disabled"><i
+                                                class="fa fa-check"></i></a>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <a type="button" href="{% url 'removeuser' id_user=user.id_general_user.id %}"
+                                       class="btn btn-block btn-danger btn-xs"><i class="fa fa-remove"></i></a>
+                                </td>
+                            </tr>
+                        {% endfor %}
 
-              </table>
+                    </table>
+                </div>
+
+
             </div>
+        </div>
 
 
-
-
-
-    </div>
-    </div>
-
-
-</section>
+    </section>
 
 
 
