@@ -47,10 +47,8 @@ INSTALLED_APPS = (
     'django_extensions',
     'password_reset',
     'rest_framework.authtoken',
-    #'snowpenguin.django.recaptcha2'
 
 )
-
 
 #RECAPTCHA_PRIVATE_KEY = '6LcD4xsUAAAAAH6fFQvpEzDQToXTPtGUFCxQIYID'
 #RECAPTCHA_PUBLIC_KEY = '6LcD4xsUAAAAAMpbtutcRU8MX08mkDeMmf04y_9u'
@@ -88,16 +86,27 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'saliDashboard.wsgi.application'
 
-"""
+
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.TokenAuthentication',
-    )
+    ),
+    'PAGE_SIZE' : 10
 }
-"""
+
+SWAGGER_SETTINGS = {
+    'SECURITY_DEFINITIONS': {
+        'api_key': {
+            'type': 'apiKey',
+            'in': 'header',
+            'name': 'Authorization'
+        }
+    },
+}
+
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True

@@ -32,7 +32,7 @@ urlpatterns = [
     url(r'^validateuser/(?P<id_user>[-\w]+)/$', views.validate_user, name='validateuser'),
     url(r'^removeuser/(?P<id_user>[-\w]+)/$', views.remove_user, name='removeuser'),
 
-    url(r'^profile/$', views.changeprofile, name='profile'),
+    url(r'^profile/$', views.profile, name='profile'),
 
     url(r'^admin/', admin.site.urls),
 
@@ -131,7 +131,6 @@ urlpatterns = [
     # allarms
     url(r'^api/alarms_reading/(?P<id_reading>[0-9]+)$', views.Alarms_param_reading.as_view()),
     url(r'^api/alarms_sensor/(?P<id_sensor>[0-9]+)$', views.Alarms_param_sensor.as_view()),  ### problemaaaa
-
 
 
 

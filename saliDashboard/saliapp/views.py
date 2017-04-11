@@ -53,9 +53,9 @@ class Register(View):
         #    messages.success(request, '\"' + request.POST["username"] + '\" deleted successfully!')
         #    return render(request, 'register')
 
-        if not User.objects.filter(username=request.POST["username"]).exists():
-            messages.error(request, 'This username already exists!')
-            return redirect('register')
+        #if not User.objects.filter(username=request.POST["username"]).exists():
+        #    messages.error(request, 'This username already exists!')
+        #    return redirect('register')
 
         if request.POST["password1"] != request.POST["password2"]:
             messages.error(request, 'Passwords do not match!')
@@ -66,7 +66,7 @@ class Register(View):
 
         # print request.POST["terms"]
 
-        newUser = User(username=request.POST["username"],
+        newUser = User.objects.create_user (username=request.POST["username"],
                        last_name=request.POST["last"],
                        first_name=request.POST["first"],
                        email=request.POST["email"],
@@ -250,12 +250,20 @@ def editcpu(request, id):
 
 
 @login_required
-def changeprofile(request):
+def profile(request):
+
+    try:
+        company = UserPerCompany.objects.get(id_general_user=request.user).id_company.first_name
+    except ObjectDoesNotExist:
+        company = request.user.first_name
+
     return render_to_response(
-        'changeProfile.html',
-        {'user': request.user,
-         'title': 'Profile',
-         'titlesmall': 'user',
+        'changeProfile.html',{
+            'user': request.user,
+            'company': company,
+            'token': Token.objects.get(user=request.user),
+            'title': 'Profile',
+            'titlesmall': 'user',
          })
 
 
