@@ -61,10 +61,9 @@ class Register(View):
             messages.error(request, 'Passwords do not match!')
             return redirect('register')
 
-        print request.POST["company"]
-
-
-        # print request.POST["terms"]
+        if len(request.POST.getlist("company")) == 0:
+            messages.error(request, 'You have to select a company!')
+            return redirect('register')
 
         newUser = User.objects.create_user (username=request.POST["username"],
                        last_name=request.POST["last"],
@@ -457,6 +456,7 @@ def exportcsv(request, id_sm, id_cm):
         smart_str(u"ID"),
         smart_str(u"Sensor type"),
         smart_str(u"Scale"),
+        smart_str(u"Date time"),
         smart_str(u"Value"),
     ])
     for obj in Reading.objects.filter(id_sensor__in=allSensorID).all():
@@ -464,6 +464,7 @@ def exportcsv(request, id_sm, id_cm):
             smart_str(obj.id),
             smart_str(obj.id_sensor.id_sensor_type.name),
             smart_str(obj.id_sensor.id_sensor_type.scale_value),
+            smart_str(obj.date_time),
             smart_str(obj.value)
         ])
 
