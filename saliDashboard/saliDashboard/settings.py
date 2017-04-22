@@ -47,6 +47,7 @@ INSTALLED_APPS = (
     'django_extensions',
     'password_reset',
     'rest_framework.authtoken',
+    'corsheaders',
 
 )
 
@@ -63,6 +64,8 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
 )
 
 ROOT_URLCONF = 'saliDashboard.urls'

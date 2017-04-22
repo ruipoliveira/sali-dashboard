@@ -25,6 +25,7 @@ from saliapp.forms import *
 from .apiViews import *
 from django.http import HttpResponse
 
+
 # django_list = list(User.objects.all())
 
 current_date_y_m_d = datetime.now().strftime('%Y-%m-%d')
@@ -40,6 +41,8 @@ def home2(request):
             'year': datetime.now().year,
         }
     )
+
+
 
 
 class Register(View):

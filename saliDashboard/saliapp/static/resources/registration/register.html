@@ -42,16 +42,14 @@
             <br/>
         {% endfor %}
 
-        <form action="." method="post"> {% csrf_token %}
+        <form action="" method="post"> {% csrf_token %}
             <div class="form-group has-feedback">
-                <input type="text" name="username" title="Please, do not use spaces" pattern="\w+" class="form-control" placeholder="Username">
+                <input type="text" name="username" required pattern="\w+" class="form-control" placeholder="Username">
                 <span class="glyphicon glyphicon-credit-card form-control-feedback"></span>
-
-
             </div>
 
             <div class="form-group has-feedback">
-                <input type="text" name="first" class="form-control" pattern="[0-9]" placeholder="First name">
+                <input type="text" name="first" class="form-control" placeholder="First name">
                 <span class="glyphicon glyphicon-user form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
