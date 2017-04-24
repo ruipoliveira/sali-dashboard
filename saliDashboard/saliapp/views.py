@@ -89,8 +89,12 @@ class Register(View):
 
         userpercompany.save()
 
-        header = 'Novo utilizador registado associado a sua empresa '
-        msg = 'Novo utilizador ' + newUser.username + ' registado. Aceda a sua conta para o validar.'
+        header = 'New user associated with your company'
+        msg = 'Hi ' + company.first_name + \
+              '\n The user ' + newUser.username + ' was registered in our system.' \
+                                                  ' Make sure you want to associate it with your business. ' \
+                                                  '\nGo to your account to validate it.' \
+                                                  '\nGreetings, Admin SaliDashboard'
 
         send_mail(header, msg, 'ruipedrooliveira@ua.pt',
                   [company.email], fail_silently=False)
@@ -116,11 +120,14 @@ def validate_user(request, id_user):
     user.is_active = True
     user.save()
 
-    header = 'Validacao do utilizador ' + user.username
-    msg = 'Caro ' + user.first_name + ' ' + user.last_name + '\nO seu utilizador acabou de ser valiado pela sua empresa!'
+    header = 'Validation of the user ' + user.username
+    msg = 'Hi ' + user.first_name + ' ' + user.last_name + \
+          ' ! \nYour user has just been verified by your company!' \
+          ' \n Access your area through the url: http://192.168.160.20' \
+          ' \n Greetings, Admin SaliDashboard'
 
     send_mail(header, msg, 'ruipedrooliveira@ua.pt',
-              ['rui.oliveira.rpo@gmail.com'], fail_silently=False)
+              [user.email], fail_silently=False)
 
     messages.success(request, '\"' + str(user.username) + '\" validated successfully!')
 
