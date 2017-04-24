@@ -201,9 +201,13 @@
                 <li><a href={% url 'api-doc' %}><i class="fa fa-book"></i> <span>Documentation API</span></a></li>
 
                 {% if user.groups.all.0.name == 'company' %}
-                    <li><a href={% url 'managerUser' %}><i class="fa fa-users"></i> <span>User management</span></a></li>
+                    <li><a href={% url 'managerUser' %}><i class="fa fa-users"></i> <span>User in company</span></a></li>
                 {% endif %}
 
+                {% if user.is_superuser %}
+                    <li><a href="#"><i class="fa fa-users"></i> <span>Company management</span></a></li>
+                    <li><a href="#"><i class="fa fa-users"></i> <span>All users management</span></a></li>
+                {% endif %}
             </ul>
         </section>
         <!-- /.sidebar -->
