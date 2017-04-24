@@ -90,14 +90,17 @@ class Register(View):
         userpercompany.save()
 
         header = 'New user associated with your company'
-        msg = 'Hi ' + company.first_name + \
-              '\n The user ' + newUser.username + ' was registered in our system.' \
+        msg = 'Hi company ' + company.first_name + \
+              '\nThe user \"' + newUser.username + '\" was registered in our system.' \
                                                   ' Make sure you want to associate it with your business. ' \
                                                   '\nGo to your account to validate it.' \
                                                   '\nGreetings, Admin SaliDashboard'
 
         send_mail(header, msg, 'ruipedrooliveira@ua.pt',
                   [company.email], fail_silently=False)
+
+        # falta informar o user que deve aguardar pela confirmacao da sua company....
+
 
         return redirect('home')
 
@@ -123,8 +126,8 @@ def validate_user(request, id_user):
     header = 'Validation of the user ' + user.username
     msg = 'Hi ' + user.first_name + ' ' + user.last_name + \
           ' ! \nYour user has just been verified by your company!' \
-          ' \n Access your area through the url: http://192.168.160.20' \
-          ' \n Greetings, Admin SaliDashboard'
+          ' \nAccess your area through the url: http://192.168.160.20' \
+          ' \nGreetings, Admin SaliDashboard'
 
     send_mail(header, msg, 'ruipedrooliveira@ua.pt',
               [user.email], fail_silently=False)
@@ -164,7 +167,6 @@ def add_sensor(request):
             'user': request.user,
             'title': 'Contact'
         })
-
 
 @login_required
 def home(request):

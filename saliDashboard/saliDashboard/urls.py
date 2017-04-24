@@ -19,7 +19,7 @@ urlpatterns = [
 
     # url(r'^api/', include(router.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    url(r'^api/$', schema_view, name="api-doc"),
+    url(r'^api/$', login_required(schema_view), name="api-doc"),
 
     url(r'^$', login_forbidden(login), name="login"),
     url(r'^home/$', home, name='home'),
