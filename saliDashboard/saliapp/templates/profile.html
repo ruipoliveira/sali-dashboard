@@ -200,6 +200,42 @@
                                         </div>
                                     </div>
                                 </div>
+                        <br/>
+                        <div class="form-group">
+                                    <label for="inputName" class="col-sm-2 control-label">GET in python</label>
+
+                                    <div class="col-sm-10">
+<pre>
+import json
+import requests
+auth={'Authorization': 'Token {{ token }}'}
+url = 'http://192.168.160.20/api/cm/'
+response = requests.get(url, headers=auth )
+data = response.json()
+</pre>
+
+                                    </div>
+                                </div>
+
+<div class="form-group">
+                                    <label for="inputName" class="col-sm-2 control-label">POST in python</label>
+
+                                    <div class="col-sm-10">
+<pre>
+import json
+import requests
+auth={'Authorization': 'Token {{ token }}'}
+url = 'http://192.168.160.20/api/cm/'
+response = requests.get(url, headers=auth )
+data = response.json()
+</pre>
+
+                                    </div>
+                                </div>
+
+
+
+
 
                             </form>
                         </div>

@@ -1,8 +1,10 @@
 """
 Definition of views.
 """
-import csv
+from os import listdir
+from os.path import isfile, join
 import datetime
+import os
 import random
 from django.contrib.auth.models import Group
 from django.core.mail import send_mail
@@ -643,22 +645,30 @@ class ShowDevices(View):
 
 class TypeSensor(View):
     def get(self, request, shortcode=None, *args, **kwargs):
+
+        my_path = os.path.dirname(os.path.abspath(__file__)) + "/static/resources/typesensor"
+
+        only_files = [f for f in listdir(my_path) if isfile(join(my_path, f))]
+
         return render(request,
                       'add/typesensors.html', {
                           'user': request.user,
                           'title': 'Sensor type',
                           'titlesmall': 'All types',
+                          'allImages': only_files,
                           'sensorAll': SensorType.objects.all(),
                           'notSensor': SensorType.objects.all().count() == 0,
                           'exist': Sensor.objects.filter(id_sensor_type=2).exists()
                       })
 
     def post(self, request, shortcode=None, *args, **kwargs):
-        print request.POST['color']
+
+
+
 
         st = SensorType(name=request.POST["name"],
                         scale_value=request.POST["scale"],
-                        image_path=request.POST["path"],
+                        image_path=request.POST["image"],
                         color="bg-" + request.POST['color'])
         messages.success(request, '\"' + str(st.name) + '\" created successfully!')
         st.save()
@@ -668,11 +678,19 @@ class TypeSensor(View):
 
 class TypeCommunication(View):
     def get(self, request, shortcode=None, *args, **kwargs):
+
+        my_path = os.path.dirname(os.path.abspath(__file__)) + "/static/resources/typecomm"
+
+        only_files = [f for f in listdir(my_path) if isfile(join(my_path, f))]
+
+
+        print only_files
         return render(request,
                       'add/typecommunication.html', {
                           'user': request.user,
                           'title': 'Type Communication',
                           'titlesmall': 'All types',
+                          'allImages': only_files,
                           'notComm': CommunicationType.objects.all().count() == 0,
                           'commAll': CommunicationType.objects.all(),
                       })
@@ -680,7 +698,7 @@ class TypeCommunication(View):
     def post(self, request, shortcode=None, *args, **kwargs):
         ct = CommunicationType(name=request.POST["name"],
                                path_or_number=request.POST["source"],
-                               image_path=request.POST["path"])
+                               image_path=request.POST["image"])
 
         messages.success(request, '\"' + str(ct.name) + '\" created successfully!')
         ct.save()

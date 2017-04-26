@@ -1,6 +1,22 @@
 {% extends "layout.html" %}
 {% block body %}
+    <style>
+    /*Hide the radio buttons*/
+    [type='radio']{
+        display: none;
+    }
+    /*Draw a plain border around the image so that
+    it does not move when selected */
+    label img{
+    border: 3px solid white;
+    }
+    /*Draw a colored border around the image when the radio button
+    adjacent to the label it is in is checked. */
+    [type='radio']:checked + label img{
+    border: 3px solid #C63;
+    }
 
+    </style>
     <section class="content">
 
         {% if messages %}
@@ -94,8 +110,13 @@
                             <label for="inputEmail3" class="col-sm-3 control-label">Image</label>
 
                             <div class="col-sm-9">
-                                <input type="text" name="path" class="form-control" id="inputEmail3"
-                                       placeholder="image">
+                {% for img in allImages %}
+                    <input type="radio" name="image" value="{{ img }}" id="{{ img }}"/>
+                    <label for="{{ img }}" style="display: inline">
+                    <img src="/static/resources/typecomm/{{ img }}" style="width: 10%;" alt="{{ img }}"/>
+                    </label>
+                {% endfor %}
+
                             </div>
                         </div>
 
