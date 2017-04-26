@@ -2,11 +2,6 @@
 {% block body %}
     {% load gravatar %}
 
-
-    <label for="website">Website:</label>
-<input type="text" id="website" value="http://www.sitepoint.com/" />
-<button data >copy</button>
-
     <section class="content">
 
         <div class="row">
@@ -141,14 +136,6 @@
                         <div class="tab-pane" id="changeprofile">
                             <form class="form-horizontal">
                                 <div class="form-group">
-                                    <label for="inputName" class="col-sm-2 control-label">Username</label>
-
-                                    <div class="col-sm-10">
-                                        <input type="email" class="form-control" id="inputName"
-                                               placeholder={{ user.username }}>
-                                    </div>
-                                </div>
-                                <div class="form-group">
                                     <label for="inputEmail" class="col-sm-2 control-label">First name</label>
 
                                     <div class="col-sm-10">
@@ -165,14 +152,21 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="inputName" class="col-sm-2 control-label">Email</label>
+                                    <label for="inputName" class="col-sm-2 control-label">Password</label>
 
                                     <div class="col-sm-10">
                                         <input type="text" class="form-control" id="inputName"
                                                placeholder={{ user.email }}>
                                     </div>
                                 </div>
+                                <div class="form-group">
+                                    <label for="inputName" class="col-sm-2 control-label">Re-password</label>
 
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="inputName"
+                                               placeholder={{ user.email }}>
+                                    </div>
+                                </div>
                                 <div class="form-group">
                                     <div class="col-sm-offset-2 col-sm-10">
                                         <button type="submit" class="btn btn-danger">Update</button>
@@ -187,14 +181,10 @@
                                     <label for="inputName" class="col-sm-2 control-label">Token API</label>
 
                                     <div class="col-sm-10">
-                                        <label class="col-sm-2 control-label">{{ token }}</label>
+                                        <p id="token" class="col-sm-2 control-label">{{ token }}</p>
                                         <br/> <br/>
                                         <div>
-                                            <a class="btn btn-app">
-                                                <i class="fa fa-key"></i> Generate new token
-                                            </a>
-
-                                            <a class="btn btn-app">
+                                            <a class="btn btn-app"  onclick="return copyToClipboard('#token');">
                                                 <i class="fa fa-files-o"></i> Copy token
                                             </a>
                                         </div>
@@ -294,6 +284,15 @@ data = response.json()
     }
 
 })();
+
+function copyToClipboard(element) {
+  var $temp = $("<input>");
+  $("body").append($temp);
+  $temp.val($(element).text()).select();
+  document.execCommand("copy");
+  $temp.remove();
+}
+
 
 </script>
 
