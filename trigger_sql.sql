@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION alarm_occurred() returns trigger as $alarm$ 
+﻿CREATE OR REPLACE FUNCTION alarm_occurred() returns trigger as $alarm$ 
 DECLARE
 varmax FLOAT;
 varmin FLOAT;
@@ -22,9 +22,10 @@ $alarm$
 LANGUAGE plpgsql;
 
 create trigger trigger_alarm_occurred after insert on saliapp_reading
-for each row execute procedure alarm_occurred()
+for each row execute procedure alarm_occurred(); 
 
-DROP FUNCTION alarm_occurred()
+DROP FUNCTION alarm_occurred(); 
+
 DROP TRIGGER trigger_alarm_occurred ON saliapp_reading;
 
 

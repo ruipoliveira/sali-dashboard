@@ -51,11 +51,11 @@ adjacent to the label it is in is checked. */
                         <span class="info-box-icon {{ sensor.color }}"> <img width="50%"  src="/static/resources/typesensor/{{ sensor.image_path }}"></span>
                         <div class="info-box-content">
                             <span class="info-box-text">{{ sensor.name }}</span>
-                            
-                            {% if sensor.scale_value != "0" %}
-                                <span class="info-box-number">{{ sensor.scale_value }}</span>
+
+                            {% if sensor.scale_value == "" %}
+                                <span class="info-box-number">-</span>
                             {% else %}
-                                <span class="info-box-number"> <br/></span>
+                                <span class="info-box-number">{{ sensor.scale_value }}</span>
                             {% endif %}
 
                             <a  type="button" style="width:25px; float: right;" href="{% url 'deletesensor' id_sensor=sensor.id %}" class="btn btn-block btn-danger btn-xs"><i class="fa fa-trash"></i></a>
