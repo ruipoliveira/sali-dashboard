@@ -33,64 +33,14 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="layout.html" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/saliapp/templates/layout.html">
+      <file leaf-file-name="view_sensor.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/saliapp/templates/view/view_sensor.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="18">
-              <caret line="40" column="25" lean-forward="false" selection-start-line="40" selection-start-column="25" selection-end-line="40" selection-end-column="25" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="profile.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/saliapp/templates/profile.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="18">
-              <caret line="237" column="26" lean-forward="false" selection-start-line="237" selection-start-column="26" selection-end-line="237" selection-end-column="26" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/saliapp/views.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="18">
-              <caret line="748" column="34" lean-forward="false" selection-start-line="748" selection-start-column="25" selection-end-line="748" selection-end-column="34" />
+            <state relative-caret-position="150">
+              <caret line="64" column="24" lean-forward="false" selection-start-line="64" selection-start-column="24" selection-end-line="64" selection-end-column="24" />
               <folding>
-                <element signature="e#29#51#0" expanded="true" />
+                <element signature="n#style#0;n#div#0;n#div#0;n#section#0;n#!!top" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/saliDashboard/urls.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="18">
-              <caret line="53" column="36" lean-forward="false" selection-start-line="53" selection-start-column="36" selection-end-line="53" selection-end-column="36" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="typesensors.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/saliapp/templates/add/typesensors.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="162">
-              <caret line="61" column="0" lean-forward="false" selection-start-line="61" selection-start-column="0" selection-end-line="61" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/saliapp/models.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="155">
-              <caret line="80" column="0" lean-forward="true" selection-start-line="80" selection-start-column="0" selection-end-line="80" selection-end-column="0" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -167,7 +117,6 @@
         <option value="$PROJECT_DIR$/saliapp/templates/500.html" />
         <option value="$PROJECT_DIR$/scripts/createtoken.py" />
         <option value="$PROJECT_DIR$/saliapp/apiViews.py" />
-        <option value="$PROJECT_DIR$/saliapp/templates/view/view_sensor.html" />
         <option value="$PROJECT_DIR$/saliapp/templates/registration/login.html" />
         <option value="$PROJECT_DIR$/saliapp/templates/registration/recover.html" />
         <option value="$PROJECT_DIR$/saliapp/templatetags/user_tags.py" />
@@ -188,6 +137,7 @@
         <option value="$PROJECT_DIR$/saliapp/views.py" />
         <option value="$PROJECT_DIR$/saliapp/templates/profile.html" />
         <option value="$PROJECT_DIR$/saliapp/models.py" />
+        <option value="$PROJECT_DIR$/saliapp/templates/view/view_sensor.html" />
       </list>
     </option>
   </component>
@@ -217,8 +167,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -377,6 +325,8 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scratches" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -728,10 +678,9 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Debug Logs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="manage.py@saliDashboard" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.37223974" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329653" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32334384" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32334384" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Execute Anonymous" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2203514" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -744,6 +693,7 @@
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="manage.py@saliDashboard" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.37223974" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.11493412" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329653" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -963,13 +913,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/saliapp/static/resources/registration/register.html" />
-    <entry file="file://$PROJECT_DIR$/saliapp/templates/view/view_sensor.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="114">
-          <caret line="32" column="95" lean-forward="false" selection-start-line="32" selection-start-column="95" selection-end-line="32" selection-end-column="95" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/saliapp/templates/view/viewAllData.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="168">
@@ -1081,25 +1024,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/saliapp/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="155">
-          <caret line="80" column="0" lean-forward="true" selection-start-line="80" selection-start-column="0" selection-end-line="80" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/saliapp/templates/add/typesensors.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="61" column="0" lean-forward="false" selection-start-line="61" selection-start-column="0" selection-end-line="61" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/saliDashboard/urls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="18">
+        <state relative-caret-position="828">
           <caret line="53" column="36" lean-forward="false" selection-start-line="53" selection-start-column="36" selection-end-line="53" selection-end-column="36" />
           <folding />
         </state>
@@ -1107,7 +1034,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/saliapp/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="18">
+        <state relative-caret-position="13464">
           <caret line="748" column="34" lean-forward="false" selection-start-line="748" selection-start-column="25" selection-end-line="748" selection-end-column="34" />
           <folding>
             <element signature="e#29#51#0" expanded="true" />
@@ -1128,6 +1055,32 @@
         <state relative-caret-position="18">
           <caret line="40" column="25" lean-forward="false" selection-start-line="40" selection-start-column="25" selection-end-line="40" selection-end-column="25" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/saliapp/templates/add/typesensors.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="61" column="0" lean-forward="false" selection-start-line="61" selection-start-column="0" selection-end-line="61" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/saliapp/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="155">
+          <caret line="80" column="0" lean-forward="false" selection-start-line="80" selection-start-column="0" selection-end-line="80" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/saliapp/templates/view/view_sensor.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="64" column="24" lean-forward="false" selection-start-line="64" selection-start-column="24" selection-end-line="64" selection-end-column="24" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#div#0;n#section#0;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
