@@ -39,7 +39,11 @@
 
     <br/><br/><br/>
 
-
+    {% if notData %}
+        <div class="alert" style="background-color: lightgrey;">
+            <h4><i class="icon fa fa-info-circle"></i> Data not available!</h4>
+        </div>
+    {% endif %}
 
 
 
@@ -57,17 +61,7 @@
     </div>
     <!-- /.box-header -->
     <div class="box-body">
-        {{ name }}
-        {% if name == 'Cam' %}
 
-            <h1>Olaaaa </h1>
-        {% else %}
-
-        {% if notData %}
-            <div class="alert" style="background-color: lightgrey;">
-            <h4><i class="icon fa fa-info-circle"></i> Data not available!</h4>
-            </div>
-        {% endif %}
 
         <div id='myChart{{ forloop.counter }}'  >
 
@@ -115,7 +109,7 @@
                 <div class="icon"><i class="ion ion-stats-bars"></i></div>
             </div>
         </div>
-        {% endif %}
+
         <br/>
 
         <br/>
