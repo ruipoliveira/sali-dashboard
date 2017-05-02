@@ -86,7 +86,7 @@ class SMPerCM(models.Model):
 class SensorType(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=128)
-    scale_value = models.CharField(max_length=10)
+    scale_value = models.CharField(max_length=255)
     image_path = models.CharField(max_length=128, blank=True)
     color = models.CharField(max_length=100, blank=True)
 

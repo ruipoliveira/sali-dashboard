@@ -215,9 +215,12 @@ data = response.json()
 import json
 import requests
 auth={'Authorization': 'Token {{ token }}'}
-url = 'http://192.168.160.20/api/cm/'
-response = requests.get(url, headers=auth )
-data = response.json()
+id_sensor = 5
+login_payload = {'value': value}
+url = 'http://192.168.160.20/api/reading/'+str(id_sensor)
+response = requests.post(url,
+    data=login_payload,
+    headers=auth)
 </pre>
 
                                     </div>

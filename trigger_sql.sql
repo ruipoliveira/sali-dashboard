@@ -28,9 +28,3 @@ DROP FUNCTION alarm_occurred();
 
 DROP TRIGGER trigger_alarm_occurred ON saliapp_reading;
 
-
-
-
-
-
-
