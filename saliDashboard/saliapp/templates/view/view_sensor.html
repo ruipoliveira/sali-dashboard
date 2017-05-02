@@ -39,11 +39,7 @@
 
     <br/><br/><br/>
 
-    {% if notData %}
-        <div class="alert" style="background-color: lightgrey;">
-            <h4><i class="icon fa fa-info-circle"></i> Data not available!</h4>
-        </div>
-    {% endif %}
+
 
 
 
@@ -67,6 +63,11 @@
             <h1>Olaaaa </h1>
         {% else %}
 
+        {% if notData %}
+            <div class="alert" style="background-color: lightgrey;">
+            <h4><i class="icon fa fa-info-circle"></i> Data not available!</h4>
+            </div>
+        {% endif %}
 
         <div id='myChart{{ forloop.counter }}'  >
 
