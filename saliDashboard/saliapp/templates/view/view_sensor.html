@@ -56,7 +56,7 @@
 
     <div style="text-align: center;">
         <iframe width="100%" height="500px"
-                src="https://www.youtube.com/embed/XGSy3_Czz8k?autoplay=1">
+                src="https://www.youtube.com/watch?v=u1DgsvjYKS4?autoplay=1">
         </iframe>
     </div>
 
@@ -149,14 +149,7 @@
 {% endfor %}
 
 
-
 <br/><br/>
-
-
-
-
-
-
 
 
 
@@ -166,7 +159,7 @@
 
 <script>
 
-    {% for name, id, color, values, nrmeasure, maxValue, minValue, avg in final %}
+    {% for name, id, color, values, nrmeasure, maxValueS, minValueS, avg in final %}
 
     var dates = {{ time_format|safe }};
     var closes = {{ values }};
@@ -221,7 +214,7 @@
             lineStyle: 'solid',
             lineColor: "#347915"
           },
-          values: "{{ minValue }}:{{ maxvalue }}:1",
+          values: "{{ maxValueS }}:{{ maxvalueS }}:1",
           item: {
             fontColor: "#000000",
             fontFamily: "Open Sans"
