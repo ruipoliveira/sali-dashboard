@@ -99,6 +99,7 @@ class Sensor(models.Model):
     id_sensor_type = models.ForeignKey(SensorType, on_delete=models.CASCADE)
     id_sm = models.ForeignKey(SensorModule, on_delete=models.CASCADE)
     status_actuator = models.BooleanField(default=False)
+    cam_url = models.CharField(max_length=228, blank=True)
 
     def __str__(self):
         return "SM: " + str(self.id_sm) + " Type: " + str(self.id_sensor_type)

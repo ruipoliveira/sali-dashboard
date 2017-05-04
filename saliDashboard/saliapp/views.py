@@ -27,7 +27,6 @@ from saliapp.forms import *
 from .apiViews import *
 from django.http import HttpResponse
 
-
 # django_list = list(User.objects.all())
 
 current_date_y_m_d = datetime.now().strftime('%Y-%m-%d')
@@ -45,8 +44,6 @@ def home2(request):
     )
 
 
-
-
 class Register(View):
     def get(self, request, shortcode=None, *args, **kwargs):
         return render(request, 'registration/register.html', {
@@ -58,7 +55,7 @@ class Register(View):
         #    messages.success(request, '\"' + request.POST["username"] + '\" deleted successfully!')
         #    return render(request, 'register')
 
-        #if not User.objects.filter(username=request.POST["username"]).exists():
+        # if not User.objects.filter(username=request.POST["username"]).exists():
         #    messages.error(request, 'This username already exists!')
         #    return redirect('register')
 
@@ -70,12 +67,12 @@ class Register(View):
             messages.error(request, 'You have to select a company!')
             return redirect('register')
 
-        newUser = User.objects.create_user (username=request.POST["username"],
-                       last_name=request.POST["last"],
-                       first_name=request.POST["first"],
-                       email=request.POST["email"],
-                       password=request.POST["password1"]
-                       )
+        newUser = User.objects.create_user(username=request.POST["username"],
+                                           last_name=request.POST["last"],
+                                           first_name=request.POST["first"],
+                                           email=request.POST["email"],
+                                           password=request.POST["password1"]
+                                           )
 
         newUser.is_active = False
 
@@ -94,9 +91,9 @@ class Register(View):
         header = 'New user associated with your company'
         msg = 'Hi company ' + company.first_name + \
               '\nThe user \"' + newUser.username + '\" was registered in our system.' \
-                                                  ' Make sure you want to associate it with your business. ' \
-                                                  '\nGo to your account to validate it.' \
-                                                  '\nGreetings, Admin SaliDashboard'
+                                                   ' Make sure you want to associate it with your business. ' \
+                                                   '\nGo to your account to validate it.' \
+                                                   '\nGreetings, Admin SaliDashboard'
 
         send_mail(header, msg, 'ruipedrooliveira@ua.pt',
                   [company.email], fail_silently=False)
@@ -169,6 +166,7 @@ def add_sensor(request):
             'user': request.user,
             'title': 'Contact'
         })
+
 
 @login_required
 def home(request):
@@ -264,20 +262,19 @@ def editcpu(request, id):
 
 @login_required
 def profile(request):
-
     try:
         company = UserPerCompany.objects.get(id_general_user=request.user).id_company.first_name
     except ObjectDoesNotExist:
         company = request.user.first_name
 
     return render_to_response(
-        'profile.html',{
+        'profile.html', {
             'user': request.user,
             'company': company,
             'token': Token.objects.get(user=request.user),
             'title': 'Profile',
             'titlesmall': 'user',
-         })
+        })
 
 
 def post_new(request):
@@ -407,10 +404,9 @@ class SensorValues(View):
 
         nameCam = []
         urlCam = []
-        for i in Sensor.objects.filter(id_sm= id_sm, id_sensor_type=SensorType.objects.get(name='cam')):
-            nameCam.append(i.id_sensor_type.name)
-            urlCam.append(i.id_sensor_type.scale_value)
-
+        for i in Sensor.objects.filter(id_sm=id_sm, id_sensor_type=SensorType.objects.get(name='cam')):
+            nameCam.append(i.id_sensor_type.name + ", " + i.id_sensor_type.scale_value)
+            urlCam.append(i.cam_url)
 
         return render(request,
                       'view/view_sensor.html', {
@@ -653,7 +649,6 @@ class ShowDevices(View):
 
 class TypeSensor(View):
     def get(self, request, shortcode=None, *args, **kwargs):
-
         my_path = os.path.dirname(os.path.abspath(__file__)) + "/static/resources/typesensor"
 
         only_files = [f for f in listdir(my_path) if isfile(join(my_path, f))]
@@ -670,10 +665,6 @@ class TypeSensor(View):
                       })
 
     def post(self, request, shortcode=None, *args, **kwargs):
-
-
-
-
         st = SensorType(name=request.POST["name"],
                         scale_value=request.POST["scale"],
                         image_path=request.POST["image"],
@@ -686,11 +677,9 @@ class TypeSensor(View):
 
 class TypeCommunication(View):
     def get(self, request, shortcode=None, *args, **kwargs):
-
         my_path = os.path.dirname(os.path.abspath(__file__)) + "/static/resources/typecomm"
 
         only_files = [f for f in listdir(my_path) if isfile(join(my_path, f))]
-
 
         print only_files
         return render(request,
@@ -755,9 +744,6 @@ class ManagerUser(View):
         st.save()
 
         return redirect('showusers')
-
-
-
 
 
 ########################################################################################
