@@ -36,18 +36,18 @@
       <file leaf-file-name="view_sensor.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/saliapp/templates/view/view_sensor.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="239">
-              <caret line="221" column="10" lean-forward="true" selection-start-line="221" selection-start-column="10" selection-end-line="221" selection-end-column="10" />
+            <state relative-caret-position="269">
+              <caret line="64" column="9" lean-forward="true" selection-start-line="64" selection-start-column="9" selection-end-line="64" selection-end-column="9" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/saliapp/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="338">
-              <caret line="425" column="35" lean-forward="false" selection-start-line="425" selection-start-column="27" selection-end-line="425" selection-end-column="35" />
+            <state relative-caret-position="140">
+              <caret line="92" column="59" lean-forward="false" selection-start-line="92" selection-start-column="56" selection-end-line="92" selection-end-column="59" />
               <folding>
                 <element signature="e#29#51#0" expanded="true" />
               </folding>
@@ -75,7 +75,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="settings.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="settings.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/saliDashboard/settings.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="416">
@@ -98,8 +98,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>send</find>
-      <find>Hi</find>
       <find>m</find>
       <find>SWAGGER_SETTINGS</find>
       <find>swa</find>
@@ -121,13 +119,15 @@
       <find>Scale</find>
       <find>google</find>
       <find>Sensor</find>
-      <find>youtube</find>
       <find>maxValueAll</find>
       <find>maxVal</find>
       <find>All</find>
       <find>maxvalue</find>
-      <find>view_</find>
       <find>final</find>
+      <find>view_</find>
+      <find>as</find>
+      <find>as</find>
+      <find>youtube</find>
     </findStrings>
   </component>
   <component name="IdeDocumentHistory">
@@ -976,10 +976,28 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/saliDashboard/settings.py">
+    <entry file="file://$PROJECT_DIR$/saliapp/templates/view/view_sensor.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="416">
-          <caret line="48" column="19" lean-forward="false" selection-start-line="48" selection-start-column="5" selection-end-line="48" selection-end-column="19" />
+        <state relative-caret-position="269">
+          <caret line="64" column="9" lean-forward="true" selection-start-line="64" selection-start-column="9" selection-end-line="64" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/saliapp/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="140">
+          <caret line="92" column="59" lean-forward="false" selection-start-line="92" selection-start-column="56" selection-end-line="92" selection-end-column="59" />
+          <folding>
+            <element signature="e#29#51#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/saliapp/templates/home.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="152">
+          <caret line="278" column="24" lean-forward="true" selection-start-line="278" selection-start-column="24" selection-end-line="278" selection-end-column="24" />
           <folding />
         </state>
       </provider>
@@ -992,29 +1010,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/saliapp/templates/home.html">
+    <entry file="file://$PROJECT_DIR$/saliDashboard/settings.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
-          <caret line="278" column="24" lean-forward="true" selection-start-line="278" selection-start-column="24" selection-end-line="278" selection-end-column="24" />
+        <state relative-caret-position="416">
+          <caret line="48" column="19" lean-forward="false" selection-start-line="48" selection-start-column="5" selection-end-line="48" selection-end-column="19" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/saliapp/templates/view/view_sensor.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="239">
-          <caret line="221" column="10" lean-forward="true" selection-start-line="221" selection-start-column="10" selection-end-line="221" selection-end-column="10" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/saliapp/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="338">
-          <caret line="425" column="35" lean-forward="false" selection-start-line="425" selection-start-column="27" selection-end-line="425" selection-end-column="35" />
-          <folding>
-            <element signature="e#29#51#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
