@@ -258,7 +258,7 @@ class ControllerModule_param(APIView):
 #########################################################
 
 class CMperUser_param(ListCreateAPIView):
-    queryset = CMPerUsers.objects.all()
+    queryset = CMPerCompany.objects.all()
     serializer_class = CMperUserSerializer
 
     def list(self, request, pk_or_username):
@@ -266,10 +266,10 @@ class CMperUser_param(ListCreateAPIView):
 
         try:
             if pk_or_username.isdigit():
-                queryset = CMPerUsers.objects.filter(id_user=User.objects.get(id=pk_or_username))
+                queryset = CMPerCompany.objects.filter(id_user=User.objects.get(id=pk_or_username))
 
             else:
-                queryset = CMPerUsers.objects.filter(id_user=User.objects.get(username=pk_or_username))
+                queryset = CMPerCompany.objects.filter(id_user=User.objects.get(username=pk_or_username))
         except ObjectDoesNotExist:
             queryset = None
 

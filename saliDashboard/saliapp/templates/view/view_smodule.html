@@ -115,9 +115,9 @@
 
         </div>
 
-
-        <button type="submit" class="btn btn-info pull-right" data-toggle="modal" data-target="#myModal">Add</button>
-
+        {% if not user.is_superuser %}
+            <button type="submit" class="btn btn-info pull-right" data-toggle="modal" data-target="#myModal">Add</button>
+        {% endif %}
 
     </section>
 

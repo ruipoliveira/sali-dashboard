@@ -27,10 +27,15 @@ urlpatterns = [
     url(r'^accounts/login/$', login),
     url(r'^logout/$', logout_page),
 
-    url(r'^manageruser/$', login_required(ManagerUser.as_view()), name='managerUser'),
+    url(r'^manageruser/$', login_required(ManagerUserCompany.as_view()), name='managerUser'),
+
 
     url(r'^validateuser/(?P<id_user>[-\w]+)/$', views.validate_user, name='validateuser'),
-    url(r'^removeuser/(?P<id_user>[-\w]+)/$', views.remove_user, name='removeuser'),
+    url(r'^removeuser/(?P<id_user>[-\w]+)/(?P<to_redirect>[-\w]+)/$', views.remove_user, name='removeuser'),
+
+    url(r'^managercompany/$', login_required(ManagerCompany.as_view()), name='managercompany'),
+
+    url(r'^manageruserall/$', login_required(ManagerAllUser.as_view()), name='manageruserall'),
 
     url(r'^profile/$', views.profile, name='profile'),
 
@@ -75,6 +80,7 @@ urlpatterns = [
     url(r'^devices/cm/(?P<id_cm>[-\w]+)/sm/(?P<id_sm>[-\w]+)/export/$', views.exportcsv, name="exportcsv"),
 
     # url(r'^post1/$', views.post1, name="post1"),
+
 
     # API
 

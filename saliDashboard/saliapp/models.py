@@ -16,12 +16,6 @@ def my_random_key():
     return randstr(16)
 
 
-class SecretKey(models.Model):
-    id = models.AutoField(primary_key=True)
-    id_user = models.ForeignKey(User, on_delete=models.CASCADE)
-    key_dev = models.CharField(max_length=16, default=my_random_key, unique=True)
-
-
 class CommunicationType(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=128)
@@ -47,9 +41,9 @@ class ControllerModule(models.Model):
         return str(self.id) + str(self.name)
 
 
-class CMPerUsers(models.Model):
+class CMPerCompany(models.Model):
     id_cm = models.ForeignKey(ControllerModule, on_delete=models.CASCADE)
-    id_user = models.ForeignKey(User, on_delete=models.CASCADE)
+    id_company = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return "User: " + str(self.id_user) + "; CM: " + str(self.id_cm)

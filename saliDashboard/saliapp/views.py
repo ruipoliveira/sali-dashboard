@@ -137,12 +137,11 @@ def validate_user(request, id_user):
 
 
 @login_required
-def remove_user(request, id_user):
+def remove_user(request, id_user, to_redirect):
     user = User.objects.get(id=id_user)
     user.delete()
-    user.save()
     messages.success(request, '\"' + str(user.username) + '\" removed successfully!')
-    return redirect('managerUser')
+    return redirect(to_redirect)
 
 
 def logout_page(request):
@@ -197,7 +196,7 @@ def home(request):
         {'user': request.user,
          'title': 'Dashboard',
          'titlesmall': 'Control panel',
-         'allControllerM': ControllerModule.objects.all(),
+         'allControllerM': ControllerModule.objects.filter(),
          'allSensorM': SensorModule.objects.all(),
          'smpercm': SMPerCM.objects.all(),
          'allSensor': Sensor.objects.all(),
@@ -216,7 +215,7 @@ def home(request):
 @login_required
 def newuser(request):
     return render_to_response(
-        'addusers.html',
+        'management/usercompany.html',
         {'user': request.user,
          'title': 'Contact'
          })
@@ -597,7 +596,7 @@ def deletesm(request, id_cm, id_sm):
 class ShowDevices(View):
     def get(self, request, shortcode=None, *args, **kwargs):
         allCPUs = ControllerModule.objects.all()
-        userAll = CMPerUsers.objects.all()
+        userAll = CMPerCompany.objects.all()
 
         communicationAll = CommunicationType.objects.all()
         form = PostForm()
@@ -635,13 +634,9 @@ class ShowDevices(View):
                               baterry_cm=100)
         cm.save()
 
-        cmperuser = CMPerUsers(id_cm=cm, id_user=self.request.user)
-        cmperuser.save()
-
-        for manager in request.POST.getlist("managers"):
-            print manager
-            cmperusera = CMPerUsers(id_cm=cm, id_user=User.objects.get(username=manager))
-            cmperusera.save()
+        cmpercompany = CMPerCompany(id_cm=cm,
+                                    id_company=UserPerCompany.objects.get(id_general_user=self.request.user).id_company)
+        cmpercompany.save()
 
         messages.success(request, '\"' + cm.name + '\" created successfully!')
         return redirect('addcpu')
@@ -726,13 +721,13 @@ def deletesensor(request, id_sensor):
     return redirect('typesensor')
 
 
-class ManagerUser(View):
+class ManagerUserCompany(View):
     def get(self, request, shortcode=None, *args, **kwargs):
         return render(request,
-                      'addusers.html', {
+                      'management/usercompany.html', {
                           'user': request.user,
-                          'title': 'User management',
-                          'titlesmall': 'All types',
+                          'title': 'User in company',
+                          'titlesmall': 'management',
                           'userAll': UserPerCompany.objects.filter(id_company=request.user)
                       })
 
@@ -745,6 +740,31 @@ class ManagerUser(View):
 
         return redirect('showusers')
 
+class ManagerCompany(View):
+    def get(self, request, shortcode=None, *args, **kwargs):
+        return render(request,
+                      'management/company.html', {
+                          'user': request.user,
+                          'title': 'Company management',
+                          'titlesmall': 'All company',
+                          'userAll': Group.objects.get(name="company").user_set.all()
+                      })
+
+    def post(self, request, shortcode=None, *args, **kwargs):
+
+        ## adicionar nova company
+
+        return redirect('managercompany')
+
+class ManagerAllUser(View):
+    def get(self, request, shortcode=None, *args, **kwargs):
+        return render(request,
+                      'management/userall.html', {
+                          'user': request.user,
+                          'title': 'User management',
+                          'titlesmall': 'All users',
+                          'userAll': User.objects.all(),
+                      })
 
 ########################################################################################
 ###################### Services used by controler module (CM) ##########################

@@ -46,7 +46,7 @@ class CMperUserSerializer(serializers.HyperlinkedModelSerializer):
     id_cm = ControllerModuleSerializer()
     class Meta:
 
-        model = CMPerUsers
+        model = CMPerCompany
         fields = ('id_cm',)
 
 

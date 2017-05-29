@@ -5,7 +5,7 @@ from .models import *
 
 admin.site.register(CommunicationType)
 admin.site.register(ControllerModule)
-admin.site.register(CMPerUsers)
+admin.site.register(CMPerCompany)
 admin.site.register(SensorModule)
 admin.site.register(SMPerCM)
 admin.site.register(CommunicationTypePerSM)
@@ -14,7 +14,6 @@ admin.site.register(Sensor)
 admin.site.register(AlarmsSettings)
 admin.site.register(Reading)
 admin.site.register(Alarms)
-admin.site.register(SecretKey)
 
 admin.site.register(Permission)
 admin.site.register(ContentType)
