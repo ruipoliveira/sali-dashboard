@@ -47,6 +47,7 @@ INSTALLED_APPS = (
     'django_extensions',
     'password_reset',
     'rest_framework.authtoken',
+    'mathfilters'
 
 )
 
