@@ -409,7 +409,7 @@ class SensorValues(View):
         for i in Sensor.objects.filter(id_sm=id_sm, id_sensor_type=SensorType.objects.get(name='cam')):
             nameCam.append(i.id_sensor_type.name + ", " + i.id_sensor_type.scale_value)
             urlCam.append(i.cam_url)
-
+        print maxValue
         return render(request,
                       'view/view_sensor.html', {
                           'user': request.user,

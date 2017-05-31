@@ -1,5 +1,4 @@
 {% extends "layout.html" %}
-{% load mathfilters %}
 {% block body %}
 
     <script src="https://cdn.zingchart.com/zingchart.min.js"></script>
@@ -215,7 +214,7 @@
             lineStyle: 'solid',
             lineColor: "#347915"
           },
-          values: "{{ maxValueS|add:5 }}:{{ minValueS|add:5 }}:1",
+          values: "{{ maxValueS }}:{{ minValueS }}:1",
           item: {
             fontColor: "#000000",
             fontFamily: "Open Sans"
