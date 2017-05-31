@@ -29,7 +29,6 @@ from django.http import HttpResponse
 
 # django_list = list(User.objects.all())
 
-current_date_y_m_d = datetime.now().strftime('%Y-%m-%d')
 
 
 def home2(request):
@@ -169,6 +168,8 @@ def add_sensor(request):
 
 @login_required
 def home(request):
+    current_date_y_m_d = datetime.now().strftime('%Y-%m-%d')
+
     all_id_sensor = Reading.objects.all().values_list('id_sensor', flat=True)
 
     out_list = []
@@ -301,6 +302,8 @@ def foo(request):
 
 class SensorValues(View):
     def get(self, request, shortcode=None, *args, **kwargs):
+        current_date_y_m_d = datetime.now().strftime('%Y-%m-%d')
+
         # get id_sm and id_cm
         id_sm = self.kwargs['id_sm']
         id_cm = self.kwargs['id_cm']
@@ -490,6 +493,8 @@ def exportcsv(request, id_sm, id_cm):
 
 class ShowSensorModule(View):
     def get(self, request, shortcode=None, *args, **kwargs):
+        current_date_y_m_d = datetime.now().strftime('%Y-%m-%d')
+
         id_cpu = self.kwargs['id_cm']
 
         x = SMPerCM.objects.filter(id_cm=id_cpu)
