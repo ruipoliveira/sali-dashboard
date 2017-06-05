@@ -410,6 +410,9 @@ class SensorValues(View):
             nameCam.append(i.id_sensor_type.name + ", " + i.id_sensor_type.scale_value)
             urlCam.append(i.cam_url)
         print maxValue
+
+
+
         return render(request,
                       'view/view_sensor.html', {
                           'user': request.user,
