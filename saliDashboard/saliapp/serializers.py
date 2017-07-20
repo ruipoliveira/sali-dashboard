@@ -74,7 +74,7 @@ class SensorSerializer(serializers.HyperlinkedModelSerializer):
     id_sensor_type = SensorTypeSerializer()
     class Meta:
         model = Sensor
-        fields = ('id', 'id_sm', 'id_sensor_type')
+        fields = ('id', 'id_sm', 'id_sensor_type','status_actuator', 'cam_url' )
 
 class SensorPerSMSerializer(serializers.HyperlinkedModelSerializer):
     id_sensor_type = SensorTypeSerializer()
