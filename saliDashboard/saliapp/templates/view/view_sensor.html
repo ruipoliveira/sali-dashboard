@@ -9,359 +9,358 @@
     <script type="text/javascript">
         @import 'https://fonts.googleapis.com/css?family=Open+Sans:300';
         .zc-ref {
-        display: none;
+            display: none;
         }
     </script>
     <style>
-    {% for a in final %}
-        #myChart{{ forloop.counter }} {
-        height:100%;
-        width:100%;
-        }
-    {% endfor %}
+        {% for a in final %}
+            #myChart{{ forloop.counter }} {
+                height:100%;
+                width:100%;
+            }
+        {% endfor %}
 
     </style>
-<section class="content">
+    <section class="content">
 
 
 
 
-    <a type="button" href="{% url 'showalldata' id_sm=id_sm id_cm=id_cm dates=date_start datef=date_finish%}" class="btn bg-navy btn-flat margin">Dataset view</a>
+        <a type="button" href="{% url 'showalldata' id_sm=id_sm id_cm=id_cm dates=date_start datef=date_finish%}" class="btn bg-navy btn-flat margin">Dataset view</a>
 
-    <div style="float: right;">
+        <div style="float: right;">
 
-<div id="reportrange" class="pull-right" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
-    <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>&nbsp;
-    <span></span> <b href="www.ua.pt" class="caret"></b>
-</div>
+            <div id="reportrange" class="pull-right" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
+                <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>&nbsp;
+                <span></span> <b href="www.ua.pt" class="caret"></b>
+            </div>
 
-    </div>
-
-    <br/><br/><br/>
-
-    {% for name,url in allcam %}
-
-
-
-    <div class="box box-default">
-        <div class="box-header with-border">
-        <h3 class="box-title">{{ name }}</h3>
-        <div class="box-tools pull-right">
-        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-        <!--<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button> -->
-        </div>
-    </div>
-    <!-- /.box-header -->
-    <div class="box-body">
-
-    <div style="text-align: center;">
-        <iframe width="100%" height="500px"
-                src="https://www.youtube.com/embed/u1DgsvjYKS4">
-        </iframe>
-    </div>
-
-    </div>
-    </div>
-    <br/>
-
-    {% endfor %}
-
-
-
-    {% if notData %}
-        <div class="alert" style="background-color: lightgrey;">
-            <h4><i class="icon fa fa-info-circle"></i> Data not available!</h4>
-        </div>
-    {% endif %}
-
-
-
-
-
-{% for name, id, color, values, nrmeasureSensor, maxvalueSensor, minvalueSensor, avg in final %}
-<div>
-
-    <div class="box box-default">
-        <div class="box-header with-border">
-        <h3 class="box-title">{{ name }} </h3>
-        <div class="box-tools pull-right">
-        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-        <!--<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button> -->
-        </div>
-    </div>
-    <!-- /.box-header -->
-    <div class="box-body">
-
-        <div id='myChart{{ forloop.counter }}' >
-            <a class="zc-ref"  href="https://www.zingchart.com/">Powered by ZingChart</a>
         </div>
 
-        {% if  name == "Water valve (0/1)" %}
-            <div class="callout callout-navy">
-                <h4>Enable/disable valve</h4>
+        <br/><br/><br/>
 
-                <label class="switch">
-                    <input type="checkbox" name="status">
-                    <div class="slider round"></div>
-                </label>
+        {% for name,url in allcam %}
 
+
+
+            <div class="box box-default">
+                <div class="box-header with-border">
+                    <h3 class="box-title">{{ name }}</h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                        <!--<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button> -->
+                    </div>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+
+                    <div style="text-align: center;">
+                        <iframe width="100%" height="500px"
+                                src="https://www.youtube.com/embed/u1DgsvjYKS4">
+                        </iframe>
+                    </div>
+
+                </div>
             </div>
             <br/>
+
+        {% endfor %}
+
+        {% for sensor in allSensor %}
+            {% if sensor.id_sensor_type.name  == "Water valve" %}
+                <div class="callout callout-navy">
+                    <h4>Enable/disable valve</h4>
+
+                    <label class="switch">
+                        <input type="checkbox" name="status">
+                        <div class="slider round"></div>
+                    </label>
+
+                </div>
+                <br/>
+            {% endif %}
+        {% endfor %}
+
+
+
+        {% if notData %}
+            <div class="alert" style="background-color: lightgrey;">
+                <h4><i class="icon fa fa-info-circle"></i> Data not available!</h4>
+            </div>
         {% endif %}
 
-        <div class="col-lg-3 col-xs-6">
-            <!-- small box -->
-            <div class="small-box bg-aqua-gradient">
-                <div class="inner">
-                    <h3>{{ nrmeasureSensor }}<sup style="font-size: 20px"></sup></h3>
-                    <p>number of measurements</p>
+
+        {% for name, id, color, values, nrmeasureSensor, maxvalueSensor, minvalueSensor, avg in final %}
+            <div>
+
+            <div class="box box-default">
+                <div class="box-header with-border">
+                    <h3 class="box-title">{{ name }} </h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                        <!--<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button> -->
+                    </div>
                 </div>
-                <div class="icon"><i class="ion ion-ios-grid-view-outline"></i></div>
-            </div>
-        </div>
-        <div class="col-lg-3 col-xs-6">
-            <!-- small box -->
-            <div class="small-box bg-red-gradient">
-                <div class="inner">
-                    <h3>{{ maxvalueSensor }}<sup style="font-size: 20px"></sup></h3>
-                    <p>max value</p>
+                <!-- /.box-header -->
+                <div class="box-body">
+
+                    <div id='myChart{{ forloop.counter }}' >
+                        <a class="zc-ref"  href="https://www.zingchart.com/">Powered by ZingChart</a>
+                    </div>
+
+                    <div class="col-lg-3 col-xs-6">
+                        <!-- small box -->
+                        <div class="small-box bg-aqua-gradient">
+                            <div class="inner">
+                                <h3>{{ nrmeasureSensor }}<sup style="font-size: 20px"></sup></h3>
+                                <p>number of measurements</p>
+                            </div>
+                            <div class="icon"><i class="ion ion-ios-grid-view-outline"></i></div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-xs-6">
+                        <!-- small box -->
+                        <div class="small-box bg-red-gradient">
+                            <div class="inner">
+                                <h3>{{ maxvalueSensor }}<sup style="font-size: 20px"></sup></h3>
+                                <p>max value</p>
+                            </div>
+                            <div class="icon"><i class="ion ion-ios-plus-empty"></i></div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-xs-6">
+                        <!-- small box -->
+                        <div class="small-box bg-green-gradient">
+                            <div class="inner">
+                                <h3>{{ minvalueSensor }}<sup style="font-size: 20px"></sup></h3>
+                                <p>min value</p>
+                            </div>
+                            <div class="icon"><i class="ion ion-ios-minus-empty"></i></div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-xs-6">
+                        <!-- small box -->
+                        <div class="small-box bg-yellow-gradient">
+                            <div class="inner">
+                                <h3>{{ avg }}<sup style="font-size: 20px"></sup></h3>
+                                <p>average value</p>
+                            </div>
+                            <div class="icon"><i class="ion ion-stats-bars"></i></div>
+                        </div>
+                    </div>
+
+                    <br/>
+
+                    <br/>
+
                 </div>
-                <div class="icon"><i class="ion ion-ios-plus-empty"></i></div>
+
             </div>
-        </div>
-        <div class="col-lg-3 col-xs-6">
-            <!-- small box -->
-            <div class="small-box bg-green-gradient">
-                <div class="inner">
-                    <h3>{{ minvalueSensor }}<sup style="font-size: 20px"></sup></h3>
-                    <p>min value</p>
-                </div>
-                <div class="icon"><i class="ion ion-ios-minus-empty"></i></div>
-            </div>
-        </div>
-        <div class="col-lg-3 col-xs-6">
-            <!-- small box -->
-            <div class="small-box bg-yellow-gradient">
-                <div class="inner">
-                    <h3>{{ avg }}<sup style="font-size: 20px"></sup></h3>
-                    <p>average value</p>
-                </div>
-                <div class="icon"><i class="ion ion-stats-bars"></i></div>
-            </div>
-        </div>
 
-        <br/>
-
-        <br/>
-
-    </div>
-
-</div>
-
-<br/>
-{% endfor %}
+            <br/>
+        {% endfor %}
 
 
-<br/><br/>
+        <br/><br/>
 
 
 
-</section>
+    </section>
 
 
 
-<script>
+    <script>
 
-    {% for name, id, color, values, nrmeasure, maxValueS, minValueS, avg in final %}
+        {% for name, id, color, values, nrmeasure, maxValueS, minValueS, avg in final %}
 
-    var dates = {{ time_format|safe }};
-    var closes = {{ values }};
+            var dates = {{ time_format|safe }};
+            var closes = {{ values }};
 
-    var stockState{{ forloop.counter }} = {
-      current: '2Y',
-      dates: dates,
-      closes: closes
-    };
+            var stockState{{ forloop.counter }} = {
+                current: '2Y',
+                dates: dates,
+                closes: closes
+            };
 
-    function getCloseConfig{{ forloop.counter }}(dates, values, current) {
-      return {
-        type: 'area',
-        backgroundColor: "#ffffff",
-        height: 420,
-        x: 0,
-        y: 0,
-        crosshairX: {
-          shared: true,
-          plotLabel: {
-            backgroundColor: "#00a65a",
-            fontColor: "#ffffff",
-            text: "Value: %v",
-            fontFamily: "Open Sans",
-            y: 0,
-          },
-          scaleLabel: {
-            fontColor: "#ffffff",
-            fontFamily: "Open Sans",
-            backgroundColor: "#00a65a",
-          }
-        },
-        zoom: {
-          shared: true
-        },
-        plotarea: {
-          margin: "60 50 40 50"
-        },
-        plot: {
-          marker: {
-            visible: false
-          }
-        },
-        tooltip: {
-          text: "Value: %v",
-          backgroundColor: "#00a65a",
-          borderColor: "transparent"
-        },
-        scaleY: {
-          guide: {
-            visible: true,
-            lineStyle: 'solid',
-            lineColor: "#347915"
-          },
-          values: "{{ maxValueS }}:{{ minValueS }}:1",
-          item: {
-            fontColor: "#000000",
-            fontFamily: "Open Sans"
-          }
-        },
-        scaleX: {
-          guide: {
-            visible: true,
-            lineStyle: 'solid',
-            lineColor: "#4fbb0f"
-          },
-          values: dates,
-          zooming: {
-            shared: true
-          },
-          item: {
-            fontColor: "#000000",
-            fontFamily: "Open Sans"
-          }
-        },
-        series: [{
-          values: values,
-          lineColor: "#4d78ff",
-          lineWidth: 1,
-          backgroundColor: "#909090 #313131"
-        }],
-        labels: [{
-          x: 490,
-          y: 10,
-          id: '1W',
-          fontColor: (current === '1W') ? "#3B3D3A" : "#777",
-          fontSize: "16",
-          fontFamily: "Open Sans",
-          cursor: "hand",
-          text: "5"
-        }, {
-          x: 530,
-          y: 10,
-          id: '1M',
-          fontColor: (current === '1M') ? "#3B3D3A" : "#777",
-          fontSize: "16",
-          fontFamily: "Open Sans",
-          cursor: "hand",
-          text: "20"
-        }, {
-          x: 570,
-          y: 10,
-          id: '6M',
-          fontColor: (current === '6M') ? "#3B3D3A" : "#777",
-          fontSize: "16",
-          fontFamily: "Open Sans",
-          cursor: "hand",
-          text: "130"
-        }, {
-          x: 610,
-          y: 10,
-          id: '1Y',
-          fontColor: (current === '1Y') ? "#3B3D3A" : "#777",
-          fontSize: "16",
-          fontFamily: "Open Sans",
-          cursor: "hand",
-          text: "260"
-        }, {
-          x: 650,
-          y: 10,
-          id: '2Y',
-          fontColor: (current === '2Y') ? "#3B3D3A" : "#777",
-          fontSize: "16",
-          fontFamily: "Open Sans",
-          cursor: "hand",
-          text: "All"
-        }]
-      };
-    }
-
-
-    zingchart.render({
-      id: 'myChart{{ forloop.counter }}',
-      data: {
-        graphset: [
-          getCloseConfig{{ forloop.counter }}(stockState{{ forloop.counter }}.dates, stockState{{ forloop.counter }}.closes, '2Y'),
-        ]
-      },
-      height: 450,
-      width: 825,
-
-    });
+            function getCloseConfig{{ forloop.counter }}(dates, values, current) {
+                return {
+                    type: 'area',
+                    backgroundColor: "#ffffff",
+                    height: 420,
+                    x: 0,
+                    y: 0,
+                    crosshairX: {
+                        shared: true,
+                        plotLabel: {
+                            backgroundColor: "#00a65a",
+                            fontColor: "#ffffff",
+                            text: "Value: %v",
+                            fontFamily: "Open Sans",
+                            y: 0,
+                        },
+                        scaleLabel: {
+                            fontColor: "#ffffff",
+                            fontFamily: "Open Sans",
+                            backgroundColor: "#00a65a",
+                        }
+                    },
+                    zoom: {
+                        shared: true
+                    },
+                    plotarea: {
+                        margin: "60 50 40 50"
+                    },
+                    plot: {
+                        marker: {
+                            visible: false
+                        }
+                    },
+                    tooltip: {
+                        text: "Value: %v",
+                        backgroundColor: "#00a65a",
+                        borderColor: "transparent"
+                    },
+                    scaleY: {
+                        guide: {
+                            visible: true,
+                            lineStyle: 'solid',
+                            lineColor: "#347915"
+                        },
+                        values: "{{ maxValueS }}:{{ minValueS }}:1",
+                        item: {
+                            fontColor: "#000000",
+                            fontFamily: "Open Sans"
+                        }
+                    },
+                    scaleX: {
+                        guide: {
+                            visible: true,
+                            lineStyle: 'solid',
+                            lineColor: "#4fbb0f"
+                        },
+                        values: dates,
+                        zooming: {
+                            shared: true
+                        },
+                        item: {
+                            fontColor: "#000000",
+                            fontFamily: "Open Sans"
+                        }
+                    },
+                    series: [{
+                        values: values,
+                        lineColor: "#4d78ff",
+                        lineWidth: 1,
+                        backgroundColor: "#909090 #313131"
+                    }],
+                    labels: [{
+                        x: 490,
+                        y: 10,
+                        id: '1W',
+                        fontColor: (current === '1W') ? "#3B3D3A" : "#777",
+                        fontSize: "16",
+                        fontFamily: "Open Sans",
+                        cursor: "hand",
+                        text: "5"
+                    }, {
+                        x: 530,
+                        y: 10,
+                        id: '1M',
+                        fontColor: (current === '1M') ? "#3B3D3A" : "#777",
+                        fontSize: "16",
+                        fontFamily: "Open Sans",
+                        cursor: "hand",
+                        text: "20"
+                    }, {
+                        x: 570,
+                        y: 10,
+                        id: '6M',
+                        fontColor: (current === '6M') ? "#3B3D3A" : "#777",
+                        fontSize: "16",
+                        fontFamily: "Open Sans",
+                        cursor: "hand",
+                        text: "130"
+                    }, {
+                        x: 610,
+                        y: 10,
+                        id: '1Y',
+                        fontColor: (current === '1Y') ? "#3B3D3A" : "#777",
+                        fontSize: "16",
+                        fontFamily: "Open Sans",
+                        cursor: "hand",
+                        text: "260"
+                    }, {
+                        x: 650,
+                        y: 10,
+                        id: '2Y',
+                        fontColor: (current === '2Y') ? "#3B3D3A" : "#777",
+                        fontSize: "16",
+                        fontFamily: "Open Sans",
+                        cursor: "hand",
+                        text: "All"
+                    }]
+                };
+            }
 
 
-    zingchart.bind('myChart{{ forloop.counter }}', 'label_click', function(e) {
-      if (stockState{{ forloop.counter }}.current === e.labelid) {
-        return;
-      }
+            zingchart.render({
+                id: 'myChart{{ forloop.counter }}',
+                data: {
+                    graphset: [
+                        getCloseConfig{{ forloop.counter }}(stockState{{ forloop.counter }}.dates, stockState{{ forloop.counter }}.closes, '2Y'),
+                    ]
+                },
+                height: 450,
+                width: 825,
 
-      var windowClose = [];
-      var windowDates = [];
-      var cut = 0;
-      switch (e.labelid) {
-        case '1W':
-          cut = 5;
-          break;
-        case '1M':
-          cut = 20;
-          break;
-        case '6M':
-          cut = 130;
-          break;
-        case '1Y':
-          cut = 260;
-          break;
-        default:
-          cut = stockState{{ forloop.counter }}.dates.length;
-          break;
-      }
-      windowClose = stockState{{ forloop.counter }}.closes.slice(stockState{{ forloop.counter }}.closes.length - cut);
-      windowDates = stockState{{ forloop.counter }}.dates.slice(stockState{{ forloop.counter }}.dates.length - cut);
-
-      zingchart.exec('myChart{{ forloop.counter }}', 'setdata', {
-
-        data: {
-          graphset: [
-            getCloseConfig{{ forloop.counter }}(windowDates, windowClose, e.labelid),
-          ]
-        }
-      });
-
-      stockState{{ forloop.counter }}.current = e.labelid;
-
-    });
-
-    {% endfor %}
+            });
 
 
-</script>
+            zingchart.bind('myChart{{ forloop.counter }}', 'label_click', function(e) {
+                if (stockState{{ forloop.counter }}.current === e.labelid) {
+                    return;
+                }
+
+                var windowClose = [];
+                var windowDates = [];
+                var cut = 0;
+                switch (e.labelid) {
+                    case '1W':
+                        cut = 5;
+                        break;
+                    case '1M':
+                        cut = 20;
+                        break;
+                    case '6M':
+                        cut = 130;
+                        break;
+                    case '1Y':
+                        cut = 260;
+                        break;
+                    default:
+                        cut = stockState{{ forloop.counter }}.dates.length;
+                        break;
+                }
+                windowClose = stockState{{ forloop.counter }}.closes.slice(stockState{{ forloop.counter }}.closes.length - cut);
+                windowDates = stockState{{ forloop.counter }}.dates.slice(stockState{{ forloop.counter }}.dates.length - cut);
+
+                zingchart.exec('myChart{{ forloop.counter }}', 'setdata', {
+
+                    data: {
+                        graphset: [
+                            getCloseConfig{{ forloop.counter }}(windowDates, windowClose, e.labelid),
+                        ]
+                    }
+                });
+
+                stockState{{ forloop.counter }}.current = e.labelid;
+
+            });
+
+        {% endfor %}
+
+
+    </script>
 
     <script type="text/javascript">
         $(function () {

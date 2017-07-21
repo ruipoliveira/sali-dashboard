@@ -423,6 +423,7 @@ class SensorValues(View):
                           'final': zip(name_sensors, id_sensor, color_random, final, nrmeasure, maxValue, minValue,
                                        avg),
                           'allcam': zip(nameCam, urlCam),
+                          'allSensor': Sensor.objects.filter(id_sm=id_sm),
                           'time_format': time,
                           'date_start': date_start,
                           'date_finish': date_finish,
