@@ -8,6 +8,7 @@ import os
 import random
 from django.contrib.auth.models import Group
 from django.core.mail import send_mail
+from django.conf.urls import url, include
 
 from django.contrib import messages
 from django.contrib.auth import logout
@@ -26,6 +27,7 @@ from statistics import mean
 from saliapp.forms import *
 from .apiViews import *
 from django.http import HttpResponse
+
 
 # django_list = list(User.objects.all())
 
@@ -404,9 +406,6 @@ class SensorValues(View):
                     minValue.append("{0:.3f}".format(min(withoutnull)))
                     avg.append("{0:.3f}".format(mean(withoutnull)))
 
-
-
-
         return render(request,
                       'view/view_sensor.html', {
                           'user': request.user,
@@ -431,6 +430,21 @@ class SensorValues(View):
     def post(self, request, shortcode=None, *args, **kwargs):
 
         return redirect(request.path)
+
+
+def changestatevalve(request, state, id_sensor):
+    if request.is_ajax:
+        # print id_sensor
+        # print state
+
+        stater = True if state == "true" else False
+
+        valve = Sensor.objects.get(id=id_sensor)
+        valve.status_actuator = stater
+
+        valve.save()
+
+    return HttpResponseRedirect('')
 
 
 @login_required
@@ -742,6 +756,7 @@ class ManagerUserCompany(View):
 
         return redirect('showusers')
 
+
 class ManagerCompany(View):
     def get(self, request, shortcode=None, *args, **kwargs):
         return render(request,
@@ -753,10 +768,10 @@ class ManagerCompany(View):
                       })
 
     def post(self, request, shortcode=None, *args, **kwargs):
-
         ## adicionar nova company
 
         return redirect('managercompany')
+
 
 class ManagerAllUser(View):
     def get(self, request, shortcode=None, *args, **kwargs):
@@ -767,6 +782,7 @@ class ManagerAllUser(View):
                           'titlesmall': 'All users',
                           'userAll': User.objects.all(),
                       })
+
 
 ########################################################################################
 ###################### Services used by controler module (CM) ##########################

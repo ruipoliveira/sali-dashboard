@@ -139,6 +139,8 @@ urlpatterns = [
     url(r'^api/alarms_sensor/(?P<id_sensor>[0-9]+)$', views.Alarms_param_sensor.as_view()),  ### problemaaaa
 
 
+    url(r'^changestatevalve/(?P<state>[-\w]+)/(?P<id_sensor>[-\w]+)$', views.changestatevalve),
+
 
 ]
 
