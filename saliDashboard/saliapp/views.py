@@ -438,7 +438,6 @@ def changestatevalve(request, state, id_sensor):
         # print state
 
         stater = True if state == "true" else False
-
         valve = Sensor.objects.get(id=id_sensor)
         valve.status_actuator = stater
 

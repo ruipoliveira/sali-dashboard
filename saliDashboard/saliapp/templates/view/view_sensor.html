@@ -23,9 +23,6 @@
     </style>
     <section class="content">
 
-
-
-
         <a type="button" href="{% url 'showalldata' id_sm=id_sm id_cm=id_cm dates=date_start datef=date_finish%}" class="btn bg-navy btn-flat margin">Dataset view</a>
 
         <div style="float: right;">
@@ -39,51 +36,43 @@
 
         <br/><br/><br/>
 
-
         {% for sensor in allSensor %}
             {% if sensor.id_sensor_type.name  == "Water valve" %}
 
                 <div class="box box-default">
-                <div class="box-header with-border">
-                    <h3 class="box-title">Status valve </h3>
-                    <div class="box-tools pull-right">
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                        <!--<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button> -->
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Status valve </h3>
+                        <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            <!--<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button> -->
+                        </div>
                     </div>
-                </div>
-                <!-- /.box-header -->
-                <div class="box-body">
+                    <!-- /.box-header -->
+                    <div class="box-body">
 
-                            {%  if sensor.status_actuator == 1 %}
-                                <div id="log">Enable water valve</div>
-                            {% else %}
-                                <div id="log">Disable water valve</div>
-                            {% endif %}
+                        {%  if sensor.status_actuator == 1 %} <div id="log">Enable water valve</div> {% else %} <div id="log">Disable water valve</div> {% endif %}
 
-                            <label class="switch">
-                                <input type="checkbox" id="checkbox1" name="checkbox1" {% if sensor.status_actuator == 1 %} checked {% endif %}>
-                                <div class="slider round"></div>
-                            </label>
-                            <br/>
-                            <input type="text" id="textbox1" />
-
-                            <script>
-                                $(document).ready(function() {
-                                    $('#checkbox1').change(function() {
-                                        var state = $(this).is(':checked');
-                                        if(state==true)
-                                            $('#log').html("Enable water valve" );
-                                        else
-                                            $('#log').html("Disable water valve" );
-
-                                        $.get('/changestatevalve/'+state+'/'+{{ sensor.id }}, function (data) {});
-                                    });
+                        <label class="switch">
+                            <input type="checkbox" id="checkbox1" name="checkbox1" {% if sensor.status_actuator == 1 %} checked {% endif %}>
+                            <div class="slider round"></div>
+                        </label>
+                        <br/>
+                        <script>
+                            $(document).ready(function() {
+                                $('#checkbox1').change(function() {
+                                    var state = $(this).is(':checked');
+                                    if(state==true)
+                                        $('#log').html("Enable water valve" );
+                                    else
+                                        $('#log').html("Disable water valve" );
+                                    $.get('/changestatevalve/'+state+'/'+{{ sensor.id }}, function (data) {});
                                 });
-                            </script>
+                            });
+                        </script>
 
-                    <br/>
+                        <br/>
 
-                </div>
+                    </div>
                 </div>
 
 
@@ -93,38 +82,32 @@
 
 
                 <div class="box box-default">
-                <div class="box-header with-border">
-                    <h3 class="box-title">Video stream detection</h3>
-                    <div class="box-tools pull-right">
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                        <!--<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button> -->
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Video stream detection</h3>
+                        <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            <!--<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button> -->
+                        </div>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <div style="text-align: center;">
+                            <iframe width="100%" height="500px"
+                                    src="https://www.youtube.com/embed/u1DgsvjYKS4">
+                            </iframe>
+                        </div>
+
                     </div>
                 </div>
-                <!-- /.box-header -->
-                <div class="box-body">
-                    <div style="text-align: center;">
-                    <iframe width="100%" height="500px"
-                            src="https://www.youtube.com/embed/u1DgsvjYKS4">
-                    </iframe>
-                    </div>
-
-                </div>
-                </div>
-
-
-
 
             {% endif %}
         {% endfor %}
-
-
 
         {% if notData %}
             <div class="alert" style="background-color: lightgrey;">
                 <h4><i class="icon fa fa-info-circle"></i> Data not available!</h4>
             </div>
         {% endif %}
-
 
         {% for name, id, color, values, nrmeasureSensor, maxvalueSensor, minvalueSensor, avg in final %}
             <div>
@@ -196,13 +179,9 @@
             <br/>
         {% endfor %}
 
-
         <br/><br/>
 
-
-
     </section>
-
 
 
     <script>
@@ -430,41 +409,9 @@
 
             });
 
-
             cb(start, end);
-
         });
 
-
-        $.ajaxFunction = function(){
-
-            var boolean1 = $("#boolean1").val(),
-                boolean2 = $("#boolean2").val(),
-                csrf_token = $("#csrf_token").val();
-
-            data_send = {
-                        "boolean1": boolean1,
-                        "boolean2": boolean2,
-                        "csrfmiddlewaretoken": csrf_token
-                    };
-
-            //jquery
-            $.ajax({
-                    type: "post",
-                    url: $("/url/ajax/").val(),
-                    data: data_send,
-                    success: function(data_receive){
-                        if(data['boolean1']==true){
-                            ...
-                        }
-                        ...
-                    }
-            });
-        }
-
-
     </script>
-
-
 
 {% endblock %}
