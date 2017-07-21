@@ -402,8 +402,8 @@ class SensorValues(View):
                 # print withoutnull
                 if len(withoutnull) != 0:
                     nrmeasure.append(len(withoutnull))
-                    maxValue.append("{0:.3f}".format(max(withoutnull)+2))
-                    minValue.append("{0:.3f}".format(min(withoutnull)-2))
+                    maxValue.append("{0:.3f}".format(max(withoutnull)+1))
+                    minValue.append("{0:.3f}".format(min(withoutnull)-1))
                     avg.append("{0:.3f}".format(mean(withoutnull)))
 
         return render(request,

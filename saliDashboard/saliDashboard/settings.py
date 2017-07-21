@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 import posixpath
+
 from django.contrib import messages
 from django.contrib.messages import constants as message_constants
 
@@ -47,6 +48,7 @@ INSTALLED_APPS = (
     'django_extensions',
     'password_reset',
     'rest_framework.authtoken',
+    'saliapp.templatetags'
 
 )
 
