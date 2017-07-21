@@ -404,12 +404,6 @@ class SensorValues(View):
                     minValue.append("{0:.3f}".format(min(withoutnull)))
                     avg.append("{0:.3f}".format(mean(withoutnull)))
 
-        nameCam = []
-        urlCam = []
-        for i in Sensor.objects.filter(id_sm=id_sm, id_sensor_type=SensorType.objects.get(name='cam')):
-            nameCam.append(i.id_sensor_type.name + ", " + i.id_sensor_type.scale_value)
-            urlCam.append(i.cam_url)
-        print maxValue
 
 
 
@@ -422,7 +416,6 @@ class SensorValues(View):
                                         ControllerModule.objects.get(id=id_cm).name,
                           'final': zip(name_sensors, id_sensor, color_random, final, nrmeasure, maxValue, minValue,
                                        avg),
-                          'allcam': zip(nameCam, urlCam),
                           'allSensor': Sensor.objects.filter(id_sm=id_sm),
                           'time_format': time,
                           'date_start': date_start,
