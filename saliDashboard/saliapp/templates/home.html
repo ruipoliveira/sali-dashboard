@@ -295,17 +295,14 @@
                 shadowSize: [41, 41]
             });
 
-
             var marker = L.marker([{{ foo.localization_cm }}], {icon: greenIcon}).addTo(map);
-            marker.bindPopup("<b>{{ foo.name }}</b><br><a href=\"/devices/cm/{{ foo.id }}\">+info</a>").openPopup();
-
-
+            marker.bindPopup("<b>{{ foo.name }}</b><br><a href=\"/devices/cm/{{ foo.id }}\">show details</a>").openPopup();
 
             //add sensor module
             {% for fa in smpercm %}
                 {% if fa.id_cm.id == foo.id %}
                     var marker = L.marker([{{ fa.id_sm.localization_sm }}]).addTo(map);
-                    marker.bindPopup("<b>{{ fa.id_sm.name }}</b><br><a href=\"/devices/cm/{{ foo.id }}/sm/{{ fa.id_sm.id }}/date/{{ current_date }}\">show values</a>");
+                    marker.bindPopup("<b>{{ fa.id_sm.name }}</b><br><a href=\"/devices/cm/{{ foo.id }}/sm/{{ fa.id_sm.id }}/visual/{{ current_date }}/{{ current_date }}\">show values</a>");
 
                 {% endif %}
             {% endfor %}
