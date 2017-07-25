@@ -86,7 +86,8 @@
         <br/>
 
         {% if not user.is_superuser %}
-            <button type="submit" class="btn btn-info pull-right" data-toggle="modal" data-target="#myModal">Add</button>
+            <button type="submit" class="btn btn-info pull-right" data-toggle="modal" data-target="#myModal">Add
+            </button>
         {% endif %}
     </section>
 
@@ -130,14 +131,22 @@
                     <form class="form-horizontal" method="post" action="."> {% csrf_token %}
 
                         <div class="form-group">
-                            <label for="inputEmail3" class="col-sm-3 control-label">Name</label>
+                            <label for="inputEmail3" class="col-sm-3 control-label">Name
+                                <a ata-toggle="tooltip" data-placement="top" style="color: grey" title="cenas...">
+                                    <i class="fa fa-info-circle"></i></i>
+                                </a>
+                            </label>
 
                             <div class="col-sm-9">
                                 <input type="text" name="name" class="form-control" placeholder="Name">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="inputEmail3" class="col-sm-3 control-label">Memory</label>
+                            <label for="inputEmail3" class="col-sm-3 control-label">Memory
+                                <a ata-toggle="tooltip" data-placement="top" style="color: grey" title="cenas...">
+                                    <i class="fa fa-info-circle"></i></i>
+                                </a>
+                            </label>
 
                             <div class="col-sm-9">
                                 <input type="number" name="memory" class="form-control" id="inputEmail3"
@@ -145,7 +154,11 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="inputEmail3" class="col-sm-3 control-label">Initial status</label>
+                            <label for="inputEmail3" class="col-sm-3 control-label">Initial status
+                                <a ata-toggle="tooltip" data-placement="top" style="color: grey" title="cenas...">
+                                    <i class="fa fa-info-circle"></i></i>
+                                </a>
+                            </label>
 
                             <div class="col-sm-9">
 
@@ -157,7 +170,11 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="inputEmail3" class="col-sm-3 control-label">Communication</label>
+                            <label for="inputEmail3" class="col-sm-3 control-label">Communication
+                                <a ata-toggle="tooltip" data-placement="top" style="color: grey" title="cenas...">
+                                    <i class="fa fa-info-circle"></i></i>
+                                </a>
+                            </label>
 
                             <div class="col-sm-9">
                                 <select class="form-control" name="comm">
