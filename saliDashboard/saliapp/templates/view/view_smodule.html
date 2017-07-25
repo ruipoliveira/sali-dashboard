@@ -60,10 +60,22 @@
 
                                                 {% for max_min in allAllarms %}
                                                     {% if max_min.id_sensor.id == s.id %}
-                                                        <a ata-toggle="tooltip" data-placement="top"
+                                                        {% if  max_min.min == -100 %}
+                                                            <a ata-toggle="tooltip" data-placement="top"
+                                                           title="Binary sensor (0/1)">
+                                                            <i class="fa fa-info-circle"></i></i>
+                                                        </a>
+                                                            {% else %}
+                                                             <a ata-toggle="tooltip" data-placement="top"
                                                            title="Min: {{ max_min.min }} Max: {{ max_min.max }}">
                                                             <i class="fa fa-info-circle"></i></i>
-                                                        </a> <br/>
+                                                        </a>
+
+                                                            {% endif %}
+
+
+
+                                                        <br/>
                                                     {% endif %}
                                                 {% endfor %}
                                             {% endif %}
@@ -142,7 +154,8 @@
 
                         <div class="form-group">
                             <label for="inputEmail3" class="col-sm-3 control-label">Name
-                                <a ata-toggle="tooltip" data-placement="top" style="color: grey" title="Enter a name that identifies the device">
+                                <a ata-toggle="tooltip" data-placement="top" style="color: grey"
+                                   title="Enter a name that identifies the device">
                                     <i class="fa fa-info-circle"></i></i>
                                 </a>
                             </label>
@@ -153,7 +166,8 @@
                         </div>
                         <div class="form-group">
                             <label for="inputEmail3" class="col-sm-3 control-label">Seding time
-                                <a ata-toggle="tooltip" data-placement="top" style="color: grey" title="Choose the data send interval (in minutes)">
+                                <a ata-toggle="tooltip" data-placement="top" style="color: grey"
+                                   title="Choose the data send interval (in minutes)">
                                     <i class="fa fa-info-circle"></i></i>
                                 </a>
                             </label>
@@ -165,7 +179,8 @@
                         </div>
                         <div class="form-group">
                             <label for="inputEmail3" class="col-sm-3 control-label">Initial status
-                                <a ata-toggle="tooltip" data-placement="top" style="color: grey" title="Choose the initial state of the module">
+                                <a ata-toggle="tooltip" data-placement="top" style="color: grey"
+                                   title="Choose the initial state of the module">
                                     <i class="fa fa-info-circle"></i></i>
                                 </a>
                             </label>
@@ -181,7 +196,8 @@
                         </div>
                         <div class="form-group">
                             <label for="inputEmail3" class="col-sm-3 control-label">Communication
-                                <a ata-toggle="tooltip" data-placement="top" style="color: grey" title="Choose one or more types of communication with CM">
+                                <a ata-toggle="tooltip" data-placement="top" style="color: grey"
+                                   title="Choose one or more types of communication with CM">
                                     <i class="fa fa-info-circle"></i></i>
                                 </a>
                             </label>
@@ -200,7 +216,8 @@
                         <hr>
                         <div class="form-group">
                             <label for="inputEmail3" class="col-sm-3 control-label">Sensor type
-                                <a ata-toggle="tooltip" data-placement="top" style="color: grey" title="Choose an existing sensor type in SM">
+                                <a ata-toggle="tooltip" data-placement="top" style="color: grey"
+                                   title="Choose an existing sensor type in SM">
                                     <i class="fa fa-info-circle"></i></i>
                                 </a>
                             </label>
@@ -215,7 +232,8 @@
                             </div>
                             <br/> <br/>
                             <label for="inputEmail3" class="col-sm-3 control-label">Max value
-                                <a ata-toggle="tooltip" data-placement="top" style="color: grey" title="Set the maximum value">
+                                <a ata-toggle="tooltip" data-placement="top" style="color: grey"
+                                   title="Set the maximum value">
                                     <i class="fa fa-info-circle"></i></i>
                                 </a>
                             </label>
@@ -235,7 +253,8 @@
                             <br/> <br/>
 
                             <label for="inputEmail3" class="col-sm-3 control-label">Min
-                                <a ata-toggle="tooltip" data-placement="top" style="color: grey" title="Set the minimum value">
+                                <a ata-toggle="tooltip" data-placement="top" style="color: grey"
+                                   title="Set the minimum value">
                                     <i class="fa fa-info-circle"></i></i>
                                 </a>
                             </label>
@@ -262,7 +281,13 @@
                         <div class="hidden">
                             <div class="example-template">
                                 <div class="form-group">
-                                    <label for="inputEmail3" class="col-sm-3 control-label">Sensor type</label>
+                                    <label for="inputEmail3" class="col-sm-3 control-label">Sensor type
+                                        <a ata-toggle="tooltip" data-placement="top" style="color: grey"
+                                           title="Choose the type of communication with the server">
+                                            <i class="fa fa-info-circle"></i></i>
+                                        </a>
+
+                                    </label>
                                     <div class="col-sm-9">
                                         <select class="form-control" name="sensors" data-placeholder="Select users"
                                                 style="width: 100%;">
