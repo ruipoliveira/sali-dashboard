@@ -185,7 +185,9 @@
     padding: 0 5px;
     width: 100%; }
     .select2-container--default .select2-selection--multiple .select2-selection__rendered li {
-      list-style: none; }
+      list-style: none;
+    }
+
   .select2-container--default .select2-selection--multiple .select2-selection__placeholder {
     color: #999;
     margin-top: 5px;
@@ -198,6 +200,7 @@
     margin-right: 10px; }
   .select2-container--default .select2-selection--multiple .select2-selection__choice {
     background-color: #e4e4e4;
+    color: #0c0c0c;
     border: 1px solid #aaa;
     border-radius: 4px;
     cursor: default;

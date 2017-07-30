@@ -124,15 +124,17 @@
                                                             <div class="tools">
 
                                                                 {% for settings in allarms_settings %}
-                                                                    {% if settings.id_sensor.id == alarms.id_reading.id_sensor.id  %}
+                                                                    {% if settings.id_sensor.id == alarms.id_reading.id_sensor.id %}
                                                                         {% if alarms.max_or_min == 1 %}
-                                                                            <a data-toggle="tooltip" data-placement="top"
-                                                                            title="{{ settings.msgMax }}"
-                                                                            class="fa fa-comment-o"></a>
+                                                                            <a data-toggle="tooltip"
+                                                                               data-placement="top"
+                                                                               title="{{ settings.msgMax }}"
+                                                                               class="fa fa-comment-o"></a>
                                                                         {% else %}
-                                                                            <a data-toggle="tooltip" data-placement="top"
-                                                                            title="{{ settings.msgMin }}"
-                                                                            class="fa fa-comment-o"></a>
+                                                                            <a data-toggle="tooltip"
+                                                                               data-placement="top"
+                                                                               title="{{ settings.msgMin }}"
+                                                                               class="fa fa-comment-o"></a>
                                                                         {% endif %}
                                                                     {% endif %}
                                                                 {% endfor %}

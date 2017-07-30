@@ -2,6 +2,7 @@
 {% block body %}
 
 
+
     <section class="content">
 
         {% if messages %}
@@ -205,7 +206,7 @@
                                 <select class="form-control select2" name="communication" multiple="multiple"
                                         data-placeholder="Communication type" style="width: 100%;">
                                     {% for ct in commtype %}
-                                        <option>{{ ct.name }}</option>
+                                        <option style="background-color: black;">{{ ct.name }}</option>
                                     {% endfor %}
                                 </select>
                             </div>
@@ -491,6 +492,9 @@
                 row.remove();
             });
         }(jQuery));
+
+
+
 
 
     </script>
