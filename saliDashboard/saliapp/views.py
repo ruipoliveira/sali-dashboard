@@ -210,7 +210,7 @@ def home(request):
          'CMregistrations': ControllerModule.objects.all().count(),
          'totalReadings': Reading.objects.all().count(),
          'allReadings': cenas,
-         'allAlarms': Alarms.objects.all().reverse()
+         'allAlarms': Alarms.objects.all()
          # 'obj': CPU.objects.all()
          })
 

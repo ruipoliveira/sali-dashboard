@@ -97,7 +97,7 @@
                                         {% for x in  smpercm %}
                                             {% if x.id_cm.id == cm.id %}
 
-                                                {% for alarms in allAlarms %}
+                                                {% for alarms in allAlarms reversed %}
                                                     {% if alarms.id_reading.id_sensor.id_sm.id == x.id_sm.id  and alarms.checked == False %}
 
                                                         <li>
