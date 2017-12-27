@@ -6,6 +6,10 @@
 
 #### Dashboard project
 
+
+![alt text](https://github.com/ruipoliveira/sali-dashboard/blob/master/resources/arquitetura-final-dashboard.jpg)
+
+
 > 
 
 >
@@ -29,7 +33,7 @@
 
 #### Demo
 
-[![demo youtube](https://img.youtube.com/vi/AH98j7ISiLc&index=1&list=UUMdlsvA5W6tYu35oN_AEZ5A/0.jpg)](https://www.youtube.com/watch?v=AH98j7ISiLc&index=1&list=UUMdlsvA5W6tYu35oN_AEZ5A)
+[![demo youtube](https://img.youtube.com/vi/AH98j7ISiLc/3.jpg)](https://www.youtube.com/watch?v=AH98j7ISiLc&index=1&list=UUMdlsvA5W6tYu35oN_AEZ5A)
 
 
 #### Author
