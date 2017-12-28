@@ -6,7 +6,7 @@
 
 #### Dashboard project
 
-> Web platform for client interaction. The architecture has been created to define relation Controller Module VS Sensor Module (more information/ or thesis). 
+> Web platform for client interaction. The architecture has been created to define relation Controller Module VS Sensor Module ([more information](https://pages.github.com/)/ or [thesis](https://github.com/ruipoliveira/sali-report/blob/master/thesis-roliveira.pdf)). 
 
 > The dashboard has possibility:  
 > * User management in associated to company; 
