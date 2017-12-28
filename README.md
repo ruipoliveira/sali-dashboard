@@ -6,14 +6,50 @@
 
 #### Dashboard project
 
+> Web platform for client interaction. The architecture has been created to define relation Controller Module VS Sensor Module (more information/ or thesis). 
+
+> The dashboard has possibility:  
+> * User management in associated to company; 
+> * Actuate remote (valve, motor...);
+> * Consult the data values obtained by sensores - graphic and table;
+> * Export data to CSV file;
+> * Generate alarmes to sensores; 
+> * Localizate sensores (Sensor Module + Controller Module) in map; 
+> * Consult API documentation; 
 
 ![alt text](https://github.com/ruipoliveira/sali-dashboard/blob/master/resources/arquitetura-final-dashboard.jpg)
 
+#### Technologies / Frameworks used
 
-> 
+* Django (python 2.7)
+* Django Rest Framework (API REST)
+* Rest framework swagger (interactive documentation)
+* Django gravatar
+* Rest framework authtoken
+* smtplib3 (email service)
 
->
+* PostgreSQL
+* Tncorporation to django 
+* Trigger created in SQL 
 
+* Gravatar: identification of users on the platform
+* API Google Maps: location of modules
+* ZingChart: graphical representation of the data
+
+
+#### Installations and Dependencies
+
+`
+apt-get install python-pip
+`
+
+`
+pip install -r requirements.txt
+`
+
+`
+sudo apt-get install postgresql postgresql-contrib
+`
 
 
 #### All repositories
