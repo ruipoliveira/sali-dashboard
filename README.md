@@ -6,7 +6,7 @@
 
 #### Dashboard project
 
-> Web platform for client interaction. The architecture has been created to define relation Controller Module VS Sensor Module ([more information](https://pages.github.com/)/ or [thesis](https://github.com/ruipoliveira/sali-report/blob/master/thesis-roliveira.pdf)). 
+> Web platform for client interaction. The architecture has been created to define relation Controller Module VS Sensor Module ([more information](https://github.com/ruipoliveira/sali-report/blob/master/resources/general-electronic-modules.jpg)/ or [thesis](https://github.com/ruipoliveira/sali-report/blob/master/thesis-roliveira.pdf)). 
 
 > The dashboard has possibility:  
 > * User management in associated to company; 
@@ -28,9 +28,11 @@
 * Rest framework authtoken
 * smtplib3 (email service)
 
+
 * PostgreSQL
-* Tncorporation to django 
+* Incorporation to Django project
 * Trigger created in SQL 
+
 
 * Gravatar: identification of users on the platform
 * API Google Maps: location of modules
@@ -52,15 +54,6 @@ sudo apt-get install postgresql postgresql-contrib
 `
 
 
-#### All repositories
-
-* [sali-report](https://github.com/ruipoliveira/sali-report)
-* [sali-dashboard](https://github.com/ruipoliveira/sali-dashboard)
-* [sali-deploy](https://github.com/ruipoliveira/sali-deploy)
-* [sali-hardware](https://github.com/ruipoliveira/sali-hardware)
-* [sali-surveillance](https://github.com/ruipoliveira/sali-surveillance)
-
-
 #### Environment and dependencies (used)
 
 * PyCharm Community (https://www.jetbrains.com/pycharm/)
@@ -71,6 +64,14 @@ sudo apt-get install postgresql postgresql-contrib
 
 [![demo youtube](https://img.youtube.com/vi/AH98j7ISiLc/3.jpg)](https://www.youtube.com/watch?v=AH98j7ISiLc&index=1&list=UUMdlsvA5W6tYu35oN_AEZ5A)
 
+
+#### All repositories
+
+* [sali-report](https://github.com/ruipoliveira/sali-report)
+* [sali-dashboard](https://github.com/ruipoliveira/sali-dashboard)
+* [sali-deploy](https://github.com/ruipoliveira/sali-deploy)
+* [sali-hardware](https://github.com/ruipoliveira/sali-hardware)
+* [sali-surveillance](https://github.com/ruipoliveira/sali-surveillance)
 
 #### Author
 * Rui Oliveira (ruipedrooliveira@ua.pt)
