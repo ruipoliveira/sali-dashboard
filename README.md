@@ -60,6 +60,33 @@ sudo apt-get install postgresql postgresql-contrib
 * pgAdmin - PostgreSQL Tools (https://www.pgadmin.org/)
 
 
+
+#### API REST
+
+
+| Endpoints API REST  | POST | GET | PUT | DELETE |
+| ------------- | ----- | ---- | ---- | ---- |
+| /api/user/  | v | v |  |  |
+| /api/user/{pk or username}/   |   | v | v | v |
+| /api/smpercm/   |   | v |   |   |
+| /api/smpercm/{pk or name cm}   | v | v |   |   |
+| /api/sm/   | v | v |   |   |
+| /api/sm/{pk or name}/ |   | v | v | v |
+| /api/sensortype/   | v | v |   |   |
+| /api/sensortype/{pk or name}   |   | v | v | v |
+| /api/sensorpersm/{id sm or name sm}   | v | v |   |   |
+| /api/sensor/  |   | v |   |   |
+| /api/sensor/{pk or sensor type}  |  v | v |   |   |
+| /api/reading/{id sensor}/{date start}/{date end}  | v | v |   |   |
+| /api/communication/{pk or name}/   |  | v | v | v |
+| /api/cm/   | v | v |   |   |
+| /api/cm/{pk or name}/   |  | v | v | v |
+| /api/alarmssettings/{id sensor}   | v | v |   |   |
+| /api/alarms sensor/{id sensor}  | v | v |   |   |
+| /api/alarms reading/{id reading}   | v | v |   |   |
+
+
+
 #### Demo
 
 [![demo youtube](https://img.youtube.com/vi/AH98j7ISiLc/3.jpg)](https://www.youtube.com/watch?v=AH98j7ISiLc&index=1&list=UUMdlsvA5W6tYu35oN_AEZ5A)
