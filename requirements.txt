@@ -25,7 +25,7 @@ docutils==0.13.1
 Flask==0.12
 functools32==3.2.3.post2
 google-api-python-client==1.6.2
-httplib2==0.10.3
+httplib2==0.18.0
 imutils==0.4.0
 itsdangerous==0.24
 itypes==1.1.0
