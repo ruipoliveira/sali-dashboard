@@ -20,7 +20,7 @@ django-password-reset==0.9
 django-recaptcha2==1.0.0
 django-rest-auth==0.9.1
 django-rest-swagger==2.1.1
-djangorestframework==3.6.2
+djangorestframework==3.11.2
 docutils==0.13.1
 Flask==0.12
 functools32==3.2.3.post2
